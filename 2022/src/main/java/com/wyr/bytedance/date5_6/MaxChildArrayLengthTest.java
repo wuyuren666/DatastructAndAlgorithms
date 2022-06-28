@@ -26,6 +26,7 @@ public class MaxChildArrayLengthTest {
      * 输出[9,2,8]之后就可以得到最长上升连续子数组[3，4，6，7]
      * @param args
      */
+
     public static void main(String[] args) {
 
     }
