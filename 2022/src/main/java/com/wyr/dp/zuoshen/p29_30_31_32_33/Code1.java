@@ -95,5 +95,9 @@ public class Code1 {
         return dp[0][N-1];
     }
 
+    public static void main(String[] args) {
+
+    }
+
 
 }
