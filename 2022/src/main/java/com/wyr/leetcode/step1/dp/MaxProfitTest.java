@@ -15,7 +15,67 @@ package com.wyr.leetcode.step1.dp;
  */
 public class MaxProfitTest {
 
-    //动态规划版本，在leetCode上很奇怪，内存超出限制
+    //最优的解决方法（目前为止所能想到的）
+    public int maxProfitBest(int[] prices) {
+        int N=prices.length;
+        //dp1[i]代表我在第i天卖出所能获得的最大利润
+        int dp1[]=new int [N];
+        dp1[0]=0;
+        //dp2[i]代表第0～i天中的最小价格
+        int dp2[]=new int[N];
+        dp2[0]=prices[0];
+        //先填dp2的表
+        for(int i=1;i<N;i++){
+            if(prices[i]<dp2[i-1]){
+                //当天价格如果低于前0～i-1中的最小价格
+                dp2[i]=prices[i];
+            }else{
+                //当天价格如果高于前0～i-1中的最小价格
+                dp2[i]=dp2[i-1];
+            }
+        }
+        int maxSal=dp1[0];
+        //填dp1这张表
+        for(int i=1;i<N;i++){
+            //拿当天价格-0~i天中最小的价格
+            dp1[i]=prices[i]-dp2[i];
+            if(dp1[i]>maxSal){
+                maxSal=dp1[i];
+            }
+        }
+        return maxSal;
+    }
+
+
+
+
+
+
+    //动态规划版本（最后一个例子过不了）
+    public int maxProfit(int[] prices) {
+        int N=prices.length;
+        int [][] dp=new int [N][N];//行下标和列下标为0的我们不用
+
+        //填对角线元素，代表当天买当天卖，根本不赚钱
+        for(int i=1;i<N;i++){
+            dp[i][i]=0;
+        }
+        int maxSal=0;
+        //接下来就一行一行的去填
+        for(int i=1;i<N;i++){ //第i天买
+            for(int j=i+1;j<N;j++){ //第j天卖
+                dp[i][j]=prices[j-1]-prices[i-1];
+                maxSal=maxSal<dp[i][j]?dp[i][j]:maxSal;
+            }
+        }
+        return maxSal;
+    }
+
+
+
+
+
+    //动态规划版本（比较次），在leetCode上很奇怪，内存超出限制
     public static int maxProfit2(int [] prices){
         if(prices==null||prices.length==0||prices.length==1)
             return 0;

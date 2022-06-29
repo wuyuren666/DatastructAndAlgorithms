@@ -9,6 +9,8 @@ public class SingleNumberTest {
      *
      * 输入：nums = [9,1,7,9,7,9,7]
      * 输出：1
+     *
+     * https://leetcode.cn/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-ii-lcof/
      */
 
     public int singleNumber(int[] nums) {
