@@ -29,9 +29,43 @@ public class ReverseStackUsingRecursive {
          return last;
     }
 
+    //练习
+    public static void reverseStack(Stack<Integer> stack){
+         if(stack.isEmpty()){
+             return;
+         }
+         int i=g(stack);
+         reverseStack(stack);
+         stack.push(i);
+    }
+
+
+
+
+
+    //练习
+    public static int g(Stack<Integer> stack){
+        int res=stack.pop();
+        if(stack.isEmpty()){
+            return res;
+        }
+        int temp=g(stack);
+        stack.push(res);
+        return temp;
+    }
+
+
+
+
+
+
+
 
     public static void main(String[] args) {
-
+            Stack<Integer> stack=new Stack<>();
+            stack.push(1);
+            stack.push(2);
+            stack.push(3);
 
     }
 }
