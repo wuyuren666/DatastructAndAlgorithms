@@ -1,5 +1,6 @@
 package com.wyr.zuoshen.zuoshen1.p5;
 
+import java.beans.BeanInfo;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,6 +15,47 @@ import java.util.List;
  * 思想：使用中序遍历，只要遍历出来的结果是严格的升序，那么就是一颗二叉搜索树
  */
 public class IsBST {
+
+    /**
+     * 最好的方法，使用Morris实现中序遍历判断是否是二叉搜索树
+     */
+    public static boolean isBSTBest(BinaryTreesNode head){
+        BinaryTreesNode cur=head;
+        BinaryTreesNode mostRight=null;
+        Integer pre=null;
+        while (cur!=null){
+            mostRight=cur.left;
+            if(mostRight!=null){//节点右左树，回来到自己两次
+                //找到当前节点左树上真正的右边界，不包括自己
+                while(mostRight.right!=null&&mostRight.right!=cur){
+                    mostRight=mostRight.right;
+                }
+                if(mostRight.right==null){//第一次来到自己
+                    mostRight.right=cur;
+                    cur=cur.left;
+                }else { //第二次来到自己
+                    mostRight.right=null;
+                    //中序是第二次来到自己的时候打印
+                    if(pre!=null&&cur.value<pre){
+                        return false;
+                    }
+                    pre= cur.value;;
+                    cur=cur.right;
+                }
+            }else{//节点没有左树，只会来到自己一次，只会向右走
+                if(pre!=null&&cur.value<pre){
+                    return false;
+                }
+                pre= cur.value;;
+                cur=cur.right;
+            }
+        }
+        return true;
+    }
+
+
+
+
 
     /**
      * 第一种方法：傻白甜的方法
@@ -199,5 +241,6 @@ public class IsBST {
         node3.right=node7;
         System.out.println(isBST2(node1));
         System.out.println(isBst3(node1));
+        System.out.println(isBSTBest(node1));
     }
 }

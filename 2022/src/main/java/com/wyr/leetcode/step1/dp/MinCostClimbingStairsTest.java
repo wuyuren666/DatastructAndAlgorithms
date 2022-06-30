@@ -1,5 +1,10 @@
 package com.wyr.leetcode.step1.dp;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class MinCostClimbingStairsTest {
     /**
      * 给你一个整数数组 cost ，其中 cost[i] 是从楼梯第 i 个台阶向上爬需要支付的费用。
@@ -61,6 +66,19 @@ public class MinCostClimbingStairsTest {
         int p2=cost [index]+process(cost,index+2);
 
         return Math.min(p1,p2);
+    }
+
+    public static void main(String[] args) {
+        List<String> l1=new ArrayList<>();
+        Map<List<String> ,Integer> map=new HashMap<>();
+        l1.add("a");l1.add("b");
+        List<String> l2=new ArrayList<>();
+        l2.add("a");l2.add("b");
+        map.put(l1,1);
+        map.put(l2,2); //相当于更新操作
+        System.out.println(map.size());//1
+        System.out.println(map.get(l1));//2
+        System.out.println(map.get(l2));//2
     }
 
 

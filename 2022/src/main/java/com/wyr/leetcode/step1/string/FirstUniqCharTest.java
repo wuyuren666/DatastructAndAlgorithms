@@ -53,4 +53,26 @@ public class FirstUniqCharTest {
         }
         return -1;
     }
+
+
+    /**
+     * 还是使用上面的方法好，打败接近90%。
+     * 这个方法只打败55%
+     * https://leetcode.cn/problems/di-yi-ge-zhi-chu-xian-yi-ci-de-zi-fu-lcof/
+     */
+    public char firstUniqChar(String s) {
+        char res=' ';
+        if(s.equals("")){
+            return res;
+        }
+        char temp=' ';
+        for(int i=0;i<s.length();i++){
+            //将s中下标为i的字符赋值给res
+            temp=s.charAt(i);
+            if(s.indexOf(temp)==s.lastIndexOf(temp)){ //只出现一次的字符，肯定其第一次出现的下标和最后一次出现的下标是一样的
+                return temp;
+            }
+        }
+        return res;
+    }
 }
