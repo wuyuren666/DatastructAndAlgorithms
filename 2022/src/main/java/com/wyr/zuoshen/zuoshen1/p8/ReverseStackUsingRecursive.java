@@ -28,4 +28,10 @@ public class ReverseStackUsingRecursive {
          stack.push(result);
          return last;
     }
+
+
+    public static void main(String[] args) {
+
+
+    }
 }

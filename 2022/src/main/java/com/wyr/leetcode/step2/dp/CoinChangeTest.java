@@ -18,35 +18,35 @@ public class CoinChangeTest {
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
     public static int coinChange(int[] coins, int amount) {
-        int M = coins.length + 2;
-        int N = amount + 2;
-        int[][] dp = new int[M][N];
-        for (int j = 1; j < N; j++) {
-            dp[0][j] = j - 1;
+        int M=coins.length+2;
+        int N=amount+1;
+        int[][] dp=new int[M][N];
+        for(int j=0;j<N;j++){
+            dp[0][j]=j;
         }
-        for (int j = 2; j < N; j++) {
-            dp[1][j] = amount + 1;
+        for(int j=1;j<N;j++){
+            dp[1][j]=amount+1;
         }
-        for (int i = 2; i < M; i++) {
-            dp[i][0] = coins[i - 2];
-            dp[i][1] = 0;
+        for(int i=2;i<M;i++){
+            dp[i][0]=0;
         }
-        for (int i = 2; i < M; i++) {
-            for (int j = 2; j < N; j++) {
+        for(int i=2;i<M;i++){
+            for(int j=1;j<N;j++){
                 //能找零钱
-                if (dp[0][j] >= dp[i][0]) {
-                    if (dp[i][dp[0][j] - dp[i][0] + 1] + 1 <= dp[i - 1][j]) {
-                        dp[i][j] = dp[i][dp[0][j] - dp[i][0] + 1] + 1;
-                    } else {
-                        dp[i][j] = dp[i - 1][j];
-                    }
-                } else {//不能找零钱
-                    dp[i][j] = dp[i - 1][j];
+                if(dp[0][j]>=coins[i-2]){
+                    dp[i][j]=Math.min(dp[i][dp[0][j]-coins[i-2]]+1,dp[i-1][j]);
+                    /*if(dp[i][dp[0][j]-dp[i][0]+1]+1<=dp[i-1][j]){
+                        dp[i][j]=dp[i][dp[0][j]-dp[i][0]+1]+1;
+                    }else{
+                        dp[i][j]=dp[i-1][j];
+                    }*/
+                }else{//不能找零钱
+                    dp[i][j]=dp[i-1][j];
                 }
             }
         }
-        if (dp[M - 1][N - 1] != amount + 1) { //最佳答案就是在表的右下角
-            return dp[M - 1][N - 1];
+        if(dp[M-1][N-1]!=amount+1){
+            return dp[M-1][N-1];
         }
         return -1;
     }
