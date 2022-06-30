@@ -165,7 +165,7 @@ public class LongestPalindromeTest {
             if (hashTable[i] > 0) {//取偶数，或者取大于 2 的奇数并且 - 1。
                 if ((hashTable[i] & 1) == 0) { //是偶数我们就用
                     result += hashTable[i];
-                } else if ((hashTable[i] & 1) != 0 && hashTable[i] > 2) {//大于 2 的奇数并且 - 1。
+                } else if ((hashTable[i] & 1) != 0 && hashTable[i] > 2) {//个数大于 2 的奇数用 n - 1 个。
                     result += hashTable[i] - 1;
                 }
             }

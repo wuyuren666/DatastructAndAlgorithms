@@ -2,6 +2,7 @@ package com.wyr.zuoshen.zuoshen1.p5;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 /**
  * 二叉树的序列化和反序列化
@@ -58,6 +59,4 @@ public class SerializeAndDeserialize {
         head.right=reconPreOrder(queue);
         return head;
     }
-
-
 }

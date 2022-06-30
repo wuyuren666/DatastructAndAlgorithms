@@ -10,37 +10,42 @@ package com.wyr.leetcode.step1.tree;
  * 示例：
  * 给定二叉树 [3,9,20,null,null,15,7]，
  * 返回它的最大深度 3 。
+ *
+ * https://leetcode.cn/problems/er-cha-shu-de-shen-du-lcof/
  */
 public class MaxDepthTest {
 
-    public static int maxDepth(BinaryTreesNode root){
-        if(root==null)
+    /**
+     * 会有额外空间
+     */
+    public int maxDepth(TreeNode root) {
+        if(root==null){
             return 0;
-        if(root.left==null&&root.right==null)
+        }
+        if(root.left==null&&root.right==null){ //左右子树都没有
             return 1;
-        return 1+Math.max(process(root.left),process(root.right));
+        }
+        if(root.left!=null&&root.right==null){//只有左树
+            return 1+maxDepth(root.left);//自己的高度+左树的最大高度
+        }
+        if(root.left==null&&root.right!=null){//只有右树
+            return 1+maxDepth(root.right);//自己的高度+右树的最大高度
+        }
+        //左树和右树都存在
+        int left=maxDepth(root.left);
+        int right=maxDepth(root.right);
+        return 1+Math.max(left,right);
     }
 
-    public static int process(BinaryTreesNode root){
-        if(root==null)
-            return 0;
-        if(root.left==null&&root.right==null)
-            return 1;
-        return 1+Math.max(process(root.left),process(root.right));
+
+    public static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        public TreeNode(int x) {
+            val = x;
+        }
     }
 
-    public static void main(String[] args) {
-        BinaryTreesNode node1=new BinaryTreesNode(1,null,null);
-        BinaryTreesNode node2=new BinaryTreesNode(1,null,null);
-        BinaryTreesNode node3=new BinaryTreesNode(1,null,null);
-        BinaryTreesNode node4=new BinaryTreesNode(3,null,null);
-        BinaryTreesNode node5=new BinaryTreesNode(2,null,null);
-        BinaryTreesNode node6=new BinaryTreesNode(2,null,null);
-        BinaryTreesNode node7=new BinaryTreesNode(3,null,null);
-
-        node1.left=node2; node1.right=node3;
-        node2.left=node4; node2.right=node5;
-        node3.left=node6; node3.right=node7;
-        System.out.println(maxDepth(node1));
-    }
 }

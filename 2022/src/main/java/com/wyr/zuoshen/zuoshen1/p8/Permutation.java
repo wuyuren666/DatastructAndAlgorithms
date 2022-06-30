@@ -15,6 +15,8 @@ public class Permutation {
      *
      *  输入："abc"
      *  输出：["abc","acb","bac","bca","cab","cba"]
+     *
+     *  https://leetcode.cn/problems/zi-fu-chuan-de-pai-lie-lcof/submissions/
      */
 
     /**
@@ -123,8 +125,6 @@ public class Permutation {
         }
         return minIndex;
     }
-
-
 
     public static void swap(char [] c, int i, int j){
         char temp=c[i];

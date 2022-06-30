@@ -10,29 +10,24 @@ public class AccountMerge {
      * https://leetcode.cn/problems/accounts-merge/
      */
     public static List<List<String>> accountsMerge(List<List<String>> accounts) {
-        if(accounts.size()==1){
+        Integer N=accounts.size();
+        if(N==1){
             return accounts;
         }
-
-        Set<List<String>> set=new HashSet<>();
-        for(List<String> l: accounts){
-            set.add(l);
+        List<Integer> list=new ArrayList<>();
+        for(int i=0;i<N;i++){
+            list.add(i);
         }
-        List<List<String>> newAccounts=new ArrayList<>();
-        for(List<String> l:set){
-            newAccounts.add(l);
-        }
-
-        UnionFindSet<List<String>> ufs=new UnionFindSet<List<String>>(newAccounts);
-        for(int i=0;i<newAccounts.size();i++){
-            for(int j=i+1;j<newAccounts.size();j++){
-                for(int k=1;k<newAccounts.get(j).size();k++){ //list.get(0)放的是名字
-                    if(newAccounts.get(i).contains(newAccounts.get(j).get(k))){
+        UnionFindSet<Integer> ufs=new UnionFindSet<>(list);
+        for(int i=0;i<accounts.size();i++){
+            for(int j=i+1;j<accounts.size();j++){
+                for(int k=1;k<accounts.get(j).size();k++){ //list.get(0)放的是名字
+                    if(accounts.get(i).contains(accounts.get(j).get(k))){
                         //是同一个集合
-                        if(ufs.isSameSet(newAccounts.get(i),newAccounts.get(j))){
+                        if(ufs.isSameSet(i,j)){
                             break; //就不需要在去看剩下的邮箱名了
                         }else{ //不是同一个集合
-                            ufs.union(newAccounts.get(i),newAccounts.get(j));
+                            ufs.union(i,j);
                             break; //就不需要在去看剩下的邮箱名了
                         }
                     }
@@ -42,27 +37,27 @@ public class AccountMerge {
         }
 
         List<List<String>> res=new ArrayList<>();
-        for(Element<List<String>> fatherElement: ufs.sizeMap.keySet()){//拿出所有的父代表元素
+        for(Element<Integer> fatherElement: ufs.sizeMap.keySet()){//拿出所有的父代表元素
             List<String> temp=new ArrayList<>();
-            temp.add(fatherElement.value.get(0));//下标为0的位置放的是姓名
-            List<String> sortEmails=new ArrayList<>(); //存放邮箱的集合
+            temp.add(accounts.get(fatherElement.value).get(0));//下标为0的位置放的是姓名
+            Set<String> emails=new HashSet<>(); //存放邮箱的set集合为了去重
             //注意要把父代表元素的emails也要加上
-            for(int i=1;i<fatherElement.value.size();i++){
-                if(!sortEmails.contains(fatherElement.value.get(i))){ //去重
-                    sortEmails.add(fatherElement.value.get(i));
-                }
+            for(int i=1;i<accounts.get(fatherElement.value).size();i++){
+                emails.add(accounts.get(fatherElement.value).get(i));
             }
-            for(Map.Entry<Element<List<String>>,Element<List<String>>> entry:  ufs.fatherMap.entrySet()){
-                Element<List<String>> child=entry.getKey();
+            for(Map.Entry<Element<Integer>,Element<Integer>> entry:  ufs.fatherMap.entrySet()){
+                Element<Integer> child=entry.getKey();
                 //大部分元素都扁平化了，可能存在极少的没有扁平化，所以这里还是找到最顶部的代表元素为好
-                Element<List<String>> father=ufs.findHead(child);
+                Element<Integer> father=ufs.findHead(child);
                 if(father==fatherElement){
-                    for(int i=1;i<child.value.size();i++){
-                        if(!sortEmails.contains(child.value.get(i))){ //去重
-                            sortEmails.add(child.value.get(i));
-                        }
+                    for(int i=1;i<accounts.get(child.value).size();i++){
+                        emails.add(accounts.get(child.value).get(i));
                     }
                 }
+            }
+            List<String> sortEmails=new ArrayList<>();
+            for(String s: emails){
+                sortEmails.add(s);
             }
             Collections.sort(sortEmails,(o1, o2)->o1.compareTo(o2)); //排序
             for(String s : sortEmails){

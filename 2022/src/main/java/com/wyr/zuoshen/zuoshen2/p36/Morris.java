@@ -2,8 +2,7 @@ package com.wyr.zuoshen.zuoshen2.p36;
 
 public class Morris {
     /**
-     *
-     *  以后使用非递归实现二叉树的前中后序遍历，就用Morris遍历！！！
+     *  以后使用非递归实现二叉树的前中后序遍历，就用Morris遍历！！！，不用额外空间O(1)贼好！！！！！！！！！
      *
      *  Morris遍历，实现树的前中后序遍历，能将空间复杂度优化为O(1)
      *
