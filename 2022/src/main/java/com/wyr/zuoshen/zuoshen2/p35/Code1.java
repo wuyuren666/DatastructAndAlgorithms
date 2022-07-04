@@ -128,6 +128,7 @@ public class Code1 {
         return isSub(A,B)||isSubStructure(A.left,B)||isSubStructure(A.right,B);
     }
 
+
     //这个递归使用来判断B是否是A的子结构
     //即从A和B的根结点往下走，往下比较进行判断
     public boolean isSub(TreeNode A,TreeNode B){

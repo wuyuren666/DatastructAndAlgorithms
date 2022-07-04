@@ -50,6 +50,7 @@ public class UnionFind {
                 sizeMap.put(element, 1);
             }
         }
+
         //给定一个element，往上一直找，把代表元素返回
         private Element<V> findHead(Element<V> element){
             Stack<Element<V>> stack=new Stack<>();
@@ -64,6 +65,7 @@ public class UnionFind {
             }
             return element;
         }
+
         //向外部暴露的接口，查看是否是同一集合
         public boolean isSameSet(V a, V b){
             if(elementMap.containsKey(a)&&elementMap.containsKey(b)){
