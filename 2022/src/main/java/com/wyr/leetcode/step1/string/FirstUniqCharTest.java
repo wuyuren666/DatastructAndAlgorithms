@@ -12,6 +12,9 @@ import java.util.*;
  * 输入: s = "aabb"
  * 输出: -1
  */
+
+
+
 public class FirstUniqCharTest {
     public static void main(String[] args) {
         //System.out.println(firstUniqChar1("leetcode"));

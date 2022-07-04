@@ -37,8 +37,12 @@ public class IsBTree {
 
         int height=Math.max(leftResult.height,rightResult.height)+1; //当前树的高度为，左子树右子树的最大高度+1
 
+        boolean isBalanced=true;
+
         //左右子树都是平衡树，且高度差值的绝对值小于1
-        boolean isBalanced=leftResult.isBalanced&&rightResult.isBalanced&&Math.abs(leftResult.height-rightResult.height)<=1;
+        if(leftResult.isBalanced==false||rightResult.isBalanced==false||Math.abs(leftResult.height-rightResult.height)>1){
+            isBalanced=false;
+        }
 
         return new ResultType(isBalanced,height);
     }
