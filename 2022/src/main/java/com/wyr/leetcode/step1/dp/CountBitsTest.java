@@ -41,8 +41,9 @@ public class CountBitsTest {
             if((i&1)==0){//偶数
                 dp[i]=dp[i>>1];
             }else{//奇数
-                //奇数的二进制，是其前面那个偶数+1
-                dp[i]=dp[i-1]+1;
+                //dp[i]=dp[i-1]+1;
+                //或者
+                dp[i]=dp[i>>1]+1;
             }
         }
         return dp;

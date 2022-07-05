@@ -21,7 +21,7 @@ public class PartionLinkedList {
         node7.next=node8;
         node8.next=null;
 
-        Node head = partion2(node1, 5);
+        Node head = partion1(node1, 8);
         head.print(head);
     }
 
@@ -157,5 +157,8 @@ public class PartionLinkedList {
         nodeArr[x]=nodeArr[y];
         nodeArr[y]=temp;
     }
+
+
+
 
 }

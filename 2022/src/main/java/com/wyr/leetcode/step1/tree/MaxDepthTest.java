@@ -22,17 +22,9 @@ public class MaxDepthTest {
         if(root==null){
             return 0;
         }
-        if(root.left==null&&root.right==null){ //左右子树都没有
-            return 1;
-        }
-        if(root.left!=null&&root.right==null){//只有左树
-            return 1+maxDepth(root.left);//自己的高度+左树的最大高度
-        }
-        if(root.left==null&&root.right!=null){//只有右树
-            return 1+maxDepth(root.right);//自己的高度+右树的最大高度
-        }
-        //左树和右树都存在
+        //向左树要信息
         int left=maxDepth(root.left);
+        //向有树要信息
         int right=maxDepth(root.right);
         return 1+Math.max(left,right);
     }

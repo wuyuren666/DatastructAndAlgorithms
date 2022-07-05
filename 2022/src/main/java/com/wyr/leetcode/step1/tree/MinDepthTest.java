@@ -23,6 +23,8 @@ public class MinDepthTest {
         if(root==null){
             return 0;
         }
+        //这三个if去加上主要是因为，二叉树如果从根结点只有一个向右的叉，
+        // 那么他的最小高度就是右叉的节点树，不能算左叉，虽然左叉一个都没有
         if(root.left==null&&root.right==null){ //左右子树都没有
             return 1;
         }

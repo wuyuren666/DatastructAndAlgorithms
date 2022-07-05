@@ -28,6 +28,7 @@ public class DiameterOfBinaryTreeTest {
         Info rightInfo=process(root.right);
 
         //接下来返回自己的信息
+        //最大高度就是左树和右树中的最大距离+1
         int height=Math.max(leftInfo.height,rightInfo.height)+1;
         //最大的距离，分两种情况
         //情况一：经过root，就是左子树的高度+右子树的高度

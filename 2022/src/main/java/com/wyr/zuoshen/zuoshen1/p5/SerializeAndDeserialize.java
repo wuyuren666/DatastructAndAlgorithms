@@ -26,7 +26,7 @@ public class SerializeAndDeserialize {
      * 其中的_代表结束的标记
      */
     public static String serializeByPreOrder(Node head){
-        if(head==null){
+        if(head==null){ //baseCase
             return "#_";
         }
         String res=head.value+"_";

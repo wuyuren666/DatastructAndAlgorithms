@@ -3,12 +3,12 @@ package com.wyr.zuoshen.zuoshen1.p5;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Stack;
+import java.util.TreeMap;
 
 /**
  * 二叉树的深度优先遍历，递归和非递归双版本的实现
  */
 public class BinaryTreesTraverse {
-
 
 
 
@@ -187,8 +187,60 @@ public class BinaryTreesTraverse {
                 }
             }
         }
+    }
 
 
+    //Morris遍历，时间复杂度O(N),额外空间复杂度O(1)
+    public static void morrisTravel(BinaryTreesNode root){
+        //有左树的节点会来到两次
+        BinaryTreesNode mostRight=null;
+        BinaryTreesNode cur=root;
+        while(cur!=null){
+            mostRight=cur.left;
+            if(mostRight!=null){//当前节点有左树
+                while(mostRight.right!=null&&mostRight.right!=cur){//找到左数上标准的最右节点
+                    mostRight=mostRight.right;
+                }
+                if(mostRight.right==null){//第一次来到自己
+                    mostRight.right=cur;
+                    cur=cur.left;
+                }else{//第二次来到自己
+                    mostRight.right=null;
+                    print(cur.left);
+                    cur=cur.right;
+                }
+            }else {//当前节点没有左树
+                cur=cur.right;
+            }
+        }
+        //打印整棵树的右边界
+        print(root);
+    }
+
+    public static void print(BinaryTreesNode root){
+        //先逆序，获得逆序后的头节点
+        BinaryTreesNode reverseHead = reverse(root);
+        BinaryTreesNode temp=reverseHead;
+        while (temp!=null){
+            System.out.println(temp.value);
+            temp=temp.right;
+        }
+        //将逆序还原
+        reverse(reverseHead);
+    }
+
+
+    public static BinaryTreesNode reverse(BinaryTreesNode root){
+        BinaryTreesNode cur=root;
+        BinaryTreesNode pre=null;
+        BinaryTreesNode temp=null;
+        while(cur!=null){
+            temp=cur.right;
+            cur.right=pre;
+            pre=cur;
+            cur=temp;
+        }
+        return pre;
     }
 
 

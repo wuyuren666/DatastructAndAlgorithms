@@ -24,7 +24,7 @@ public class CopyListWithRadom {
         }
         cur=head;
         while (cur != null) {
-            //map.get(cur)克隆节点
+            //map.get(cur)克隆节点,map.get(cur.next)拿出原先节点的next节点所对应的克隆节点
             map.get(cur).next=map.get(cur.next);
             map.get(cur).ramdom=map.get(cur.ramdom);
             cur=cur.next;

@@ -38,7 +38,7 @@ public class BreadthFirstTraverse {
         queue.add(head);
         BinaryTreesNode cur;
         while (queue.size()!=0){
-            if(map.get(cur=queue.removeFirst())==curLevel){
+            if(map.get(cur=queue.poll())==curLevel){
                 curLevelCounts++;
             }else {
                 max=Math.max(max,curLevelCounts);
