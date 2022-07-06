@@ -9,25 +9,109 @@ public class AccountMerge {
      *
      * https://leetcode.cn/problems/accounts-merge/
      */
-    public static List<List<String>> accountsMerge(List<List<String>> accounts) {
+    public static List<List<String>> accountsMerge2(List<List<String>> accounts) {
         Integer N=accounts.size();
         if(N==1){
             return accounts;
         }
-        List<Integer> list=new ArrayList<>();
+
+        int [] father=new int[N];
+        //开始的时候下标为i的list集合的父代表元素是自己
         for(int i=0;i<N;i++){
-            list.add(i);
+            father[i]=i;
         }
-        UnionFindSet<Integer> ufs=new UnionFindSet<>(list);
+
         for(int i=0;i<accounts.size();i++){
             for(int j=i+1;j<accounts.size();j++){
                 for(int k=1;k<accounts.get(j).size();k++){ //list.get(0)放的是名字
                     if(accounts.get(i).contains(accounts.get(j).get(k))){
                         //是同一个集合
-                        if(ufs.isSameSet(i,j)){
+                        if(findFather(father,i)==findFather(father,j)){
                             break; //就不需要在去看剩下的邮箱名了
                         }else{ //不是同一个集合
-                            ufs.union(i,j);
+                            union(father,i,j);
+                            break; //就不需要在去看剩下的邮箱名了
+                        }
+                    }
+                }
+
+            }
+        }
+        //将所有父代表元素的下标保存在set集合中
+        Set<Integer> set=new HashSet<>();
+        for(int i=0;i<N;i++){
+            if(father[i]==i){
+                set.add(i);
+            }
+        }
+        List<List<String>> res=new ArrayList<>();//最终返回的结果
+        for(Integer fatherIndex: set){
+            List<String> item=new ArrayList<>(); //结果中的每一项
+            Set<String> emails=new HashSet<>(); //去重保存邮箱
+            //先加入姓名
+            item.add(accounts.get(fatherIndex).get(0));
+            for(int i=0;i<N;i++){
+                if(findFather(father,i)==fatherIndex){
+                    for(int j=1;j<accounts.get(i).size();j++){//下标为1放的是邮箱
+                        emails.add(accounts.get(i).get(j));
+                    }
+                }
+            }
+            List<String> sortEmails=new ArrayList<>();
+            for(String s: emails){
+                sortEmails.add(s);
+            }
+            Collections.sort(sortEmails,(o1, o2)->o1.compareTo(o2)); //排序
+            for(String s : sortEmails){
+                item.add(s);
+            }
+            res.add(item);
+
+        }
+        return res;
+    }
+
+    public static void union(int [] father, int index1, int index2){
+        //将index2的父代表元素的下标赋值给father[findFather(father,index1)]
+        father[findFather(father,index1)]=findFather(father,index2);
+    }
+
+
+    public static int findFather(int [] father, int index){
+        if(father[index]!=index){
+            father[index]=findFather(father,father[index]);
+        }
+        return father[index];
+    }
+
+
+
+
+
+    public static List<List<String>> accountsMerge1(List<List<String>> accounts) {
+        if(accounts.size()==1){
+            return accounts;
+        }
+
+        Set<List<String>> set=new HashSet<>();
+        for(List<String> l: accounts){
+            set.add(l);
+        }
+        List<List<String>> newAccounts=new ArrayList<>();
+        for(List<String> l:set){
+            newAccounts.add(l);
+        }
+
+        UnionFindSet<List<String>> ufs=new UnionFindSet<>(newAccounts);
+        for(int i=0;i<newAccounts.size();i++){
+            for(int j=i+1;j<newAccounts.size();j++){
+                for(int k=1;k<newAccounts.get(j).size();k++){ //list.get(0)放的是名字
+                    if(newAccounts.get(i).contains(newAccounts.get(j).get(k))){
+                        //是同一个集合
+                        if(ufs.isSameSet(newAccounts.get(i),newAccounts.get(j))){
+                            break; //就不需要在去看剩下的邮箱名了
+                        }else{ //不是同一个集合
+                            ufs.union(newAccounts.get(i),newAccounts.get(j));
                             break; //就不需要在去看剩下的邮箱名了
                         }
                     }
@@ -37,27 +121,27 @@ public class AccountMerge {
         }
 
         List<List<String>> res=new ArrayList<>();
-        for(Element<Integer> fatherElement: ufs.sizeMap.keySet()){//拿出所有的父代表元素
+        for(Element<List<String>> fatherElement: ufs.sizeMap.keySet()){//拿出所有的父代表元素
             List<String> temp=new ArrayList<>();
-            temp.add(accounts.get(fatherElement.value).get(0));//下标为0的位置放的是姓名
-            Set<String> emails=new HashSet<>(); //存放邮箱的set集合为了去重
+            temp.add(fatherElement.value.get(0));//下标为0的位置放的是姓名
+            List<String> sortEmails=new ArrayList<>(); //存放邮箱的集合
             //注意要把父代表元素的emails也要加上
-            for(int i=1;i<accounts.get(fatherElement.value).size();i++){
-                emails.add(accounts.get(fatherElement.value).get(i));
-            }
-            for(Map.Entry<Element<Integer>,Element<Integer>> entry:  ufs.fatherMap.entrySet()){
-                Element<Integer> child=entry.getKey();
-                //大部分元素都扁平化了，可能存在极少的没有扁平化，所以这里还是找到最顶部的代表元素为好
-                Element<Integer> father=ufs.findHead(child);
-                if(father==fatherElement){
-                    for(int i=1;i<accounts.get(child.value).size();i++){
-                        emails.add(accounts.get(child.value).get(i));
-                    }
+            for(int i=1;i<fatherElement.value.size();i++){
+                if(!sortEmails.contains(fatherElement.value.get(i))){ //去重
+                    sortEmails.add(fatherElement.value.get(i));
                 }
             }
-            List<String> sortEmails=new ArrayList<>();
-            for(String s: emails){
-                sortEmails.add(s);
+            for(Map.Entry<Element<List<String>>,Element<List<String>>> entry:  ufs.fatherMap.entrySet()){
+                Element<List<String>> child=entry.getKey();
+                //大部分元素都扁平化了，可能存在极少的没有扁平化，所以这里还是找到最顶部的代表元素为好
+                Element<List<String>> father=ufs.findHead(child);
+                if(father==fatherElement){
+                    for(int i=1;i<child.value.size();i++){
+                        if(!sortEmails.contains(child.value.get(i))){ //去重
+                            sortEmails.add(child.value.get(i));
+                        }
+                    }
+                }
             }
             Collections.sort(sortEmails,(o1, o2)->o1.compareTo(o2)); //排序
             for(String s : sortEmails){
@@ -149,7 +233,7 @@ public class AccountMerge {
 
 
 
-    public static List<List<String>> accountsMerge1(List<List<String>> accounts) {
+    public static List<List<String>> accountsMerge3(List<List<String>> accounts) {
         // 将list变为account:name的map
         Map<String,String> accountMap = new HashMap<>();
         for (int j = 0; j < accounts.size(); j++){
@@ -270,7 +354,7 @@ public class AccountMerge {
         accounts.add(temp4);
         accounts.add(temp5);
 
-        List<List<String>> lists = accountsMerge(accounts);
+
         System.out.println("aaa");
     }
 }

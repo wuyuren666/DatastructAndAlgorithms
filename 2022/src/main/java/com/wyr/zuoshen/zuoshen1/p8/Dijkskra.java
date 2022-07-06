@@ -4,7 +4,7 @@ package com.wyr.zuoshen.zuoshen1.p8;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Dijskra {
+public class Dijkskra {
     /**
      * Dijskra使用堆的加速写法
      * 有点复杂，需要自己手动撸一个堆
