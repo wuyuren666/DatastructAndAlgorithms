@@ -16,6 +16,7 @@ public class AccountMerge {
         }
 
         int [] father=new int[N];
+
         //开始的时候下标为i的list集合的父代表元素是自己
         for(int i=0;i<N;i++){
             father[i]=i;
@@ -37,24 +38,29 @@ public class AccountMerge {
 
             }
         }
-        //将所有父代表元素的下标保存在set集合中
-        Set<Integer> set=new HashSet<>();
+
+        List<List<String>> res=new ArrayList<>();//最终返回的结果
+        Map<Integer,List<Integer>> map=new HashMap<>();//记录父代表元素和被代表元素之间映射关系
         for(int i=0;i<N;i++){
             if(father[i]==i){
-                set.add(i);
+                map.put(i,new ArrayList<>());
             }
         }
-        List<List<String>> res=new ArrayList<>();//最终返回的结果
-        for(Integer fatherIndex: set){
+
+        for(int i=0;i<N;i++){
+            map.get(findFather(father,i)).add(i);
+        }
+
+        for(Map.Entry<Integer,List<Integer>> entry: map.entrySet()){
+            Integer fatherIndex=entry.getKey();
+            List<Integer> childIndexs= entry.getValue();
             List<String> item=new ArrayList<>(); //结果中的每一项
             Set<String> emails=new HashSet<>(); //去重保存邮箱
             //先加入姓名
             item.add(accounts.get(fatherIndex).get(0));
-            for(int i=0;i<N;i++){
-                if(findFather(father,i)==fatherIndex){
-                    for(int j=1;j<accounts.get(i).size();j++){//下标为1放的是邮箱
-                        emails.add(accounts.get(i).get(j));
-                    }
+            for(Integer i: childIndexs){
+                for(int k=1;k<accounts.get(i).size();k++){
+                    emails.add(accounts.get(i).get(k));
                 }
             }
             List<String> sortEmails=new ArrayList<>();
@@ -66,7 +72,6 @@ public class AccountMerge {
                 item.add(s);
             }
             res.add(item);
-
         }
         return res;
     }
