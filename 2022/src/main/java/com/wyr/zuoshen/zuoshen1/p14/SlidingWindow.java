@@ -27,7 +27,7 @@ public class SlidingWindow {
                 qmax.pollLast();
             }
             qmax.addLast(R);
-            if(qmax.peekFirst()==R-k){  //R-k为过期的下标
+            if(qmax.peekFirst()<L){  //下标过期了
                 qmax.pollFirst();
             }
             //窗口形成了

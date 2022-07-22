@@ -15,4 +15,13 @@ public class IsPowerOfTwoNumberTest {
             return false;
         return (n&(n-1))==0;
     }
+
+    //怎么判断一个数是否是4的整数次幂呢
+    //首先得是2的整数次幂，其次就是这个唯一出现的1需要出现在0,2,4,6...位置上
+    public boolean isPowerOfFour(int n){
+        if(n==0||n==Integer.MIN_VALUE)
+            return false;
+                                    //01010101..010101
+        return (n&(n-1))==0&&(n& 0X55555555) !=0;
+    }
 }
