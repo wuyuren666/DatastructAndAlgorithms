@@ -39,8 +39,8 @@ public class Code1 {
 
 
     public static void main(String[] args) {
-        int [] weights={3,2,4,7,3,1,7};
-        int [] values={5,6,3,19,12,4,2};
+        int [] weights={3,2,4,7,3,1,7,3,4,6};
+        int [] values={5,6,3,19,12,4,2,23,1,12};
         int bag=15;
         System.out.println(maxValue1(weights, values, bag));
     }
