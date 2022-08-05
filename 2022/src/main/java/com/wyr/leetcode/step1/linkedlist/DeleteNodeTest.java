@@ -1,30 +1,23 @@
 package com.wyr.leetcode.step1.linkedlist;
 
-import com.wyr.zuoshen.zuoshen2.p32.Code3;
-
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.UnknownHostException;
-
 /**
  * 请编写一个函数，用于 删除单链表中某个特定节点 。
  * 在设计函数时需要注意，你无法访问链表的头节点 head ，只能直接访问要被删除的节点 。
  */
 public class DeleteNodeTest {
     public static void main(String[] args)  {
-        Node node1 = new Node(3);
-        Node node2 = new Node(1);
-        Node node3 = new Node(5);
-        Node node4 = new Node(0);
-        Node node5 = new Node(4);
-        node1.next=node2;
-        node2.next=node3;
-        node3.next=node4;
-        node4.next=node5;
-        node5.next=null;
-        deleteNode(node2);
-        node1.print(node1);
+        com.wyr.leetcode.step1.linkedlist.ListNode listNode1 = new com.wyr.leetcode.step1.linkedlist.ListNode(3);
+        com.wyr.leetcode.step1.linkedlist.ListNode listNode2 = new com.wyr.leetcode.step1.linkedlist.ListNode(1);
+        com.wyr.leetcode.step1.linkedlist.ListNode listNode3 = new com.wyr.leetcode.step1.linkedlist.ListNode(5);
+        com.wyr.leetcode.step1.linkedlist.ListNode listNode4 = new com.wyr.leetcode.step1.linkedlist.ListNode(0);
+        com.wyr.leetcode.step1.linkedlist.ListNode listNode5 = new com.wyr.leetcode.step1.linkedlist.ListNode(4);
+        listNode1.next= listNode2;
+        listNode2.next= listNode3;
+        listNode3.next= listNode4;
+        listNode4.next= listNode5;
+        listNode5.next=null;
+        deleteNode(listNode2);
+        listNode1.print(listNode1);
 
     }
 
@@ -32,15 +25,15 @@ public class DeleteNodeTest {
      *  请编写一个函数，用于 删除单链表中某个特定节点 。
      *  在设计函数时需要注意，你无法访问链表的头节点 head ，只能直接访问要被删除的节点 。
      */
-    public static void deleteNode(Node delNode)  {
+    public static void deleteNode(com.wyr.leetcode.step1.linkedlist.ListNode delListNode)  {
 
         //3-->1-->5-->0-->4-->null
         //假如，我们要删除节点1。
         //首先，我们让节点5的值赋值给节点1
         //3-->5-->5-->0-->4-->null
         //让第一个值为5的节点的next指针指向值为0的节点
-        delNode.id=delNode.next.id;
-        delNode.next=delNode.next.next;
+        delListNode.id= delListNode.next.id;
+        delListNode.next= delListNode.next.next;
     }
 
 
@@ -62,21 +55,19 @@ public class DeleteNodeTest {
      */
 
     public ListNode deleteNode(ListNode head, int val) {
-        if(val==head.val){
+        if(head.val==val){
             return head.next;
         }
-        ListNode cur=head.next;
-        ListNode curNext=null;
-        ListNode curPre=head;
-        while(cur!=null){
-            curNext=cur.next;
-            if(cur.val==val){
-                curPre.next=curNext;
+        ListNode temp=head.next; //目标指针
+        ListNode preTemp=head; //目标指针前一个
+        while(temp!=null){
+            if(temp.val==val){
                 break;
             }
-            curPre=cur;
-            cur=curNext;
+            preTemp=temp;
+            temp=temp.next;
         }
+        preTemp.next=temp.next;
         return head;
     }
 
@@ -99,26 +90,26 @@ public class DeleteNodeTest {
 }
 
 
-class Node{
+class ListNode {
     public int id;
-    public Node previous;
-    public Node next;
-    public Node ramdom;
+    public ListNode previous;
+    public ListNode next;
+    public ListNode ramdom;
 
-    public Node() {
+    public ListNode() {
     }
 
-    public Node(int id) {
+    public ListNode(int id) {
         this.id = id;
     }
 
-    public Node(int id, Node previous, Node next) {
+    public ListNode(int id, ListNode previous, ListNode next) {
         this.id = id;
         this.previous = previous;
         this.next = next;
     }
 
-    public Node(int id, Node next) {
+    public ListNode(int id, ListNode next) {
         this.id = id;
         this.previous = null;
         this.next = next;
@@ -126,14 +117,14 @@ class Node{
 
 
     //打印链表的方法
-    public void print(Node head){
+    public void print(ListNode head){
         if(head==null){
             System.out.println("链表为空");
             return;
         }
         System.out.println(head);
         while (true) {
-            Node temp = head.next;
+            ListNode temp = head.next;
             if (temp == null) {
                 break;
             }else {

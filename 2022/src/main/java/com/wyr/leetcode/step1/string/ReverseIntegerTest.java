@@ -13,7 +13,13 @@ package com.wyr.leetcode.step1.string;
  *
  * 输入：x = 120
  * 输出：21
+ *
+ * https://leetcode.cn/problems/reverse-integer/
  */
+
+
+
+
 public class ReverseIntegerTest {
     public static void main(String[] args) {
         System.out.println(Integer.parseInt("00123"));
@@ -24,6 +30,7 @@ public class ReverseIntegerTest {
     public static int reverse(int x) {
         if(x==0) //如果为0直接返回0
             return 0;
+
         int result;
         boolean flag=true; //true代表是正数
         if(x<0){
@@ -31,11 +38,10 @@ public class ReverseIntegerTest {
             flag=false;
         }
         StringBuilder sb=new StringBuilder();
-        while(x/10!=0){
+        while(x!=0){
             sb.append(x%10);
             x=x/10;
         }
-        sb.append(x);
         try{
             result=Integer.parseInt(sb.toString()); //这里可能会出现异常，需要捕捉异常
         }catch(Exception e){

@@ -34,10 +34,6 @@ public class ChangeTest {
     }
 
     public int process(int [] coins, int index, int rest){
-        if(rest<0){ //这个baseCase其实可以拿掉
-            return 0;
-        }
-        //rest>=0
         if(index==coins.length){ //当此时都没有钱可以选择了，你是否已经凑成功了？
             return rest==0?1:0;
         }

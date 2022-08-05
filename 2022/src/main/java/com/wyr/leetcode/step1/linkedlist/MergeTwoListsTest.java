@@ -7,91 +7,38 @@ package com.wyr.leetcode.step1.linkedlist;
  */
 public class MergeTwoListsTest {
     public static void main(String[] args) {
-        Node node1 = new Node(3);
-        Node node2 = new Node(5);
-        Node node3 = new Node(7);
-        Node node4 = new Node(10);
-        Node node5 = new Node(11);
-        Node node6 = new Node(2);
-        Node node7 = new Node(5);
-        Node node8 = new Node(6);
-        node1.next=node2;
-        node2.next=node3;
-        node3.next=node4;
-        node4.next=node5;
-        node5.next=null;
-        node6.next=node7;
-        node7.next=node8;
-        node8.next=null;
-        Node node = mergeTwoLists1(node1, node6);
-        node.print(node);
 
     }
 
-
-    //开辟一个新的链表空间
-    public static Node mergeTwoLists1(Node list1,Node list2){
-        if(list1==null && list2!=null)
-            return list2;
-        else if(list1!=null && list2==null)
-            return list1;
-        else if (list1==null && list2==null)
-            return null;
-
-        Node newHead=new Node(); //新链表的头节点
-        Node cur=newHead; //新链表的辅助指针
-        Node templeft=list1; //左边链表的辅助指针
-        Node tempright=list2; //右边链表的辅助指针
-        while(templeft!=null&&tempright!=null){
-            if(templeft.id<=tempright.id)
-            {
-               cur.next=new Node(templeft.id);
-               cur=cur.next;
-               templeft=templeft.next;
-            }else {
-                cur.next=new Node(tempright.id);
+    public  static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        ListNode newHead=new ListNode(-1);
+        ListNode cur=newHead;
+        //谁小就连谁，然后小的移动
+        while(l1!=null&&l2!=null){
+            if(l1.val<=l2.val){
+                cur.next=l1;
                 cur=cur.next;
-                tempright=tempright.next;
+                l1=l1.next;
+            }else{
+                cur.next=l2;
+                cur=cur.next;
+                l2=l2.next;
             }
         }
-        //上面的while循环结束，要么templeft指向了null，要么就是tempright指向了null
-        //所以cur后面直接连上不为空的那个
-        cur.next=templeft!=null?templeft:tempright;
+        //l1还剩
+        if(l1!=null){
+            cur.next=l1;
+        }
+        //l2还剩
+        if(l2!=null){
+            cur.next=l2;
+        }
         return newHead.next;
     }
 
 
 
 
-    //当然也可以不用开辟新的空间,即不使用templeft和tempright
-    public static Node mergeTwoLists2(Node list1,Node list2){
-        if(list1==null && list2!=null)
-            return list2;
-        else if(list1!=null && list2==null)
-            return list1;
-        else if (list1==null && list2==null)
-            return null;
-
-        Node newHead=new Node(); //新链表的头节点
-        Node cur=newHead; //新链表的辅助指针
-
-        while (list1!=null&&list2!=null){
-            if(list1.id<=list2.id){
-                cur.next=list1;
-                cur=cur.next;
-                list1=list1.next;
-            }
-            else {
-                cur.next=list2;
-                cur=cur.next;
-                list2=list2.next;
-            }
-        }
-
-        cur.next=list1!=null?list1:list2;
-        return newHead.next;
-
-    }
 
 
     /**
@@ -116,7 +63,7 @@ public class MergeTwoListsTest {
         return result;
     }
     //合并两个链表，返回新链表的节点
-    public ListNode merge(ListNode n1,ListNode n2){
+    public ListNode merge(ListNode n1, ListNode n2){
         ListNode p1=n1;
         ListNode p2=n2;
         ListNode result=new ListNode();//需要返回的新链表的头

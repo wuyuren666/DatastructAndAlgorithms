@@ -17,7 +17,6 @@ public class Code1 {
          if(L==R){ //basecase,因为就剩一张牌，又是以先手姿态拿牌，所以必然会将这张牌拿走
              return arr[L];
          }
-
          int p1=arr[L]+g1(arr,L+1,R);//g为后手方法，也就是说，我以先手姿态拿走了最左边的那张牌，在[L+1,R]上，就是以后手的姿态去拿牌
          int p2=arr[R]+g1(arr,L,R-1);//g为后手方法，也就是说，我以先手姿态拿走了最右边的那张牌，在[L,R-1]上，就是以后手的姿态去拿牌
          return Math.max(p1,p2);

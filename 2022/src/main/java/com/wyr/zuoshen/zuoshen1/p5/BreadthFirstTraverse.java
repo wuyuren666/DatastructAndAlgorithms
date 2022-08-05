@@ -15,8 +15,9 @@ public class BreadthFirstTraverse {
         LinkedList<BinaryTreesNode> queue=new LinkedList<>();//队列
         queue.add(head);
         BinaryTreesNode cur;
-        while (queue.size()!=0){
-            System.out.println(cur=queue.removeFirst());
+        while(queue.size()!=0){
+            cur=queue.removeFirst();
+            System.out.println(cur.value);
             if(cur.left!=null){
                 queue.add(cur.left);
             }
@@ -34,7 +35,7 @@ public class BreadthFirstTraverse {
         map.put(head,1);
         int curLevel=1;//当前统计的层
         int curLevelCounts=0;//当前统计的层的节点个数
-        int max=0;
+        int max=0; //最终返回的结果
         queue.add(head);
         BinaryTreesNode cur;
         while (queue.size()!=0){

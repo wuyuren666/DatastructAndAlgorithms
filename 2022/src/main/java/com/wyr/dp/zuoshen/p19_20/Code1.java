@@ -9,6 +9,34 @@ package com.wyr.dp.zuoshen.p19_20;
  */
 public class Code1 {
 
+    //8.1练习
+    public static int process81(char[] chars,int index){
+        //baseCase
+        if(index==chars.length){
+            return 1;
+        }
+        //单转0字符，肯定转不了
+        if(chars[index]=='0'){
+            return 0;
+        }
+
+        //当前字符，我自己单独转
+        int p1=process81(chars,index+1);
+
+        int p2=0;
+        //当前字符我不单独转，我和下一个字符一起转
+        //下一个字符存在且当前字符和下一个字符组合成的数字[10,26]
+        if(index+1<chars.length&& (chars[index]-'0')*10+(chars[index]-'0')>=10&&(chars[index]-'0')*10+(chars[index]-'0')<=26){
+            p2+=process81(chars,index+2);
+        }
+        return p1+p2;
+    }
+
+
+
+
+
+
 
     //5.18练习
     public static int process518(char[] chars,int index){
@@ -38,7 +66,7 @@ public class Code1 {
         if(str==null||str.length()==0)
             return 0;
         char[] s = str.toCharArray();
-        return process518(s,0); //我从下标为0的位置开始尝试
+        return process(s,0); //我从下标为0的位置开始尝试
     }
 
     //s[i]...s[s.length-1]去转化，返回有多少种转化方法
@@ -57,14 +85,14 @@ public class Code1 {
         //当前不是'0'的数字字符，和下一个数字字符转成一个字母，但是要在1~27
         //首先，应该看一下，是否有下一个数字字符
         if(index+1<s.length&&(s[index]-'0')*10+(s[index+1]-'0')<27){
-            p2=process(s,index+2);
+            p2=process81(s,index+2);
         }
 
         return p1+p2;
     }
 
     public static void main(String[] args) {
-        System.out.println(solution("3115"));
+        System.out.println(solution("311521312"));//18
         
     }
 

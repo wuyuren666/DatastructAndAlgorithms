@@ -19,18 +19,18 @@ public class RemoveDuplicatesTest {
         if(nums.length==1){
             return 1;
         }
-        int counts=1;
-        int p1=0,p2=1; //两个指针
-        for(;p2<nums.length;){
-            if(nums[p1]==nums[p2]){ //相等,p2++
-                p2++;
-            }else{ //不相等，1：赋值 2：计数+1 3：p2++
-                nums[++p1]=nums[p2];
-                counts++;
+        //nums是升序数组
+        int p1=0,p2=1; //双指针
+        int countLength=1; //nums[0]先算上
+        while(p2<nums.length){ //p2不越界
+            if(nums[p2]!=nums[p1]){
+                nums[++p1]=nums[p2++];
+                countLength++;
+            }else{
                 p2++;
             }
         }
-        return counts;
+        return countLength;
     }
 
 

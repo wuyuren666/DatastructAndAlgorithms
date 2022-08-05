@@ -12,7 +12,7 @@ public class Code1 {
     //面试的时候，为了空间复杂度考虑这样说
     //奇数时返回中点，偶数时返回上中点
     public static Node getMidOrTopMid1(Node head){
-        if(head==null||head.next==null||head.next==null){
+        if(head==null||head.next==null||head.next.next==null){
             return head;
         }
         //节点个数>=3才会来到这
@@ -27,7 +27,7 @@ public class Code1 {
     //笔试的时候为了快可以这样写
     //奇数时返回中点，偶数时返回上中点
     public static Node getMidOrTopMid2(Node head){
-        if(head==null||head.next==null||head.next==null){
+        if(head==null||head.next==null||head.next.next==null){
             return head;
         }
         //节点个数>=3才会来到这
@@ -39,6 +39,7 @@ public class Code1 {
         }
         return list.get((list.size()-1)/2);
     }
+
     //面试的时候，为了空间复杂度考虑这样说
     //奇数时返回中点，偶数时返回下中点
     public static Node getMidOrDownMid1(Node head){

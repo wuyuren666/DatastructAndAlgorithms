@@ -22,37 +22,30 @@ public class IsValidTest {
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
     public boolean isValid(String s) {
-        if((s.length()&1)!=0){ //奇数字符肯定不行
+        //如果是左括号就加入栈中，右括号的话就从栈中弹出一个和其匹配
+        if((s.length()&1)!=0){//奇数肯定不行
             return false;
         }
-        char[] chs=s.toCharArray();
         Stack<Character> stack=new Stack<>();
+        char[] chs=s.toCharArray(); //转成数组做快一点
         for(int i=0;i<chs.length;i++){
-            if(chs[i]=='('||chs[i]=='{'||chs[i]=='['){//左括号入栈
+            if(chs[i]=='('||chs[i]=='{'||chs[i]=='['){//左括号就如栈
                 stack.push(chs[i]);
-            }else{ //右括号则栈中弹出一个比较
-                if(!stack.isEmpty()){ //栈不为空
-                    if(!isOK(stack.pop(),chs[i])){
-                        return false;
-                    }
-                }else{ //栈为空
+            }else{//右括号，就从栈中弹一个进行比较
+                if(stack.isEmpty()||!isOk(chs[i],stack.pop())){
                     return false;
                 }
-
             }
         }
-        if(stack.isEmpty()){ //最后栈空，返回true
-            return true;
-        }
-        return false;
+        return stack.isEmpty()?true:false;
     }
 
-    public boolean isOK(char a, char b){
-        if(a=='{'&&b=='}'){
+    public boolean isOk(char a, char b){
+        if(a=='}'&&b=='{'){
             return true;
-        }else if(a=='('&&b==')'){
+        }else if(a==')'&&b=='('){
             return true;
-        }else if(a=='['&&b==']'){
+        }else if(a==']'&&b=='['){
             return true;
         }
         return false;

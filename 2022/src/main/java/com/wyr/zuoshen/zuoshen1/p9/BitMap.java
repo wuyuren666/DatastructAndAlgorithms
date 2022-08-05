@@ -19,7 +19,6 @@ public class BitMap {
         //将下标为3的状态改为1
         arr[numIndex]=arr[numIndex]|(1<<(bitIndex));
 
-
         //将下标为3的状态改为0
         arr[numIndex]=arr[numIndex] & (~(1<<bitIndex));
 

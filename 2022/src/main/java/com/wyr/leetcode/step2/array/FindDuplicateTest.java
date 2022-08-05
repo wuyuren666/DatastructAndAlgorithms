@@ -19,7 +19,22 @@ public class FindDuplicateTest {
      * 链接：https://leetcode.cn/problems/find-the-duplicate-number
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
+    //把数组看成链表，数组的值看作链表节点的值，索引看成next指针
+    public int findDuplicateBest(int[] nums) { //O(1)，满足题目的要求
+        int slow=0,fast=0;
+        do{
+            slow=nums[slow];
+            fast=nums[nums[fast]]; //快指针一次走两步
+        }while(slow!=fast);
+        fast=0;//快指针移动到开头
+        while(slow!=fast){
+            slow=nums[slow];
+            fast=nums[fast];
+        }
+        return slow;
+    }
 
+    //空间复杂度O(N)
     public int findDuplicate(int[] nums) {
         int N=nums.length;
         int [] counts=new int[N-1];//统计表

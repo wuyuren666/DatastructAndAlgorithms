@@ -21,29 +21,32 @@ public class NumWaysTest {
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
 
-    //暴力递归
+
+    //暴力递归+傻缓存
     public int numWays(int n, int[][] relation, int k) {
-        int [][] dp=new int[n][n];
-        for(int i=0;i<relation.length;i++){
-            dp[relation[i][0]][relation[i][1]]=1;
-        }
-        return process(dp,0,n-1,k);
-    }
-    //index：当前到达几号；aim：目标是几号；K：可以走几步
-    public int process(int [][] relation, int index, int aim, int k){
-        if(k==0){
-            if(index==aim){
-                return 1;
-            }else{
-                return 0;
+        int [][] dp=new int [n][k+1]; //傻缓存
+        for(int i=0;i<n;i++){
+            for(int j=0;j<k+1;j++){
+                dp[i][j]=-1;
             }
+        }
+        return process(n,relation,dp,0,k);
+    }
+
+    public int process(int n, int [][] relation, int[][] dp, int cur,int rest){
+        if(rest==0){
+            return (cur==n-1?1:0);
+        }
+        if(dp[cur][rest]!=-1){
+            return dp[cur][rest];
         }
         int res=0;
-        for(int j=0;j<relation[0].length;j++){
-            if(relation[index][j]!=0){
-                res+=process(relation,j,aim,k-1);
+        for(int i=0;i<relation.length;i++){
+            if(relation[i][0]==cur){
+                res+=process(n,relation,dp,relation[i][1],rest-1);
             }
         }
+        dp[cur][rest]=res;
         return res;
     }
 

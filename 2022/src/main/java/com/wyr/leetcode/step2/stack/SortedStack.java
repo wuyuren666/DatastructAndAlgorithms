@@ -27,7 +27,6 @@ public class SortedStack {
     public void sort(int val){
         if(stack.isEmpty()||val<stack.peek()){
             stack.push(val);
-            return;
         }else{
             int temp=stack.pop();
             sort(val);

@@ -15,12 +15,34 @@ package com.wyr.leetcode.step2.dp;
 public class MinPathSumTest {
 
     //暴力递归版本
-    public int minPathSum1(int[][] grid) {
+    public static int minPathSum1(int[][] grid) {
         int m=grid.length; //获取行的长度
         int n=grid[0].length; //获取列的长度
         return process(grid,0,0,m-1,n-1);
     }
-    public int process(int[][] grid, int curX, int curY, int aimX, int aimY){
+
+    public static int process81(int[][] grid, int curX, int curY, int aimX, int aimY){
+        if(curX==aimX&&curY==aimY){
+            return grid[curX][curY];
+        }
+        //越界
+        if(curX<0||curX>=grid.length||curY<0||curY>=grid[0].length){
+            return Integer.MAX_VALUE;
+        }
+        int res=grid[curX][curY];
+        if(curX==grid.length-1){ //只能向右走
+            return res+process(grid,curX,curY+1,aimX,aimY);
+        }
+
+        if(curY==grid[0].length-1){//只能向下走
+            return res+process(grid,curX+1,curY,aimX,aimY);
+        }
+        int p1=res+process(grid,curX+1,curY,aimX,aimY);
+        int p2=res+process(grid,curX,curY+1,aimX,aimY);
+        return Math.min(p1,p2);
+    }
+
+    public  static int process(int[][] grid, int curX, int curY, int aimX, int aimY){
         //baseCase
         if(curX==aimX&&curY==aimY){
             return grid[curX][curY];
@@ -44,7 +66,7 @@ public class MinPathSumTest {
     }
 
     //动态规划版本
-    public int minPathSum2(int[][] grid) {
+    public static int minPathSum2(int[][] grid) {
         int m=grid.length; //获取行的长度
         int n=grid[0].length; //获取列的长度
         int [][] dp=new int [m][n];
@@ -65,7 +87,6 @@ public class MinPathSumTest {
                 dp[i][j]=Math.min(p1,p2);
             }
         }
-
         return dp[0][0];
     }
 

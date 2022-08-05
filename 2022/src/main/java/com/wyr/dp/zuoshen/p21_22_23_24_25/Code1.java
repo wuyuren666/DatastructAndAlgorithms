@@ -20,7 +20,7 @@ public class Code1 {
     //target:目标字符串
     //arr：贴纸数组
     public static int theLeastCounts1(String target, String[] arr){
-        //假如傻缓存
+        //加入傻缓存
         Map<String,Integer> map=new HashMap<>();
         int process = process1(target, arr,map);
         if(process==Integer.MAX_VALUE)

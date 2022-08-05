@@ -12,44 +12,35 @@ public class CoinChangeTest {
      * 输出：3
      * 解释：11 = 5 + 5 + 1
      *
+     * 这个问题不也可以转换成
      *
      * 来源：力扣（LeetCode）
      * 链接：https://leetcode.cn/problems/coin-change
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
+    //动态规划
     public static int coinChange(int[] coins, int amount) {
-        int M=coins.length+2;
-        int N=amount+1;
-        int[][] dp=new int[M][N];
-        for(int j=0;j<N;j++){
-            dp[0][j]=j;
-        }
-        for(int j=1;j<N;j++){
-            dp[1][j]=amount+1;
-        }
-        for(int i=2;i<M;i++){
-            dp[i][0]=0;
-        }
-        for(int i=2;i<M;i++){
-            for(int j=1;j<N;j++){
-                //能找零钱
-                if(dp[0][j]>=coins[i-2]){
-                    dp[i][j]=Math.min(dp[i][dp[0][j]-coins[i-2]]+1,dp[i-1][j]);
-                    /*if(dp[i][dp[0][j]-dp[i][0]+1]+1<=dp[i-1][j]){
-                        dp[i][j]=dp[i][dp[0][j]-dp[i][0]+1]+1;
-                    }else{
-                        dp[i][j]=dp[i-1][j];
-                    }*/
-                }else{//不能找零钱
-                    dp[i][j]=dp[i-1][j];
+        //dp[i]，代表我兑换i零钱所需要的最小硬币数
+        //dp[i]=min(1枚当前面值的硬币+dp[i-当前面值])
+
+        //意思就是如果我兑换的零钱是3元，那么最少硬币数的组成可能是一下这些可能性中的最小的
+        // 1(我拿一枚1元硬币)+dp[2] ; 1(我拿一枚2元硬币)+dp[1] 这两种可能性中的最小值
+        int [] dp=new int [amount+1];
+        dp[0]=0;
+        //填表
+        for(int i=1;i<amount+1;i++){
+            int tempMin= 10001; //根据题目数据样本给的值，如果赋值Integer.MAX_VALUE，那么+1之后会溢出
+            for(int j=0;j<coins.length;j++){
+                if(i-coins[j]>=0){
+                    tempMin=Math.min(tempMin,1+dp[i-coins[j]]);
                 }
             }
+            dp[i]=tempMin;
         }
-        if(dp[M-1][N-1]!=amount+1){
-            return dp[M-1][N-1];
-        }
-        return -1;
+        return (dp[amount]==10001)?-1:dp[amount];
     }
+
+
 
     public static void main(String[] args) {
         int [] coins={1,5,2};

@@ -13,12 +13,9 @@ import java.util.List;
  *
  * 输入：nums1 = [4,9,5], nums2 = [9,4,9,8,4]
  * 输出：[4,9]
+ *
+ * https://leetcode.cn/problems/intersection-of-two-arrays-ii/submissions/
  */
-
-
-
-
-
 
 
 public class IntersectTest {
@@ -48,6 +45,10 @@ public class IntersectTest {
             result[i]=list.get(i);
         }
         return result;
+    }
+
+    public static void main(String[] args) {
+
     }
 
 }

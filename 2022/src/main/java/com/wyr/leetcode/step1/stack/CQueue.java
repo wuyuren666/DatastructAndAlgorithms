@@ -36,6 +36,17 @@ public class CQueue {
         return subStack.pop();
     }
 
+    public int deleteHead2(){
+        if(mainStack.isEmpty()&&subStack.isEmpty()){ //主栈且从栈为空，表示没有元素
+            return -1;
+        }else {
+            if(subStack.isEmpty()){
+                process();
+            }
+            return subStack.pop();
+        }
+    }
+
     public void process(){
         while(!mainStack.isEmpty()){
             subStack.push(mainStack.pop());

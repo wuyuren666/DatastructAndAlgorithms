@@ -9,8 +9,6 @@ public class Code1 {
      * @return 最大价值，即我背包能装下的最大价值
      */
 
-
-
     public static int maxValue1(int [] w, int [] v, int bag){
         if(w==null||v==null||w.length!=v.length||w.length==0)
             return 0;
@@ -39,9 +37,9 @@ public class Code1 {
 
 
     public static void main(String[] args) {
-        int [] weights={3,2,4,7,3,1,7,3,4,6};
-        int [] values={5,6,3,19,12,4,2,23,1,12};
-        int bag=15;
+        int [] weights={3,2,4,7,};
+        int [] values={5,6,3,10};
+        int bag=10;
         System.out.println(maxValue1(weights, values, bag));
     }
 }

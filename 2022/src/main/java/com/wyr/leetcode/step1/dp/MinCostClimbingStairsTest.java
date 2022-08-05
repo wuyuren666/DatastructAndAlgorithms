@@ -37,18 +37,16 @@ public class MinCostClimbingStairsTest {
      */
     //动态规划版本
     public int minCostClimbingStairs1(int[] cost) {
-        int N=cost.length;
-        int[] dp=new int [N+2];
-        dp[N]=0;
-        dp[N+1]=0;
-        for(int i=N-1;i>=0;i--){
-            //我选择走一级台阶
-            int p1= cost[i]+dp[i+1];
-            //我选择走二级台阶
-            int p2=cost [i]+dp[i+2];
+        int [] dp=new int[cost.length];
+
+        for(int i=cost.length-1;i>=0;i--){
+            //选择走两步
+            int p1=cost[i]+(i+2>=cost.length?0:dp[i+2]);
+            //选择走一步
+            int p2=cost[i]+(i+1>=cost.length?0:dp[i+1]);
             dp[i]=Math.min(p1,p2);
         }
-        return Math.min(dp[1],dp[0]);
+        return Math.min(dp[0],dp[1]);
     }
 
     //暴力递归版本

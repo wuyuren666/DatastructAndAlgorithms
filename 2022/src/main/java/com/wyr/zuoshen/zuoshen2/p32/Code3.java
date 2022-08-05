@@ -46,8 +46,8 @@ public class Code3 {
         ListNode temp2=longHead; //辅助指针，用来保存头节点
         int info=0;//进位信息
         int value=0;//按位相加的信息
-        //第一阶段，同时移动，直到有一个为null
-        while(shortHead!=null&&longHead!=null){
+        //第一阶段，同时移动，直到短链表越界
+        while(shortHead!=null){
             value=shortHead.val+longHead.val+info;
             if(value<10){
                 longHead.val=value;

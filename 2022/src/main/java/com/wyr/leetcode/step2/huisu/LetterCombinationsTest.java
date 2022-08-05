@@ -12,59 +12,33 @@ public class LetterCombinationsTest {
      * 链接：https://leetcode.cn/problems/letter-combinations-of-a-phone-number
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
+
     public static List<String> letterCombinations(String digits) {
-        List<String> result=new ArrayList<>();
-        if(digits.equals(""))
-            return result;
-        HashMap<Character,String> map=new HashMap<>();
-        map.put('2',"abc");map.put('3',"def");map.put('4',"ghi");
-        map.put('5',"jkl");map.put('6',"mno");map.put('7',"pqrs");
-        map.put('8',"tuv");map.put('9',"wxyz");
-        digits+='0';//后面加一个0
-        char [] chs=digits.toCharArray();
-        process(0,chs,"",result,map.get(chs[0]),map);
+        if (digits.equals("")) {
+            return new ArrayList<String>();
+        }
+        char[] chs = digits.toCharArray();
+        Map<Character, String> map = new HashMap<>();
+        map.put('2', "abc");
+        map.put('3', "def");
+        map.put('4', "ghi");
+        map.put('5', "jkl");
+        map.put('6', "mno");
+        map.put('7', "pqrs");
+        map.put('8', "tuv");
+        map.put('9', "wxyz");
+        List<String> result = new ArrayList<>();
+        process(result, chs, map, 0, "");
         return result;
     }
 
-    public static void process(int index, char [] chs, String perStr, List<String> result, String curStr, HashMap<Character,String> map){
-
-        if(curStr==null){ //baseCase
-            result.add(perStr);
+    public static void process(List<String> result, char[] chs, Map<Character, String> map, int index, String tempStr) {
+        if (index == chs.length) {
+            result.add(tempStr);
             return;
         }
-
-        for(int i=0; i<curStr.length();i++){
-
-            String cp1=new String(perStr);
-            cp1+=curStr.charAt(i);
-            process(index+1,chs,cp1,result,map.get(chs[index+1]),map);
-        }
-
-    }
-
-    public List<String> letterCombinations1(String digits) {
-        List<String> result=new ArrayList<>();
-        if(digits.equals(""))
-            return result;
-        String [] all={"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
-        digits+='0';//后面加一个0
-        char [] chs=digits.toCharArray();
-        process1(0,chs,"",result,all[chs[0]-'0'],all);
-        return result;
-    }
-
-    public void process1(int index, char [] chs, String perStr, List<String> result, String curStr, String [] all){
-
-        if(curStr.equals("")){ //baseCase
-            result.add(perStr);
-            return;
-        }
-
-        for(int i=0; i<curStr.length();i++){
-
-            String cp1=new String(perStr);
-            cp1+=curStr.charAt(i);
-            process1(index+1,chs,cp1,result,all[chs[index+1]-'0'],all);
+        for (int i = 0; i < map.get(chs[index]).length(); i++) {
+            process(result, chs, map, index + 1, tempStr + map.get(chs[index]).charAt(i));
         }
     }
 

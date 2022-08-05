@@ -29,20 +29,16 @@ public class CountBitsTest {
     public int[] countBits(int n) {
         int [] dp=new int [n+1];
         dp[0]=0;
-        if(n+1==1){ //n==0时
+        if(n==0){
             return dp;
         }
         dp[1]=1;
-        if(n+1==2){ //n==1时
-            return dp;
-        }
-
+        //i为偶数 dp[i]==dp[i>>1]
+        //i为奇数 dp[i]=dp[i>>1]+1
         for(int i=2;i<n+1;i++){
             if((i&1)==0){//偶数
                 dp[i]=dp[i>>1];
             }else{//奇数
-                //dp[i]=dp[i-1]+1;
-                //或者
                 dp[i]=dp[i>>1]+1;
             }
         }

@@ -11,21 +11,34 @@ package com.wyr.leetcode.step1.dp;
  * 输出：5
  * 解释：在第 2 天（股票价格 = 1）的时候买入，在第 5 天（股票价格 = 6）的时候卖出，最大利润 = 6-1 = 5 。
  *      注意利润不能是 7-1 = 6, 因为卖出价格需要大于买入价格；同时，你不能在买入前卖出股票。
+ *
+ * https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/submissions/
 
  */
 
 
-
-
-
-
-
-
-
 public class MaxProfitTest {
 
-    //最优的解决方法（目前为止所能想到的）
+    //可以不新开数组，直接记录minPrice
     public int maxProfitBest(int[] prices) {
+        int N=prices.length;
+        if(N==1)
+            return 0;
+        //minPrice记录[0,i]天中的最小价格
+        int minPrice=prices[0];
+        int maxSal=0;
+
+        for(int i=1;i<N;i++){
+            if(prices[i]<minPrice){
+                minPrice=prices[i];
+            }
+            maxSal=Math.max(prices[i]-minPrice,maxSal);
+        }
+        return maxSal;
+    }
+
+    //用数组
+    public int maxProfit3(int[] prices) {
         int N=prices.length;
         //dp1[i]代表我在第i天卖出所能获得的最大利润
         int dp1[]=new int [N];
@@ -54,6 +67,9 @@ public class MaxProfitTest {
         }
         return maxSal;
     }
+
+
+
 
 
 

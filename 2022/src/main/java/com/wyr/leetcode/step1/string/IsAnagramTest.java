@@ -12,6 +12,8 @@ package com.wyr.leetcode.step1.string;
  * 输入: s = "rat", t = "car"
  * 输出: false
  *
+ * https://leetcode.cn/problems/valid-anagram/submissions/
+ *
  */
 public class IsAnagramTest {
         public static void main(String[] args) {

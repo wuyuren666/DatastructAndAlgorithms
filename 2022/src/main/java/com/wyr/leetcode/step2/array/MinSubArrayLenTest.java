@@ -22,16 +22,16 @@ public class MinSubArrayLenTest {
         int L=0;
         int R=0;
         int tempSum=0;
-        int resLen=Integer.MAX_VALUE;
-        while (R<N){
+        int res=Integer.MAX_VALUE;
+        while(R< nums.length){
             tempSum+=nums[R];
-            while (tempSum>=target){
-                resLen=Math.min(resLen,R-L+1);
+            while(tempSum>=target){
+                res=Math.min(res,R-L+1);
                 tempSum-=nums[L++];
             }
             R++;
         }
-        return (resLen==Integer.MAX_VALUE?0:resLen);
+        return res;
     }
 }
 

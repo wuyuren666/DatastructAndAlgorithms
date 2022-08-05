@@ -26,7 +26,7 @@ public class Morris {
             //cur有没有左树
             mostRight=cur.left;
             if(mostRight!=null){ // 有左树的节点回来到自己两次
-                while(mostRight.right!=null&&mostRight!=cur){ //mostRight来到除了cur本身的真正的左树的最右节点
+                while(mostRight.right!=null&&mostRight.right!=cur){ //mostRight来到除了cur本身的真正的左树的最右节点
                     mostRight=mostRight.right;
                 }
                 if(mostRight.right==null){//第一次来到自己

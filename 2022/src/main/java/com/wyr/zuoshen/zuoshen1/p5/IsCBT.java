@@ -6,7 +6,8 @@ import java.util.Queue;
 /**
  *判断一棵树是否为完全二叉树(CBT：completed Binary Tree)
  *思想：
- * 条件一：当前节点只要有右无左，则false
+ * 二叉树的层序遍历
+ * 条件一：当前节点只要有右孩子，没有左孩子，false
  * 条件二：在条件一不违规的情况下，如果遇到了了第一个左右孩子不全的节点，后续皆为叶子节点
  */
 public class IsCBT {

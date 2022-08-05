@@ -16,37 +16,38 @@ public class SubSets {
      */
 
     public static List<List<Integer>> subsets(int[] nums) {
-        List<List<Integer>> result = new ArrayList<>();
-        process(0, result, nums, new ArrayList<Integer>());
+        List<List<Integer>> result=new ArrayList<>();
+        process(result,new ArrayList<Integer>(),nums,0);
         return result;
     }
 
-    public static void process(int index, List<List<Integer>> result, int[] nums, List<Integer> list) {
-        if (index == nums.length) { //baseCase
-            result.add(list);//将当前结果保存到最终结果的list
+    public static void process(List<List<Integer>> result,List<Integer> tempList,int [] nums, int index){
+        if(index==nums.length){
+            result.add(tempList);
             return;
         }
-        List<Integer> cpList1 = copyList(list);//拷贝一份当前的结果
-        //要当前的数
-        cpList1.add(nums[index]);
-        process(index + 1, result, nums, cpList1);
-        List<Integer> cpList2 = copyList(list);//拷贝一份当前的结果
-        //不要当前的数
-        process(index + 1, result, nums, cpList2);
+        //复制一份
+        List<Integer> list1=copyList(tempList);
+        list1.add(nums[index]);
+        //加入当前数据
+        process(result,list1,nums,index+1);
+        //不加入当前数据
+        process(result,tempList,nums,index+1);
     }
 
-
-    //拷贝一份list
-    public static List<Integer> copyList(List<Integer> list) {
-        List<Integer> result = new ArrayList<>();
-        for (Integer i : list) {
-            result.add(i);
+    public static List<Integer> copyList(List<Integer> list){
+        List<Integer> res=new ArrayList<>(list.size());
+        for(int i=0;i<list.size();i++){
+            res.add(list.get(i));
         }
-        return result;
+        return res;
     }
 
     public static void main(String[] args) {
-        int[] a={1,2};
-        subsets(a);
+        int[] a={1,2,3};
+        List<List<Integer>> subsets = subsets(a);
+        subsets.forEach(integers -> {integers.forEach(System.out::print);
+            System.out.println();
+        });
     }
 }

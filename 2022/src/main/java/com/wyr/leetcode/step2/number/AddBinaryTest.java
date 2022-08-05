@@ -20,66 +20,61 @@ public class AddBinaryTest {
 
 
     public static String addBinary(String a, String b) {
-        int lengthA = a.length();
-        int lengthB = b.length();
-        char [] longArr;
-        char [] smallArr;
-        //首先转化为字符数组
-        if (lengthA >= lengthB) {
-            longArr = new StringBuilder(a).reverse().toString().toCharArray();
-            smallArr = new StringBuilder(b).reverse().toString().toCharArray();
-        } else {
-            longArr = new StringBuilder(b).reverse().toString().toCharArray();
-            smallArr = new StringBuilder(a).reverse().toString().toCharArray();
+        int aLength=a.length();
+        int bLength=b.length();
+        char [] longChs;
+        char [] shortChs;
+        if(aLength>=bLength){
+            longChs=new StringBuilder(a).reverse().toString().toCharArray();
+            shortChs=new StringBuilder(b).reverse().toString().toCharArray();
+        }else{
+            longChs=new StringBuilder(b).reverse().toString().toCharArray();
+            shortChs=new StringBuilder(a).reverse().toString().toCharArray();
         }
 
+        int jinWeiInfo=0;//进位信息
 
-        int info = 0;//进位信息
-        for (int i = 0; i < smallArr.length; i++) {
-            int binaryNum =( longArr[i]-'0') + (smallArr[i]-'0') + info;
-            if (binaryNum >= 2) {
-                if(binaryNum % 2==0){
-                    longArr[i] = '0';
-                }else {
-                    longArr[i] = '1';
-                }
-                info = 1;
-            } else {
-                if(binaryNum==0){
-                    longArr[i] ='0';
-                }else{
-                    longArr[i] ='1';
-                }
-                info = 0;
+        int p1=0,p2=0;
+        while(p2<shortChs.length){
+            int curNum=(longChs[p1]-'0')+(shortChs[p2]-'0')+jinWeiInfo;
+            if(curNum==0){
+                longChs[p1]='0';
+                jinWeiInfo=0;
+            }else if(curNum==1){
+                longChs[p1]='1';
+                jinWeiInfo=0;
+            }else if(curNum==2){
+                longChs[p1]='0';
+                jinWeiInfo=1;
+            }else{
+                longChs[p1]='1';
+                jinWeiInfo=1;
             }
+            p1++;
+            p2++;
         }
 
-        for (int i = smallArr.length; i < longArr.length; i++) {
-            int binaryNum =( longArr[i]-'0') + info;
-            if (binaryNum >= 2) {
-                if(binaryNum % 2==0){
-                    longArr[i] = '0';
-                }else {
-                    longArr[i] = '1';
-                }
-                info = 1;
-            } else {
-                if(binaryNum==0){
-                    longArr[i] ='0';
-                }else{
-                    longArr[i] ='1';
-                }
-                info = 0;
+        while(p1<longChs.length){
+            int curNum=(longChs[p1]-'0')+jinWeiInfo;
+            if(curNum==0){
+                longChs[p1]='0';
+                jinWeiInfo=0;
+            }else if(curNum==1){
+                longChs[p1]='1';
+                jinWeiInfo=0;
+            }else if(curNum==2){
+                longChs[p1]='0';
+                jinWeiInfo=1;
+            }else{
+                longChs[p1]='1';
+                jinWeiInfo=1;
             }
+            p1++;
         }
-
-        StringBuilder result = new StringBuilder(new String(longArr));
-        if (info == 0) {
-            return result.reverse().toString();
-        } else {
-            return result.append(1).reverse().toString();
+        if(jinWeiInfo!=0){
+            return new StringBuilder(String.valueOf(longChs)).append('1').reverse().toString();
         }
-
+        return new StringBuilder(String.valueOf(longChs)).reverse().toString();
     }
 
     public static void main(String[] args) {

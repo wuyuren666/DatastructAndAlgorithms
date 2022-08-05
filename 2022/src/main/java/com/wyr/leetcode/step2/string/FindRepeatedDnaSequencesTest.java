@@ -1,9 +1,6 @@
 package com.wyr.leetcode.step2.string;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class FindRepeatedDnaSequencesTest {
     /**
@@ -28,21 +25,20 @@ public class FindRepeatedDnaSequencesTest {
         if(s.length()<=10){
             return new ArrayList<>();
         }
-        int L=0,R=10;
-        Map<String,Integer> map=new HashMap<>();
-        map.put(s.substring(0,R),1); //先加入前十个
-        List<String> resList=new ArrayList<>();
-        while(R<s.length()){
-            String curStr=s.substring(++L,++R); //
-            if(map.containsKey(curStr)){
-                map.put(curStr,map.get(curStr)+1);
-                if(map.get(curStr)==2){ //在出现第二次的时候加入一次，出现第三次...不会加
-                    resList.add(curStr);
-                }
-            }else{
-                map.put(curStr,1);
+        List<String> list=new ArrayList<>();
+        Set<String> set=new HashSet<>(); //去重
+        Set<String> map=new HashSet<>(); //记录出现过的string
+        for(int i=0;i<=s.length()-10;i++){
+            String tempStr=s.substring(i,i+10);
+            if(!map.contains(tempStr)){ //不存在map中就记录
+                map.add(tempStr);
+            }else{//已经存在于map中
+                set.add(tempStr);
             }
         }
-        return resList;
+        for(String str: set){
+            list.add(str);
+        }
+        return list;
     }
 }

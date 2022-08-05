@@ -9,20 +9,26 @@ package com.wyr.leetcode.step1.array;
  *
  * 输入: nums = [0]
  * 输出: [0]
+ *
+ * https://leetcode.cn/problems/move-zeroes/submissions/
  */
 public class MoveZeroesTest {
     public static void moveZeroes(int[] nums) {
         //双指针，指针1，指针2开始的时候都指向0位置
         //指针1每次都向右移动，如果指向的数==0不做任何事，否则nums[指针2++]=nums[i]
-        int p1=0,p2=0;
-        for(;p1<nums.length;p1++){
-            if(nums[p1]!=0){
-                nums[p2++]=nums[p1];
+        int p1=0,p2=0;//双指针
+        int zeroCount=0;//记录零的个数
+        while(p2<nums.length){
+            if(nums[p2]==0){ //p2指向的是0
+                p2++;
+                zeroCount++;
+            }else{
+                nums[p1++]=nums[p2++];
             }
         }
         //后面补零
-        for(;p2<nums.length;p2++){
-            nums[p2]=0;
+        while(p1<nums.length){
+            nums[p1++]=0;
         }
     }
 }

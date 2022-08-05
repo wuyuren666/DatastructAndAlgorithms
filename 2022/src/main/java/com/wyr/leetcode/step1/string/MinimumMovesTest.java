@@ -13,15 +13,15 @@ public class MinimumMovesTest {
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
     public int minimumMoves(String s) {
-        int p=0; //单指针
-        int N=s.length();
+        int p=0;
+        char[] chs=s.toCharArray();
         int res=0;
-        while(p<=N-1){
-            if(s.charAt(p)=='O'){
-                p++;
-            }else{
+        while(p<chs.length){
+            if(chs[p]=='X'){
                 p+=3;
                 res++;
+            }else{
+                p++;
             }
         }
         return res;

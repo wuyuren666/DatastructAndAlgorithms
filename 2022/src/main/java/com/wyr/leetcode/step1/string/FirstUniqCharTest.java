@@ -11,6 +11,8 @@ import java.util.*;
  *
  * 输入: s = "aabb"
  * 输出: -1
+ *
+ * https://leetcode.cn/problems/di-yi-ge-zhi-chu-xian-yi-ci-de-zi-fu-lcof/
  */
 
 
@@ -30,6 +32,7 @@ public class FirstUniqCharTest {
         for (char c : chars) { //利用HashMap的特点
             map.put(c, map.containsKey(c) == true ? map.get(c) + 1 : 1);
         }
+
         for (char c : chars) {
             if (map.get(c) == 1) {
                 return index;

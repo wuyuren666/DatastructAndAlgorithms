@@ -22,18 +22,43 @@ public class Code1 {
     //（样本对应模型）,一个样本做行，一个样本做列，就以他们的结尾来做可能性
 
     //暴力递归版本
-    public int longestCommonSubsequence1(String text1, String text2) {
+    public static int longestCommonSubsequence1(String text1, String text2) {
         if(text1==null||text2==null||text1.length()==0||text2.length()==0){
             return 0;
         }
         char[] chs1=text1.toCharArray();
         char[] chs2=text2.toCharArray();
 
-        return process(chs1,chs2,chs1.length-1,chs2.length-1);
+        return process81(chs1,chs2,chs1.length-1,chs2.length-1);
+    }
+
+    //从结尾的可能性去考虑
+    public static int process81(char [] c1, char[] c2, int i, int j){
+        if(i==0&&j==0){
+            return (c1[i]==c2[j]?1:0);
+        }else if(i==0){
+            if(c1[i]!=c2[j]){
+                return process(c1,c2,i,j-1);
+            }
+            return 1;
+        }else if(j==0){
+            if(c1[i]!=c2[j]){
+                return process(c1,c2,i-1,j);
+            }
+            return 1;
+        }else {
+            //可能以i结尾，但是一定不以j结尾
+            int p1=process(c1,c2,i,j-1);
+            //可能以j结尾，但是一定不以i结尾
+            int p2=process(c1,c2,i-1,j);
+            //可能以i结尾，也可能以j结尾
+            int p3=c1[i]==c2[j]?1+process(c1,c2,i-1,j-1):0;
+            return Math.max(Math.max(p1,p2),p3);
+        }
     }
 
     //我们就从0~i和0~j的范围上去考虑
-    public int process(char [] chs1, char[] chs2, int i, int j){
+    public static int process(char [] chs1, char[] chs2, int i, int j){
         if(i==0&&j==0){
             return chs1[i]==chs2[j]?1:0;
         }else if(i==0){
@@ -105,7 +130,7 @@ public class Code1 {
     }
 
     public static void main(String[] args) {
-        System.out.println(longestCommonSubsequence2("asd", "dad"));
+        System.out.println(longestCommonSubsequence1("asded", "dadef"));
     }
 
 }

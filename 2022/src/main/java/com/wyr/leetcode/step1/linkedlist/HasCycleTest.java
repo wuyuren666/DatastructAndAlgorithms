@@ -14,26 +14,26 @@ import java.util.Set;
  */
 public class HasCycleTest {
     public static void main(String[] args) {
-        Node node1 = new Node(3);
-        Node node2 = new Node(1);
-        Node node3 = new Node(5);
-        Node node4 = new Node(0);
-        Node node5 = new Node(4);
-        node1.next=node2;
-        node2.next=node3;
-        node3.next=node4;
-        node4.next=node5;
-        node5.next=null;
-        System.out.println(hasCycle1(node1));
+        ListNode listNode1 = new ListNode(3);
+        ListNode listNode2 = new ListNode(1);
+        ListNode listNode3 = new ListNode(5);
+        ListNode listNode4 = new ListNode(0);
+        ListNode listNode5 = new ListNode(4);
+        listNode1.next= listNode2;
+        listNode2.next= listNode3;
+        listNode3.next= listNode4;
+        listNode4.next= listNode5;
+        listNode5.next=null;
+        System.out.println(hasCycle1(listNode1));
 
     }
 
     //使用快慢指针，快指针一次走两步，慢指针一次走一步
     //如果有环，那么快慢指针肯定会相遇
-    public static boolean hasCycle1(Node head){
-        Node slow=head;
-        Node fast=head;
-        while (fast!=null&&fast.next!=null){
+    public static boolean hasCycle1(ListNode head){
+        ListNode slow=head;
+        ListNode fast=head;
+        while (fast.next!=null&&fast.next.next!=null){
             slow=slow.next;
             fast=fast.next.next;
             if(slow==fast) //注意这是引用类型的==比较，比较的是，这两个指针指向的是否是同一个对象。
@@ -44,8 +44,8 @@ public class HasCycleTest {
 
 
     //使用Set集合，利用Set集合不重复的原理
-    public static boolean hasCycle2(Node head){
-        Set<Node> set=new HashSet<>();
+    public static boolean hasCycle2(ListNode head){
+        Set<ListNode> set=new HashSet<>();
         while (head!=null){
             //如果重复出现说明有环
             if(set.contains(head))

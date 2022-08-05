@@ -23,8 +23,6 @@ public class GetMax {
 
 
 
-
-
     public static int process510(int [] arr, int L, int R){
         if(L==R){
             return arr[L];

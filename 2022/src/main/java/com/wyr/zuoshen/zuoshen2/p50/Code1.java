@@ -12,11 +12,11 @@ public class Code1 {
         //p2如果指向g，就累加结果，p1，p2同时向后移
         //p2如果不指向g，p2向后移动，p1不动
         while(p2<=strLen-1){
-            if(s.charAt(p2)=='G'){
-                minRes+=p2++-p1++;
-            }else {
-                p2++;
-            }
+           if(s.charAt(p2)=='G'){ //p2指向的是G
+               minRes+=p2++-p1++;
+           }else{
+               p2++;
+           }
         }
         return minRes;
     }

@@ -19,7 +19,7 @@ public class FindLengthTest {
     public int findLength(int[] nums1, int[] nums2) {
         int N1=nums1.length;
         int N2=nums2.length;
-        //dp[i][j]代表在nums1[0...i]范围上和nums2[0...j]范围上的最长公共子数组的长度
+        //dp[i][j]含义：nums1中以i结尾的子数组和nums2中以j结尾的子数组中 公共的 、长度最长的子数组的长度。
         int [][] dp=new int [N1][N2];
         //先填上边和左边
         int ans=Integer.MIN_VALUE;

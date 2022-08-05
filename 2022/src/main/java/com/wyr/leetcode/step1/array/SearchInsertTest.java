@@ -13,22 +13,19 @@ package com.wyr.leetcode.step1.array;
 public class SearchInsertTest {
 
     public int searchInsert(int[] nums, int target) {
-        int L=0; //最左边的下标
-        int R=nums.length-1; //最右边的下标
-        int mid=0; //中间下标
-        int res=-1; //返回结果
-        while(L<=R){
-            mid=L+((R-L)>>1);
+        //使用二分法，就是找到数组中>=target的最左边的下标（就是第一个>=target的下标）
+        int left=0;
+        int right=nums.length-1;
+        int res=-1;
+        while(left<=right){
+            int mid=left+((right-left)>>1);
             if(nums[mid]>=target){
+                right=mid-1;
                 res=mid;
-                R=mid-1;
-            }else {
-                L=mid+1;
+            }else{
+                left=mid+1;
             }
         }
-        if(res==-1){
-            return nums.length;
-        }
-        return res;
+        return res==-1?nums.length:res;
     }
 }

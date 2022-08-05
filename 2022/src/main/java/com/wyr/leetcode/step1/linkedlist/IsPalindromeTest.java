@@ -12,26 +12,26 @@ import java.util.LinkedList;
  */
 public class IsPalindromeTest {
     public static void main(String[] args) {
-        Node node1 = new Node(1);
-        Node node2 = new Node(2);
-        Node node3 = new Node(1);
+        ListNode listNode1 = new ListNode(1);
+        ListNode listNode2 = new ListNode(2);
+        ListNode listNode3 = new ListNode(1);
         //Node node4 = new Node(1);
-        node1.next=node2;
-        node2.next=node3;
-        node3.next=null;
+        listNode1.next= listNode2;
+        listNode2.next= listNode3;
+        listNode3.next=null;
        /* node3.next=node4;
         node4.next=null;*/
-        System.out.println(isPalindrome2(node1));
+        System.out.println(isPalindrome2(listNode1));
     }
 
 
     //思路：使用栈去解决，但是时间复杂度比较高
-    public static boolean isPalindrome1(Node head){
+    public static boolean isPalindrome1(ListNode head){
         if(head.next==null)//一个节点肯定是回文链表
             return true;
         //使用栈去解决
-        LinkedList<Node> stack=new LinkedList<>();
-        Node temp=head;
+        LinkedList<ListNode> stack=new LinkedList<>();
+        ListNode temp=head;
         while(temp!=null){
             stack.add(temp);
             temp=temp.next;
@@ -48,44 +48,41 @@ public class IsPalindromeTest {
 
 
     //思路：不使用栈，使用快慢指针
-    public static boolean isPalindrome2(Node head){
-        if(head.next==null)//一个节点肯定是回文链表
+    public static boolean isPalindrome2(ListNode head){
+        if(head==null||head.next==null){
             return true;
+        }
+        ListNode slow=head;
+        ListNode fast=head;
 
-        Node slow=head;//慢指针
-        Node fast=head;//快指针
-        while (fast!=null&&fast.next!=null){
+        while(fast.next!=null&&fast.next.next!=null){
             slow=slow.next;
             fast=fast.next.next;
         }
-        //如果节点个数为奇数个时，slow刚好指向中间那个节点，fast指向最后一个节点 fast!=null
-        //如果节点个数为偶数个是，slow指向n/2+1的那个节点，fast指向null fast==null
+        //slow.next：如果是偶数时就是下中点，奇数时就是中点后一个
+        slow=reverse(slow.next);
+        ListNode temp=slow; //保存一下头节点，因为后面需要再次反转回来
+        fast=head; //fast来到开头
+        boolean result=true; //最终返回的结果
 
-        //奇数个时，将slow往后移动一位，1->2->3->2->1->null，使slow指向2就行
-        if(fast!=null){
-            slow=slow.next;
-        }
-
-        //反转链表
-        slow = reverse(slow);
-
-        //让fast重新指向head
-        fast=head;
-
-        while (slow!=null){
-            if(slow.id!=fast.id)
-                return false;
+        while(slow!=null){
+            if(slow.id!=fast.id){
+                result=false;
+                break;
+            }
             slow=slow.next;
             fast=fast.next;
         }
-        return true;
+
+        reverse(temp);//链表回归原状
+        return result;
     }
 
-
-    public static Node reverse(Node head){
-        Node pre=null;
-        Node temp;
-        Node cur=head;
+    //反转链表，并返回新链表的头节点
+    public static ListNode reverse(ListNode head){
+        ListNode pre=null;
+        ListNode temp=null;
+        ListNode cur=head;
         while (cur!=null){
             temp=cur.next;
             cur.next=pre;

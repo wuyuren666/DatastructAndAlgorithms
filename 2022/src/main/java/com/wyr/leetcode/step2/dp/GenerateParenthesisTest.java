@@ -14,23 +14,22 @@ public class GenerateParenthesisTest {
      */
 
     public List<String> generateParenthesis(int n) {
-        List<String> res=new ArrayList<>();
-        process(n,n,"",res);
-        return res;
+        //只要右括号个数大于左括号个数就放
+        //只要有左括号就放
+        List<String> result=new ArrayList<>();
+        process(result,n,n,"");
+        return result;
     }
-    public void process(int left, int right, String curStr, List<String> res){
-        if(left==0&&right==0){//baseCase
-            res.add(curStr);
+    public void process(List<String> result, int leftCount , int rightCount , String tempStr){
+        if(leftCount==0&&rightCount==0){
+            result.add(tempStr);
+            return;
         }
-
-        //如果左括号还剩余的话，添加左括号
-        if(left >0){
-            process(left-1,right,curStr+"(",res);
+        if(leftCount>0){
+            process(result,leftCount-1,rightCount, tempStr+"(");
         }
-        //如果右括号>左括号的话，加右括号
-        if(right>left){
-            process(left,right-1,curStr+")",res);
+        if(rightCount>leftCount){
+            process(result,leftCount,rightCount-1, tempStr+")");
         }
-
     }
 }

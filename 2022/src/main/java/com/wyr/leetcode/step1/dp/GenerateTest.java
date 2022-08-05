@@ -12,7 +12,6 @@ public class GenerateTest {
      * https://leetcode.cn/problems/pascals-triangle/
      */
 
-
     public List<List<Integer>> generate(int numRows) {
         List<List<Integer>> res=new ArrayList<>();
         List<Integer> temp=new ArrayList<>();

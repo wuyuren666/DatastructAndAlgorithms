@@ -17,25 +17,33 @@ package com.wyr.leetcode.step1.dp;
  * https://leetcode.cn/problems/lian-xu-zi-shu-zu-de-zui-da-he-lcof/
  */
 public class MaxSubArrayTest {
-
-
     //最好
     public static int maxSubArray3(int[] nums) {
-        int n=nums.length;
-        // dp[i]的含义：以nums[i]结尾的连续子数组的最大和
-        int [] dp=new int [n];
-        dp[0]=nums[0];
-        int maxSum=dp[0];
-        for(int i=1;i<n;i++){
-            //前面的以nums[i-1]结尾的连续子数组的和如果为正数，就加入
-            if(dp[i-1]>0)
-                dp[i]=dp[i-1]+nums[i];
-            else //以nums[i-1]结尾的连续子数组的和为负数
-                dp[i]=nums[i];
-            maxSum=dp[i]>maxSum?dp[i]:maxSum;
+        if(nums.length==1){
+            return nums[0];
         }
-        return maxSum;
+        int N=nums.length;
+        //这个dp的含义一定要想好
+        //dp[i]代表以i结尾的连续子数组的最大和
+        int [] dp=new int [N];
+        dp[0]=nums[0];
+        int res=dp[0];
+        for(int i=1;i<N;i++){
+            //如果dp[i-1]是负数，就自成一家
+            if(dp[i-1]<0){
+                dp[i]=nums[i];
+            }else{
+                //dp[i-1]为正数，你当前数是正数就上更大，为负数加上一个正数也比你自成一家好
+                dp[i]=dp[i-1]+nums[i];
+            }
+            res=Math.max(res,dp[i]);
+        }
+        return res;
     }
+
+
+
+
 
     //暴力递归版本
     public static int maxSubArray(int[] nums) {

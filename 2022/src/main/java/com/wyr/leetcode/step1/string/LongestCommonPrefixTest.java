@@ -16,34 +16,31 @@ public class LongestCommonPrefixTest {
      * https://leetcode.cn/problems/longest-common-prefix/
      */
     public String longestCommonPrefix(String[] strs) {
-        if(strs.length==0){
-            return "";
-        }
-        if(strs.length==1){
+        if(strs.length==1){ //长度为1，直接返回
             return strs[0];
         }
-        StringBuilder sb=new StringBuilder();
-        String big=strs[0].length()>strs[1].length()?strs[0]:strs[1];
-        String small= big.equals(strs[0])?strs[1]:strs[0];
-        //首先在前两个数组元素中去找到最长的公共前缀
-        process(small,big,0,sb);
-        for(int i=2;i<strs.length;i++){
-            big=sb.toString().length()>strs[i].length()?sb.toString():strs[i];
-            small=big.equals(sb.toString())?strs[i]:sb.toString();
-            sb=new StringBuilder();
-            process(small,big,0,sb);
-        }
-        return sb.toString();
-    }
 
-    public void process(String small,String big, int index ,StringBuilder sb){
-        if(index==small.length()){
-            return;
+        int smallLength=Integer.MAX_VALUE;
+        //找到长度最小的字符串
+        for(String str : strs){
+            smallLength=Math.min(smallLength,str.length());
         }
-        if(small.charAt(index)!=big.charAt(index)){
-            return;
+
+        int res=0; //最终的最长前缀结果
+        for(int i=0;i<smallLength;i++){
+            boolean flag=true;
+            char tempChar=strs[0].charAt(i);
+            for(int j=1;j<strs.length;j++){
+                if(strs[j].charAt(i)!=tempChar){
+                    flag=false;
+                    break;
+                }
+            }
+            if(flag)
+                res++;
+            else
+                break;
         }
-        sb.append(small.charAt(index));
-        process(small,big,index+1,sb);
+        return res==0?"":strs[0].substring(0,res);
     }
 }

@@ -11,7 +11,6 @@ public class Code1 {
     public static int jump1(int x, int y ,int k){
         return process(0,0,k,x,y);
     }
-
     /**
      * 暴力递归版本
      * @param curX  当前横坐标位置
@@ -26,9 +25,11 @@ public class Code1 {
         if(curX>9||curX<0||curY>8||curY<0){
             return 0;
         }
+
         if(rest==0){ //当还剩下0步时，当前位置如果来到目标位置，则找到一种方法
             return (curX==aimX&&curY==aimY?1:0);
         }
+
         //普遍情况，有八种方向可以走
         int ways=process(curX+1,curY+2,rest-1,aimX,aimY);
         ways+=process(curX+2,curY+1,rest-1,aimX,aimY);

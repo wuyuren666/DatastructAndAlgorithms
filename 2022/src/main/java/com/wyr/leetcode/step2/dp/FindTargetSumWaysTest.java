@@ -92,22 +92,15 @@ public class FindTargetSumWaysTest {
         //使用背包问题去解决
         return process2(nums, 0, P);
     }
+    //背包问题简化版
     public static int process2(int [] nums, int index, int rest){
         if(index==nums.length){ //没数可选了
             return (rest==0?1:0);
         }
-        if(rest<0){
-            return -1; //给一个标识位
-        }
         //不要当前的数
-        int p1=0;
-        p1+= process2(nums,index+1,rest);
-
-        int p2=0;
+        int p1= process2(nums,index+1,rest);
         //要当前的数
-        if(process2(nums,index+1,rest-nums[index])!=-1){
-            p2+=process2(nums,index+1,rest-nums[index]);
-        }
+        int p2= process2(nums,index+1,rest-nums[index]);
         return p1+p2;
     }
 
@@ -157,6 +150,7 @@ public class FindTargetSumWaysTest {
     public static void main(String[] args) {
         int [] arr={10,9,6,4,19,0,41,30,27,15,14,39,33,7,34,17,24,46,2,46};
         System.out.println(wayBest2(arr, 45));
+        System.out.println(wayBest1(arr, 45));
 
     }
 }

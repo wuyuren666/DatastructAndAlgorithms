@@ -1,10 +1,7 @@
 package com.wyr.leetcode.step3.array;
 
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class MedianSlidingWindowTest {
     /**
@@ -20,31 +17,30 @@ public class MedianSlidingWindowTest {
      * 链接：https://leetcode.cn/problems/sliding-window-median
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
+
     //大顶堆和小顶堆
-    public  PriorityQueue<Node> maxTopHeap;
-    public  PriorityQueue<Node> minTopHeap;
+    public static  PriorityQueue<Long> maxTopHeap;
+    public  static PriorityQueue<Long> minTopHeap;
 
-    public class Node{
-        public int index;
-        public int value;
-
-        public Node(int index, int value){
-            this.index=index;
-            this.value=value;
-        }
-
-        //在这里重写equals方法
-        //因为我们想根据index是否相同去判断是否是同一个对象
-        public boolean equals(Object o){
-            Node temp=(Node) o;
-            return this.value== temp.value?true:false;
-        }
-    }
-
-    public double[] medianSlidingWindow(int[] nums, int k) {
-        //因为有可能溢出，所以我们进行强制类型转换为精度更高的double类型
-        maxTopHeap=new PriorityQueue<>((o1,o2)->(int)((double)o2.value-(double)o1.value));
-        minTopHeap=new PriorityQueue<>((o1,o2)->(int)((double)o1.value-(double)o2.value));
+    public static double[] medianSlidingWindow(int[] nums, int k) {
+        //初始化大/小顶堆
+        maxTopHeap=new PriorityQueue<>((o1,o2)->{
+            //因为我们  int compare(T o1, T o2) 返回值的类型应该为int
+            //应为题目数据给的很绝 -2147483648,2147483648
+            // 如果范型使用Integer肯定会溢出，所以范型我们使用Long
+            // 并且，如果直接return (int)(o1-o2)的话，如果o1=2147483648,o2=-2147483648。那么肯定会溢出
+            //所以不能写成原先的写法
+           if((o2-o1)>0){
+               return 1;
+           }
+           return -1;
+        });
+        minTopHeap=new PriorityQueue<>((o1,o2)->{
+            if((o1-o2)>0){
+                return 1;
+            }
+            return -1;
+        });
 
         int number=nums.length-k+1;//最终的结果个数
         double[] result=new double[number];
@@ -54,14 +50,14 @@ public class MedianSlidingWindowTest {
         if(temp<nums.length-1){
             for(int i=1;i<number;i++){
                 removeJthNode(nums,i-1); //每次移除掉前一个节点
-                result[i]=getMid(nums,i+k-1,i+k-1); //加入新的节点
+                result[i]=getMid(nums,i+k-1); //加入新的节点
             }
         }
         return result;
     }
 
-    public void removeJthNode(int [] nums, int index){
-        if(maxTopHeap.remove(new Node(index,nums[index]))==true){
+    public static void removeJthNode(int [] nums, int index){
+        if(maxTopHeap.remove((long)nums[index])==true){
             //如果两个堆的大小相差为2，则将较大堆的堆顶元素弹出，保存到另一个堆
             if(maxTopHeap.size()-minTopHeap.size()==2){
                 minTopHeap.add(maxTopHeap.poll());
@@ -70,31 +66,58 @@ public class MedianSlidingWindowTest {
             }
             return;
         }else{
+            minTopHeap.remove((long)nums[index]);
             //如果两个堆的大小相差为2，则将较大堆的堆顶元素弹出，保存到另一个堆
             if(maxTopHeap.size()-minTopHeap.size()==2){
                 minTopHeap.add(maxTopHeap.poll());
             }else if(minTopHeap.size()-maxTopHeap.size()==2){
                 maxTopHeap.add(minTopHeap.poll());
             }
-            minTopHeap.remove(new Node(index,nums[index]));
+        }
+    }
+    //重载
+    public static double getMid(int []nums, int curIndex){
+        //如果下面的数，比大顶堆的堆顶的数小，就放入大顶堆
+        if(maxTopHeap.size()==0){
+            maxTopHeap.add((long)nums[curIndex]);
+        }else{
+            if(nums[curIndex]<maxTopHeap.peek()){
+                maxTopHeap.add((long)nums[curIndex]);
+            }else {//否则，放入小顶堆
+                minTopHeap.add((long)nums[curIndex]);
+            }
+        }
+        //如果两个堆的大小相差为2，则将较大堆的堆顶元素弹出，保存到另一个堆
+        if(maxTopHeap.size()-minTopHeap.size()==2){
+            minTopHeap.add(maxTopHeap.poll());
+        }else if(minTopHeap.size()-maxTopHeap.size()==2){
+            maxTopHeap.add(minTopHeap.poll());
+        }
+
+        //如果最后两个堆的数量相同
+        if(maxTopHeap.size()==minTopHeap.size()){
+            //注意这里可能会溢出
+            return (double)(((double)maxTopHeap.peek()+(double)minTopHeap.peek())/2.0);
+        }else if(maxTopHeap.size()>minTopHeap.size()){
+            return (double)maxTopHeap.peek();
+        }else{
+            return (double)minTopHeap.peek();
         }
     }
 
-
-    public double getMid(int [] nums, int start, int end){
+    public static double getMid(int [] nums, int start, int end){
         int temp=start;
         if(maxTopHeap.size()==0){
-            maxTopHeap.add(new Node(temp,nums[temp]));
+            maxTopHeap.add((long)nums[temp]);
             temp++;
         }
         while(temp<=end){
             //如果下面的数，比大顶堆的堆顶的数小，就放入大顶堆
-            if(nums[temp]<=maxTopHeap.peek().value){
-                maxTopHeap.add(new Node(temp,nums[temp]));
+            if((long)nums[temp]<maxTopHeap.peek()){
+                maxTopHeap.add((long)nums[temp]);
             }else {//否则，放入小顶堆
-                minTopHeap.add(new Node(temp,nums[temp]));
+                minTopHeap.add((long)nums[temp]);
             }
-
             //如果两个堆的大小相差为2，则将较大堆的堆顶元素弹出，保存到另一个堆
             if(maxTopHeap.size()-minTopHeap.size()==2){
                 minTopHeap.add(maxTopHeap.poll());
@@ -106,15 +129,18 @@ public class MedianSlidingWindowTest {
         //如果最后两个堆的数量相同
         if(maxTopHeap.size()==minTopHeap.size()){
             //注意这里可能会溢出
-            return (double)(((double)maxTopHeap.peek().value+(double)minTopHeap.peek().value)/2.0);
+            return (double)(((double)maxTopHeap.peek()+(double)minTopHeap.peek())/2.0);
         }else if(maxTopHeap.size()>minTopHeap.size()){
-            return (double)maxTopHeap.peek().value;
+            return (double)maxTopHeap.peek();
         }else{
-            return (double)minTopHeap.peek().value;
+            return (double)minTopHeap.peek();
         }
     }
 
     public static void main(String[] args) {
+        int [] nums={-2147483648,-2147483648,2147483647,-2147483648,-2147483648,-2147483648,2147483647,2147483647,2147483647,2147483647,-2147483648,2147483647,-2147483648};
+        double[] doubles = medianSlidingWindow(nums, 3);
+        System.out.println(Long.MAX_VALUE);
     }
 
 }

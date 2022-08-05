@@ -67,13 +67,9 @@ public class Code1 {
         if(k==1){
             return head;
         }else{
-            while(head!=null){
-                if(k>1){
-                    head=head.next;
-                    k--;
-                }else{
-                    break;
-                }
+            while(head!=null&&k>1){
+                head=head.next;
+                k--;
             }
             return head;
         }

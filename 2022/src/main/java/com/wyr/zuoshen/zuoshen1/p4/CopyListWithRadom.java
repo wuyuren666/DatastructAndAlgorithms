@@ -18,16 +18,15 @@ public class CopyListWithRadom {
     public static Node copyListWithRadom(Node head){
         Map<Node,Node> map=new HashMap<>();
         Node cur=head;
-        while (cur!=null){
+        while(cur!=null){
             map.put(cur,new Node(cur.id));
             cur=cur.next;
         }
         cur=head;
-        while (cur != null) {
-            //map.get(cur)克隆节点,map.get(cur.next)拿出原先节点的next节点所对应的克隆节点
+        while(cur!=null){
+            //map.get(cur)当前cur对应的克隆节点，map.get(cur.next):cur的next对应的克隆节点
             map.get(cur).next=map.get(cur.next);
             map.get(cur).ramdom=map.get(cur.ramdom);
-            cur=cur.next;
         }
         return map.get(head);
     }

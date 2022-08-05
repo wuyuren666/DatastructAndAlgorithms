@@ -31,18 +31,72 @@ public class Code1 {
         return index;
     }
 
-    //滑动窗口的思想 O(N) ，类似于双指针
-    public static int maxPoint2(int []arr, int L){
+
+    //使用滑动窗口求最大的模版
+    public static int getMaxPoint83(int [] arr, int value){
         int left=0;
         int right=0;
-        int N=arr.length;
-        int max=0;
-        while(left<N){
-            while (right<N && arr[right]-arr[left]<=L){
+        int ans=Integer.MIN_VALUE;
+        while(right<arr.length){
+            //当条件不满足时候
+            while(arr[right]-arr[left]>value){
+                left++;
+            }
+            //从while循环中出来就是条件满足
+            ans=Math.max(ans,right-left+1);
+            right++;
+        }
+        return ans;
+    }
+
+
+
+
+
+
+    //滑动窗口的思想 O(N) ，类似于双指针，使用滑动窗口的模版
+    public static int maxPoint2(int []arr, int L){
+        int res=0;
+        int left=0,right=0;
+
+        while (right<arr.length){
+            while (arr[right]-arr[left]>L){ //不满足条件
+                left++;
+            }
+            res=Math.max(res,right-left+1); //更新结果
+            right++;
+        }
+        return res;
+    }
+
+
+
+
+
+
+    //滑动窗口的思想 O(N) ，类似于双指针
+    public static int maxPoint3(int []arr, int L){
+        int res=0;
+        int left=0,right=0;
+        while(left<arr.length) {
+            while (right < arr.length && arr[right] - arr[left] <= L) {
                 right++;
             }
-            max=Math.max(max, right-(left++));
+            res=Math.max(res,right-(left++));
         }
-        return max;
+        return res;
+
     }
+
+
+
+
+
+
+    public static void main(String[] args) {
+        int [] arr={3,5,6,7,10,11,12,14,15,17,22,25,26,27,29,31,32};
+        System.out.println(maxPoint2(arr,15));
+        System.out.println(getMaxPoint83(arr,15));
+    }
+
 }

@@ -38,7 +38,7 @@ public class Code2 {
             boolean flag=true;
             int tempk=k;
             while((passKthNode=getKthNode(head,k))!=null){
-                //先将下一个节点保存下来
+                //先将下一组的第一个节点保存下来
                 passKthNodeNext=passKthNode.next;
                 passKthNode.next=null;
                 if(flag){ //只会做一次

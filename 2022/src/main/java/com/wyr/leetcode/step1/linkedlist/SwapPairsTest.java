@@ -16,38 +16,39 @@ public class SwapPairsTest {
         if(head==null){
             return null;
         }
-        if(head.next==null){
+        if(head.next==null){ //只有一个节点
             return head;
         }
+        //顺序保存所有节点
         List<ListNode> list=new ArrayList<>();
+        ListNode res=head.next; //最终需要返回的结果
         ListNode cur=head;
-        ListNode result=head.next;
-        while(cur!=null){ //先将节点的按序保存到list集合中
+        //list装入所有节点
+        while(cur!=null){
             list.add(cur);
             cur=cur.next;
         }
-
-        ListNode pre=null; //第一次交换是没有前一个节点的
-        for(int i=0;i+1<list.size();i+=2){
-            if(pre==null){ //第一次交换
-                pre=swap(null,list.get(i),list.get(i+1));
-            }else{ //接下来的交换
+        //开始的时候pre为null
+        ListNode pre=null;
+        //两两交换
+        for(int i=0;i<list.size();i+=2){
+            if(i+1<list.size()){
                 pre=swap(pre,list.get(i),list.get(i+1));
             }
         }
-        return result;
+        return res;
     }
 
-    //两两交换节点，提供前一个节点，和交换的两个节点
+    //交换的逻辑，提供前一个节点和交换的两个节点，返回的是下一次交换所需要的前一个节点
     public ListNode swap(ListNode pre,ListNode o1,ListNode o2){
         ListNode temp=o2.next;
         if(pre==null){
-            o1.next=temp;
             o2.next=o1;
+            o1.next=temp;
         }else{
-            pre.next=o2;
-            o1.next=temp;
             o2.next=o1;
+            o1.next=temp;
+            pre.next=o2;
         }
         return o1;
     }

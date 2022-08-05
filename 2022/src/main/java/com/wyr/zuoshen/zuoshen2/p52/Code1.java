@@ -50,6 +50,7 @@ public class Code1 {
         return Math.max(p1,p2);
     }
 
+
     //leetCode上的题，加入傻缓存，最后过了：1ms，98.75%
     public int twoCitySchedCost(int[][] costs) {
         int M=costs.length;
