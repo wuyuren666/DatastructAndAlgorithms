@@ -1,14 +1,19 @@
 package com.wyr.zuoshen.zuoshen1.p1;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class PolandNotation {
+
     public static void main(String[] args) {
         //定义一个逆波兰表达式
         // (3+4)*5-6 -> 3 4 + 5 * 6 -
-        String suffixExpression = "3 4 + 5 * 6 -";
+        String suffixExpression = "2 3 / 2 * 4 -";
 
         List<String> rpnList = getListString(suffixExpression);
         System.out.println("rpnList = " + rpnList);

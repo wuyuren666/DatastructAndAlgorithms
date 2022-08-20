@@ -37,13 +37,16 @@ public class Code2 {
         }
     }
 
+
+
+
     public static Info process(Employee root){
         if(root.nexts.isEmpty()){ //baseCase，没有下级了
-            return new Info(root.happyValue,0);
+            return  new Info(root.happyValue,0);
         }
 
-        int yes=root.happyValue;
-        int no=0;
+        int yes=root.happyValue; //当前员工来的情况下的总的最大快乐值
+        int no=0; //不来情况下的总的最大快乐值
         for(Employee e: root.nexts){
             Info nextInfo = process(e);
             yes+= nextInfo.no; //root决定来，累加直接下级员工不来时的最大快乐值

@@ -7,8 +7,6 @@ package com.wyr.zuoshen.zuoshen1.p5;
  */
 public class IsFBT {
 
-
-
     public static class Info{
         public int nodes;
         public int heights;

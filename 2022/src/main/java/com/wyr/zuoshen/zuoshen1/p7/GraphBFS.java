@@ -8,6 +8,30 @@ import java.util.*;
 //每次将一个顶点的所有连接点进行访问
 public class GraphBFS {
 
+    public static void bfs_85(Node node){
+        //队列
+        LinkedList<Node> queue=new LinkedList<>();
+        //set集合
+        Set<Node> set=new HashSet<>();
+
+        queue.add(node);
+        set.add(node);
+        Node cur=null;
+        while(queue.size()!=0){
+            cur=queue.poll();
+            //打印的逻辑
+            for(Node node1: cur.nexts){
+                if(!set.contains(node1)){
+                    queue.add(node1);//加入到队列中
+                    set.add(node1);//加入到set中
+                }
+            }
+        }
+    }
+
+
+
+
 
     public static void bfs_627(Node node){
         Queue<Node> queue=new LinkedList<>();

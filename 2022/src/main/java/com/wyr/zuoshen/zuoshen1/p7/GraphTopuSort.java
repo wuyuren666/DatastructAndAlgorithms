@@ -18,6 +18,7 @@ public class GraphTopuSort {
         //入度为0的点，才能进这个队列
         Queue<Node> zeroInQueue=new LinkedList<>();
         //先将所有节点和对应的入度存到inMap中
+        //同时将入度为0的点入队
         for(Node node: graph.nodes.values()){
             inMap.put(node,node.in);
             if(node.in==0){ //将入度为0的节点入队

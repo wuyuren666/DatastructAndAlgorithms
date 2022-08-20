@@ -1,9 +1,5 @@
 package com.wyr.zuoshen.zuoshen2.p35;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class Code1 {
     /**
      * 注意子树和子结构是两个不同的概念,这题是子树
@@ -22,7 +18,7 @@ public class Code1 {
      */
 
     //注意只有子数问题才可以使用序列化的方式
-    public static boolean checkSubTree(TreeNode t1, TreeNode t2) {
+    public static boolean checkSubTree2(TreeNode t1, TreeNode t2) {
         //将两棵树先序方式序列化
         String s1=serilize(t1);
         String s2=serilize(t2);
@@ -68,11 +64,11 @@ public class Code1 {
         }
         //第一个可能兴是以subRoot为头的树和以root为头的树结构完全一致
         //下面就是递归去判断
-        return isSub1(root,subRoot)||isSubtree(root.left,subRoot)||isSubtree(root.right,subRoot);
+        return checkSubTree(root,subRoot)||isSubtree(root.left,subRoot)||isSubtree(root.right,subRoot);
     }
 
     //这个递归是用来判断子树的
-    public boolean isSub1(TreeNode A, TreeNode B){
+    public boolean checkSubTree(TreeNode A, TreeNode B){
         //两者都为空
         if(A==null&&B==null){
             return true;
@@ -85,7 +81,7 @@ public class Code1 {
         if(A.val!=B.val){
             return false;
         }
-        return isSub1(A.left,B.left)&&isSub1(A.right,B.right);
+        return checkSubTree(A.left,B.left)&& checkSubTree(A.right,B.right);
     }
 
 
@@ -118,35 +114,27 @@ public class Code1 {
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
 
-
-    //递归判断B是否是A的子结构
     public boolean isSubStructure(TreeNode A, TreeNode B) {
-        if(A==null||B==null){
+        if(A==null&&B!=null||B==null&&A!=null){
             return false;
         }
-        //第一个表示，B棵树从A的根结点和其对应
-        return isSub(A,B)||isSubStructure(A.left,B)||isSubStructure(A.right,B);
+        return checkSubStructure(A,B)||isSubStructure(A.left,B)||isSubStructure(A.right,B);
     }
-
-
-    //这个递归使用来判断B是否是A的子结构
-    //即从A和B的根结点往下走，往下比较进行判断
-    public boolean isSub(TreeNode A,TreeNode B){
-        //baseCase
-        if(B==null){ //都能比较到B为null的时候，那肯定是之前的都没有问题
+    //递归判断子结构
+    public boolean checkSubStructure(TreeNode A, TreeNode B){
+        if(B==null){
             return true;
         }
-
         //B!=null
-        if(A==null||A.val!=B.val){
+        if(A==null){
             return false;
         }
-        //A!=null && B!=null && A.val==B.val
-        return isSub(A.left,B.left)&&isSub(A.right,B.right);
+        //B!=null,A!=null
+        if(A.val!=B.val){
+            return false;
+        }
+        return checkSubStructure(A.right,B.right)&& checkSubStructure(A.left,B.left);
     }
-
-
-
 
 
 

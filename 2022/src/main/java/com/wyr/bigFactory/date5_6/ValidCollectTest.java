@@ -1,4 +1,4 @@
-package com.wyr.bytedance.date5_6;
+package com.wyr.bigFactory.date5_6;
 
 import java.util.Scanner;
 

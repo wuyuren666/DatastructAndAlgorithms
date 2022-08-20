@@ -1,8 +1,11 @@
 package com.wyr.zuoshen.zuoshen2.p56;
 
-import java.util.Arrays;
+
+import java.util.*;
 
 public class Code1 {
+
+
     /**
      * 最多装两个人的船同时过河问题
      * 给你一个正整数数组arr，代表若干个人的体重
@@ -13,6 +16,8 @@ public class Code1 {
      */
 
     public static int minBoat(int [] arr, int limit){
+
+
         //先排序
         Arrays.sort(arr);
         int doubleCount=0; //记录成对的对号

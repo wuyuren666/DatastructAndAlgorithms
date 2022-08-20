@@ -35,7 +35,7 @@ public class TrieTree {
             node.pass++; //根节点的pass首先++
             int index=0;
             for(int i=0;i<chs.length;i++){ //遍历字符数组
-                index=chs[i]='a'; //由字符确定走哪条路，即找到nexts这个路径数组的下标
+                index=chs[i]-'a'; //由字符确定走哪条路，即找到nexts这个路径数组的下标
                 if(node.nexts[index]==null){ //这条路之前没有人走过
                     node.nexts[index]=new TrieNode();
                 }

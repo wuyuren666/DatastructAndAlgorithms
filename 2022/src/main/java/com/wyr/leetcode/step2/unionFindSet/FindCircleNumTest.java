@@ -16,6 +16,7 @@ public class FindCircleNumTest {
      */
 
 
+
     public int findCircleNum(int[][] isConnected) {
         int N=isConnected.length;
         int [] father=new int[N];
