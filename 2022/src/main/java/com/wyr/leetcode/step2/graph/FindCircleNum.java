@@ -27,70 +27,46 @@ import java.util.*;
  */
 public class FindCircleNum {
 
-    public static int findCircleNum(int[][] isConnected) {
-        //获取所有节点个数
-        int nodeCount=isConnected.length;
-        //并查集结构
-        MySet set=new MySet(isConnected);
+    public  static int findCircleNum(int[][] isConnected) {
 
+        int N=isConnected.length;
+        int [] father= new int[N];
+        for(int i=0;i<N;i++){
+            father[i]=i;
+        }
 
-        for(int i=0;i<nodeCount;i++){
-            for(int j=0;j<nodeCount;j++){
-                if(i==j){
-                    continue;
-                }
+        for(int i=0;i<N;i++){
+            for(int j=i+1;j<isConnected[0].length;j++){
                 if(isConnected[i][j]==1){
-                    if(set.isTheSameSet(i+1,j+1)){ //先查看两个节点是否在同一集合中
-                        continue;
+                    if(findFather(father,i)!=findFather(father,j)){
+                        union(father,i,j);
                     }
-                    set.merge(i+1,j+1); //不在同一集合中就合并
                 }
             }
         }
+        return getNum(father);
 
-        Set<List<Integer>> functionSet=new HashSet<>();
-        //注意这里会遍历所有的values即使他们有的是同一对象
-        //所以我们使用Set进行去重
-        for(List<Integer> l: set.nodeSet.values()){
-            functionSet.add(l);
-        }
-        return functionSet.size();
     }
 
-
-
-    //使用并查集结构
-    public static class MySet{
-        //nodeSet:维护节点和节点所在集合的关系
-        public HashMap<Integer, List<Integer>> nodeSet;
-
-        //通过构造方法初始化好nodeSet
-        public MySet(int [][] isConnected){
-            nodeSet=new HashMap<>();
-            for(int i=1;i<=isConnected.length;i++){
-                List<Integer> set=new ArrayList<>();
-                set.add(i);
-                nodeSet.put(i,set);
-            }
+    public static int findFather(int[] father, int index){
+        if(index!=father[index]){
+            father[index]=findFather(father,father[index]);
         }
-
-        //提供接口，查询两个节点是否在同一集合中
-        public boolean isTheSameSet(Integer n1,Integer n2){
-            return nodeSet.get(n1)==nodeSet.get(n2);
-        }
-
-        //提供接口，将两个节点合并到同一个集合中
-        public void merge(Integer n1, Integer n2){
-            List<Integer> set1=nodeSet.get(n1);
-            List<Integer> set2=nodeSet.get(n2);
-            for(Integer i :set2){ //将set2中的所有节点放入set1中
-                set1.add(i);
-                //同时修改节点集合关系表中的关系，将set2中的节点所对应的集合改为set1
-                nodeSet.put(i,set1);
-            }
-
-        }
+        return father[index];
     }
+
+    public static void union(int [] father ,int index1, int index2){
+        father[findFather(father,index1)]=findFather(father,index2);
+    }
+
+    public  static int getNum(int [] father){
+        int res=0;
+        for(int i=0;i<father.length;i++){
+            res = (i==father[i])?res+1:res;
+        }
+        return res;
+    }
+
 
     public static void main(String[] args) {
         int[][] a={{1,1,0},{1,1,0},{0,0,1}};

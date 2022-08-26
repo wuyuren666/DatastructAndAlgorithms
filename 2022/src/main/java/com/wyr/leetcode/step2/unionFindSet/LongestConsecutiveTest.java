@@ -1,9 +1,6 @@
 package com.wyr.leetcode.step2.unionFindSet;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class LongestConsecutiveTest {
     /**
@@ -22,96 +19,74 @@ public class LongestConsecutiveTest {
      * 链接：https://leetcode.cn/problems/longest-consecutive-sequence
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
-    public int longestConsecutive(int[] nums) {
+    public static int longestConsecutive(int[] nums) {
+        if(nums.length==0){
+            return 0;
+        }
         int N=nums.length;
-        int result=0;
-        if(N==0){
-            return result;
-        }
-        List<Integer> list=new ArrayList<>();
+        int [] father= new int[N];
         for(int i=0;i<N;i++){
-            list.add(nums[i]);
+            father[i]=i;
         }
-        UnionFindSet<Integer> ufs=new UnionFindSet<>(list);
+        Map<Integer,Integer> map=new HashMap<>();
         for(int i=0;i<N;i++){
-            int cur=nums[i];
-            int before=cur-1;
-            int after=cur+1;
-            //有这个key所对应的元素，且不在同一集合中
-            if(ufs.elementMap.containsKey(before)&&!ufs.isSameSet(before,cur)){
-                ufs.union(before,cur);
-            }
-            //有这个key所对应的元素，且不在同一集合中
-            if(ufs.elementMap.containsKey(after)&&!ufs.isSameSet(after,cur)){
-                ufs.union(after,cur);
-            }
+            map.put(nums[i],i);
         }
-
-        for(Integer i:ufs.sizeMap.values()){
-            if(i>result){
-                result=i;
+        for(int i=0;i<N;i++){
+            int curNum=nums[i];
+            if(map.containsKey(curNum-1)){
+                if(findFather(father,map.get(curNum-1))!=findFather(father,i)){
+                    union(father,map.get(curNum-1),i);
+                }
             }
-        }
-        return result;
-    }
-
-
-    public static class Element<V>{
-        public V value;
-        public Element(V value){
-            this.value=value;
-        }
-    }
-
-    public static class UnionFindSet<V> {
-        public HashMap<V,Element<V>> elementMap;
-        public HashMap<Element<V>,Element<V>> fatherMap;
-        public HashMap<Element<V>,Integer> sizeMap;
-
-        public UnionFindSet(List<V> list){
-            elementMap=new HashMap<>();
-            fatherMap=new HashMap<>();
-            sizeMap=new HashMap<>();
-            for(V value: list){
-                Element<V> element=new Element<>(value);
-                elementMap.put(value,element);
-                fatherMap.put(element,element);
-                sizeMap.put(element,1);
-            }
-        }
-        private Element<V> findHead(Element<V> element){
-            Stack<Element<V>> stack=new Stack<>();
-            while(element!=fatherMap.get(element)){
-                stack.push(element);
-                element=fatherMap.get(element);
-            }
-            //扁平化处理
-            while(!stack.isEmpty()){
-                fatherMap.put(stack.pop(),element);
-            }
-            return element;
-        }
-        public boolean isSameSet(V a, V b){
-            if(elementMap.containsKey(a)&&elementMap.containsKey(b)){
-                return findHead(elementMap.get(a))==findHead(elementMap.get(b));
-            }
-            return false;
-        }
-
-        public void union(V a, V b){
-            if(elementMap.containsKey(a)&&elementMap.containsKey(b)){
-                Element<V> headA=findHead(elementMap.get(a));
-                Element<V> headB=findHead(elementMap.get(b));
-                if(headA!=headB){
-                    Element<V> big=sizeMap.get(headA)>sizeMap.get(headB)?headA:headB;
-                    Element<V> small=big==headA?headB:headA;
-                    //先将数量较少的挂到数量较多的代表元素下
-                    fatherMap.put(small,big);
-                    //更新sizeMap
-                    sizeMap.put(big,sizeMap.get(big)+sizeMap.get(small));
-                    sizeMap.remove(small);
+            if(map.containsKey(curNum+1)){
+                if(findFather(father,map.get(curNum+1))!=findFather(father,i)){
+                    union(father,map.get(curNum+1),i);
                 }
             }
         }
+        List<Integer> list=new ArrayList<>();
+        //将所有父元素的代表节点放入list中
+        getNum(father,list);
+        //value为set集合方便去重
+        Map<Integer,Set<Integer>> resultMap=new HashMap<>();
+
+        for(int i=0;i<list.size();i++){
+            resultMap.put(list.get(i),new HashSet<>());
+        }
+
+        //resultMap中保存的是父代表元素下标和一个set集合里面放的是他的子元素
+        for(int i=0;i<N;i++){
+            resultMap.get(findFather(father,father[i])).add(nums[i]);
+        }
+        int ans=Integer.MIN_VALUE;
+        for(Set<Integer> set: resultMap.values()){
+            ans=Math.max(ans,set.size());
+        }
+        return ans;
     }
+    //将所有父代表元素的下标放入list集合
+    public static void getNum(int []father,List<Integer> list){
+        for(int i=0;i<father.length;i++){
+            if(i==father[i]){
+                list.add(i);
+            }
+        }
+    }
+    //找到父元素下标
+    public static int findFather(int [] father, int index){
+        if(index!=father[index]){
+            father[index]=findFather(father,father[index]);
+        }
+        return father[index];
+    }
+    //合并
+    public static void union(int [] father, int index1, int index2){
+        father[findFather(father,index1)]=findFather(father,index2);
+    }
+    public static void main(String[] args) {
+        int [] nums={0,3,7,2,5,8,4,6,0,1};
+        longestConsecutive(nums);
+    }
+
 }

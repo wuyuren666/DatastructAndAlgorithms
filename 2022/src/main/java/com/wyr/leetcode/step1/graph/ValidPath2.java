@@ -25,77 +25,50 @@ import java.util.*;
  * 内存消耗：140.8 MB, 在所有 Java 提交中击败了27.32%的用户
  */
 public class ValidPath2 {
+
     public boolean validPath(int n, int[][] edges, int source, int destination) {
-        Graph graph=createGraph(n,edges); //得到图
-        //使用并查集结构
-        MySet mySet=new MySet(graph);
-        //拿出所有的边
-        HashSet<Edge> set=graph.edges;
-        for(Edge curEdge: set){
-            Node fromNode=curEdge.from;
-            Node toNode=curEdge.to;
-            if(mySet.isSameSet(fromNode,toNode)==false){
-                mySet.mergeNodeToSameSet(fromNode,toNode);
-            }
-        }
-        Node sourceNode=graph.nodes.get(source);
-        Node aimNode=graph.nodes.get(destination);
-        return mySet.isSameSet(sourceNode,aimNode);
-    }
-
-
-    //并查集结构
-    public class MySet{
-        //Node 属于哪一个集合的Map
-        public Map<Node,List<Node>> nodeSetMap;
-
-        //初始化,将每一个单独的节点先独自放入一个集合中
-        public MySet(Graph graph){
-            this.nodeSetMap=new HashMap<>();
-            for(Node curNode: graph.nodes.values()){
-                List<Node> curNodeSet=new ArrayList<>();
-                curNodeSet.add(curNode);//将当前节点先独自加入集合
-                nodeSetMap.put(curNode,curNodeSet);//将当前节点和其所在节点进行关联
-            }
-        }
-        //提供接口，可以查询两个节点是否在同一集合中
-        public boolean isSameSet(Node from, Node to){
-            return nodeSetMap.get(from)==nodeSetMap.get(to);
-        }
-        //提供接口，将一条边中的from和to两个节点合并到同一个集合中
-        public void mergeNodeToSameSet(Node from, Node to){
-            List<Node> fromSet=nodeSetMap.get(from);//先从nodeSetMap中取出from节点对应的集合
-            //遍历to节点所在的集合，
-            //因为现在要将to和from放入同一个集合中，在无向图中同一个集合中的意思就是可达
-            //所以from能到达to，那肯定也能到达to能到达的节点
-            for(Node curNode: nodeSetMap.get(to)){
-                fromSet.add(curNode);
-                nodeSetMap.put(curNode,fromSet); //在nodeSetMap中修改原先to节点所在的集合
-            }
+        //1 [] 0 0
+        if(n==1){
+            return true;
         }
 
-    }
-
-
-
-
-    public Graph createGraph(int n, int[][] edges){
-        Graph graph=new Graph();
-        for(int i=0;i<n;i++){ //先将所有的节点加入到nodes中
-            Node newNode=new Node(i);
-            graph.nodes.put(i,newNode);
+        int [] father =new int [n];
+        for(int i=0;i<n;i++){
+            father[i]=i;
         }
 
         for(int i=0;i<edges.length;i++){
-            int x1=edges[i][0];
-            int x2=edges[i][1];
-            Edge edge1=new Edge(graph.nodes.get(x1),graph.nodes.get(x2));
-            Edge edge2=new Edge(graph.nodes.get(x2),graph.nodes.get(x1));
-            graph.edges.add(edge1);
-            graph.edges.add(edge2);
+            //这条边连接的两个节点不在同一个集合中
+            if(findFather(father,edges[i][0])!=findFather(father,edges[i][1])){
+                union(father,edges[i][0],edges[i][1]);
+            }
+            if(findFather(father,source)==findFather(father,destination)){
+                return true;
+            }
         }
-        return graph;
+        return false;
     }
+
+    //找到父元素
+    public int findFather(int [] father, int index){
+        if(father[index]!=index){
+            father[index]=findFather(father,father[index]);
+        }
+        return father[index];
+    }
+
+    //合并
+    public void union(int [] father, int index1, int index2){
+        father[findFather(father,index1)]=findFather(father,index2);
+    }
+
+
+
+
+
+
+
+
 
     public class Graph{
         public HashMap<Integer,Node> nodes;
