@@ -1,6 +1,7 @@
 package com.wyr.leetcode.step2.dp;
 
 import java.util.LinkedList;
+import java.util.Scanner;
 
 public class LengthOfLISTest {
     /**
@@ -23,11 +24,13 @@ public class LengthOfLISTest {
 
 
     public static int lengthOfLIS(int[] nums) {
+
         int N=nums.length;
         int ans=1;
         //dp[i]代表以下标i位置的数结尾的最长严格递增子序列的长度。
         int [] dp=new int[N]; //初始化的时候全都是0
         dp[0]=1;
+
         for(int i=1;i<N;i++){
             //确实不能找到0...i-1下标上比num[i]小的数，dp[i]这个值还是0
             //寻找0...i-1下标上比num[i]小的数
@@ -43,8 +46,13 @@ public class LengthOfLISTest {
         }
         return ans;
     }
-    public static void main(String[] args) {
-        int [] nums={0,1,0,3,2,3};
-        System.out.println(lengthOfLIS(nums));
-    }
+
+
+
+        public static void main(String[] args) {
+             int [] nums={0,1,0,3,2,3};
+            System.out.println(lengthOfLIS(nums));
+
+        }
+
 }

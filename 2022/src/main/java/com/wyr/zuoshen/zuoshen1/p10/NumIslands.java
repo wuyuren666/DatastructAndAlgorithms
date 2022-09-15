@@ -30,31 +30,34 @@ public class NumIslands {
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
     public int numIslands(char[][] grid) {
-        int xLength=grid.length;
-        int yLength=grid[0].length;
-        int result=0;
-        for(int x=0;x<xLength;x++){
-            for(int y=0;y<yLength;y++){
-                if(grid[x][y]=='1'){
-                    result++;
-                    process(grid,x,y,xLength-1,yLength-1);
+        int ans=0;
+        for(int i=0;i<grid.length;i++){
+            for(int j=0;j<grid[0].length;j++){
+                if(grid[i][j]=='1'){
+                    ans++;
+                    process(grid,i,j);
                 }
             }
         }
-        return result;
-
+        return ans;
     }
 
-    //感染过程
-    //curX，curY:当前来到的位置
-    public void process(char[][] grid, int curX, int curY, int x, int y){
-        if(curX<0||curX>x||curY<0||curY>y||grid[curX][curY]!='1'){ //baseCase：越界，或者当前字符不是'1'字符
+    //淹没岛屿的过程
+    public void process(char[][] grid, int curX, int curY){
+        //越界情况
+        if(curX<0||curX>=grid.length||curY<0||curY>=grid[0].length){
             return;
         }
-        grid[curX][curY]='2';
-        process(grid,curX-1,curY,x,y);//上
-        process(grid,curX+1,curY,x,y);//下
-        process(grid,curX,curY-1,x,y);//左
-        process(grid,curX,curY+1,x,y);//右
+        //陆地已经被淹没了
+        if(grid[curX][curY]=='0'){
+            return;
+        }
+        //陆地淹没
+        grid[curX][curY]='0';
+        //递归
+        process(grid,curX-1,curY);//上
+        process(grid,curX+1,curY);//下
+        process(grid,curX,curY-1);//左
+        process(grid,curX,curY+1);//右
     }
 }

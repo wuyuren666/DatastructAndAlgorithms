@@ -1,9 +1,6 @@
 package com.wyr.zuoshen.zuoshen1.p8;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class Permutation {
     /**
@@ -23,47 +20,28 @@ public class Permutation {
      *执行用时：48 ms, 在所有 Java 提交中击败了12.25%的用户
      *内存消耗：49.6 MB, 在所有 Java 提交中击败了5.02%的用户
      */
-    public static String[] permutation(String s) {
-        List<String> res = new ArrayList<>();
-        char[] c = s.toCharArray();
-        int N = c.length;
-        for (int i = 0; i < N; i++) {
-            boolean[] isVisit = new boolean[N];
-            process(i, new String(""), res, c, isVisit);
-        }
-        //使用HashSet帮我们去重
-        HashSet<String> helpSet = new HashSet<>();
-        for (int i = 0; i < res.size(); i++) {
-            helpSet.add(res.get(i));
-        }
-        String[] resString = new String[helpSet.size()];
-        int i = 0;
-        for (String str : helpSet) {
-            resString[i++] = str;
-        }
-
-        return resString;
+    Set<String> res=new HashSet<>();
+    public  String[] permutation(String s) {
+        char[] chs=s.toCharArray();
+        int [] used=new int[chs.length]; //当前字符是否使用过
+        process(chs,used,"");
+        String[] ans =res.toArray(new String[0]);
+        return ans;
     }
-
-    public static void process(int index, String s, List<String> res, char[] chs, boolean[] isVisit) {
-        isVisit[index] = true;
-        s += chs[index];
-        if (s.length() == chs.length) { //baseCase
-            res.add(s);
-            return;
+    public void process(char[] chs, int[] used, String tempStr){
+        if(tempStr.length()==chs.length){
+            res.add(tempStr);
         }
-        for (int i = 0; i < chs.length; i++) {
-            if (!isVisit[i]) {
-                //当前下标的字符没有被选中过
-                //将字符串复制一份
-                String newStr = s;
-                //将isVisit数组复制一份
-                boolean[] cpArr = Arrays.copyOf(isVisit, isVisit.length);
-                process(i, newStr, res, chs, cpArr);
+        for(int i=0;i<chs.length;i++){
+            if(used[i]==0){//当前字符没有被使用过
+                //标记当前字符已经用过
+                used[i]=1;
+                process(chs,used,tempStr+chs[i]);
+                //取消标记
+                used[i]=0;
             }
         }
     }
-
 
     /**
      * 执行用时：10 ms, 在所有 Java 提交中击败了64.87%的用户

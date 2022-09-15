@@ -13,41 +13,48 @@ public class SubSets {
      * 输出：[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
      *
      * https://leetcode.cn/problems/TVdhkn/
+     * https://leetcode.cn/problems/subsets/
      */
-
+    static List<List<Integer>> result=new ArrayList<>();
     public static List<List<Integer>> subsets(int[] nums) {
-        List<List<Integer>> result=new ArrayList<>();
-        process(result,new ArrayList<Integer>(),nums,0);
+        process(new ArrayList<Integer>(),nums,0);
         return result;
     }
 
-    public static void process(List<List<Integer>> result,List<Integer> tempList,int [] nums, int index){
+    public static void process(List<Integer> tempList,int [] nums, int index){
         if(index==nums.length){
             result.add(tempList);
             return;
         }
         //复制一份
-        List<Integer> list1=copyList(tempList);
+        List<Integer> list1=new ArrayList<>(tempList);
         list1.add(nums[index]);
         //加入当前数据
-        process(result,list1,nums,index+1);
+        process(list1,nums,index+1);
         //不加入当前数据
-        process(result,tempList,nums,index+1);
+        process(tempList,nums,index+1);
     }
 
-    public static List<Integer> copyList(List<Integer> list){
-        List<Integer> res=new ArrayList<>(list.size());
-        for(int i=0;i<list.size();i++){
-            res.add(list.get(i));
+    //也可以这样写，不复制，直接先加入后删除
+    public void process(int [] nums,int index,List<Integer> tempList){
+        if(index==nums.length){
+            result.add(new ArrayList<>(tempList));
+            return;
         }
-        return res;
+        tempList.add(nums[index]);
+        //要当前字符
+        process(nums,index+1,tempList);
+        //删除当前字符
+        tempList.remove(tempList.size()-1);
+        //不要当前字符
+        process(nums,index+1,tempList);
     }
+
+
 
     public static void main(String[] args) {
         int[] a={1,2,3};
         List<List<Integer>> subsets = subsets(a);
-        subsets.forEach(integers -> {integers.forEach(System.out::print);
-            System.out.println();
-        });
+        subsets.stream().forEach(System.out::println);
     }
 }

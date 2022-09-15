@@ -3,13 +3,16 @@ package com.wyr.zuoshen.zuoshen1.p2;
 import java.util.Arrays;
 
 public class QuickSort {
+
+
     /**
      * 快速排序的最坏时间复杂度为O(N^2)
      * 但是如果我们每一次在数组中选取一个随机值，放在数组的最后，或者最前面作为标杆
      * 此时的平均复杂度为O(N*logN)
-     * @param args
+     *
+     * @param
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         /*int testTime=10000;
         int maxSize=100;
         int maxValue=100;
@@ -23,13 +26,14 @@ public class QuickSort {
                 successed=false;
                 break;
             }
-        }
-        System.out.println(successed?"Nice!":"Fuck!");*/
-        int arr[]={3,1,4,6,0,3,5};
-        quickSort(arr, 2, arr.length - 1);
+        }*/
+
+        int arr[]={46,79,56,38,40,84};
+        quickSort(arr, 0, arr.length - 1);
         for (int i : arr) {
             System.out.println(i);
         }
+
     }
 
 
@@ -229,23 +233,24 @@ public class QuickSort {
      * @param maxValue
      * @return
      */
-    public static int[] generateRandomArray(int maxSize,int maxValue){
-        int [] arr=new int[maxSize];
-        for (int i=0;i<arr.length;i++){
-            arr[i]=(int)(Math.random()*(maxValue+1))-(int)(Math.random()*maxValue);
+        public static int[] generateRandomArray ( int maxSize, int maxValue){
+            int[] arr = new int[maxSize];
+            for (int i = 0; i < arr.length; i++) {
+                arr[i] = (int) (Math.random() * (maxValue + 1)) - (int) (Math.random() * maxValue);
+            }
+            return arr;
         }
-        return arr;
-    }
 
-    private static boolean isequal(int [] a,int [] b){
-        boolean flag=true;
-        for (int i = 0; i < a.length; i++) {
-            if(a[i]!=b[i])
-                flag=false;
+        private static boolean isequal ( int[] a, int[] b){
+            boolean flag = true;
+            for (int i = 0; i < a.length; i++) {
+                if (a[i] != b[i])
+                    flag = false;
+            }
+            if (flag)
+                return true;
+            else
+                return false;
         }
-        if(flag)
-            return true;
-        else
-            return false;
-    }
+
 }

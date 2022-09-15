@@ -3,6 +3,7 @@ package com.wyr.leetcode.step2.number;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class PermuteTest {
     /**
@@ -13,6 +14,34 @@ public class PermuteTest {
      *
      * https://leetcode.cn/problems/permutations/
      */
+
+    List<List<Integer>> res=new ArrayList<>();
+    public  List<List<Integer>> permuteHuiSu(int[] nums) {
+        int [] used=new int [nums.length];
+        process(nums,used,new ArrayList<Integer>());
+        return res;
+    }
+    //递归+回溯
+    public void process(int [] nums, int[] used, List<Integer> tempList){
+        if(tempList.size()==nums.length){//baseCase
+            res.add(new ArrayList<>(tempList));
+            return;
+        }
+        for(int i=0;i<nums.length;i++){
+            if(used[i]==0){//没有使用过
+                //使用当前数字
+                tempList.add(nums[i]);
+                //标记当前数字已经被用过
+                used[i]=1;
+                process(nums,used,tempList);
+                //不使用当前数字
+                tempList.remove(tempList.size()-1);
+                //取消标记
+                used[i]=0;
+            }
+        }
+    }
+
 
     public static List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> result=new ArrayList<>();

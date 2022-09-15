@@ -1,5 +1,11 @@
 package com.wyr.leetcode.step2.dp;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public class ChangeTest {
     /**
      * 给你一个整数数组 coins 表示不同面额的硬币，另给一个整数 amount 表示总金额。
@@ -24,16 +30,18 @@ public class ChangeTest {
      * 链接：https://leetcode.cn/problems/coin-change-2
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
-
-
+    public static void main(String[] args) {
+        int []a=new int[]{1,2,3,4,5};
+        System.out.println(change(5,a));
+    }
 
     //暴力递归的方法
-    public int change(int amount, int[] coins) {
+    public static int change(int amount, int[] coins) {
 
         return process(coins,0,amount);
     }
 
-    public int process(int [] coins, int index, int rest){
+    public static int process(int [] coins, int index, int rest){
         if(index==coins.length){ //当此时都没有钱可以选择了，你是否已经凑成功了？
             return rest==0?1:0;
         }

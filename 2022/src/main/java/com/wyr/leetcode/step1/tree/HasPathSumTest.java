@@ -19,6 +19,7 @@ public class HasPathSumTest {
             return false;
         }
         tempSum+=root.val;
+        //叶子节点
         if(root.left==null&&root.right==null){
             if(targetSum==tempSum)
                 return true;

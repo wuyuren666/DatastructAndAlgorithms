@@ -1,5 +1,7 @@
 package com.wyr.dp.zuoshen.p15_16;
 
+import java.util.*;
+
 public class Code1 {
     /**
      *
@@ -37,9 +39,25 @@ public class Code1 {
 
 
     public static void main(String[] args) {
-        int [] weights={3,2,4,7,};
-        int [] values={5,6,3,10};
-        int bag=10;
-        System.out.println(maxValue1(weights, values, bag));
+        /*int [] weights={8,11,14,5,9,5};
+        int [] values={20,15,40,10,25,30};
+        int bag=30;
+        System.out.println(maxValue1(weights, values, bag));*/
+        /*Map<String,Integer> map = new HashMap<>();
+        map.put("a",1);
+        map.put("b",2);
+        map.put("c",3);
+        Set<Map.Entry<String, Integer>> entries = map.entrySet();
+        for(Map.Entry<String, Integer> entry: entries){
+            System.out.println(entry.getKey());
+            System.out.println(entry.getValue());
+        }*/
+
+        System.out.println("abac10".matches("(ab)*c+[^09]]"));
+
+
     }
+
 }
+
+
