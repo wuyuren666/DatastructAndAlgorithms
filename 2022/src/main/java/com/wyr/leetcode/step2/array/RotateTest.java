@@ -19,8 +19,6 @@ public class RotateTest {
      */
 
     public void rotate(int[][] matrix) {
-
-
         //先转置
         for(int i=0;i<matrix.length;i++){
             for(int j=i+1;j<matrix[0].length;j++){

@@ -33,7 +33,7 @@ public class MaxSubArrayTest {
             if(dp[i-1]<0){
                 dp[i]=nums[i];
             }else{
-                //dp[i-1]为正数，你当前数是正数就上更大，为负数加上一个正数也比你自成一家好
+                //dp[i-1]为正数，你当前数是正数就和就会更大
                 dp[i]=dp[i-1]+nums[i];
             }
             res=Math.max(res,dp[i]);

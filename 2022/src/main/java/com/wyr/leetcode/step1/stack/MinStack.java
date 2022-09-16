@@ -37,6 +37,7 @@ public class MinStack {
         }
         mainStack.push(val);
     }
+
     //删除栈顶的元素
     public static void pop() {
         //如果主栈的栈顶元素==从栈的栈顶元素
@@ -45,6 +46,7 @@ public class MinStack {
         }
         mainStack.pop();//主栈栈顶元素弹出
     }
+
     //获取堆栈顶部的元素
     public static int top() {
         return mainStack.peek();

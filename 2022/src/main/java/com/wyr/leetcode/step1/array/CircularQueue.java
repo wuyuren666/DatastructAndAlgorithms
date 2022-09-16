@@ -6,7 +6,7 @@ package com.wyr.leetcode.step1.array;
  */
 public class CircularQueue {
     private int front;//队头指针
-    private int rear;//队尾指针
+    private int rear;//队尾指针，需要注意的是rear指向的元素不是队列中的
     private int[] arr;
 
 

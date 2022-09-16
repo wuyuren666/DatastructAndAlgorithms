@@ -59,7 +59,7 @@ public class MinimumDifferenceTest {
         if(k==1){
             return 0;
         }
-        //先排序
+        //有点小贪心，先排序
         Arrays.sort(nums);
         int ans=Integer.MAX_VALUE;
         for(int i=nums.length-1;i>=k-1;i--){

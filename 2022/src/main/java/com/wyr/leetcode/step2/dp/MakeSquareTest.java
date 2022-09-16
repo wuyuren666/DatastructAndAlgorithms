@@ -1,5 +1,8 @@
 package com.wyr.leetcode.step2.dp;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MakeSquareTest {
 
     /**
@@ -20,25 +23,109 @@ public class MakeSquareTest {
      * 链接：https://leetcode.cn/problems/matchsticks-to-square
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
+    /**
+     * 这里我们使用的是visited数组来标记火柴是否用过
+     * 在process中看似有3个可变参数，visited，lengthOfCurEdge，rest。
+     * 其实 lengthOfCurEdge 和 rest 都是可以由visited决定的
+     * 并且visited，也不是必须使用数组，用int整数也可以
+     */
+    public boolean makesquare(int[] matchsticks) {
+        int sum=0;
+        for(int i=0;i<matchsticks.length;i++){
+            sum+=matchsticks[i];
+        }
+        if(sum%4!=0){//都不能被4整除，肯定拼不成
+            return false;
+        }
+        int lengthOfEachEdge=sum/4;//每一条边的长度
+        //visited[i]==0，对应下标火柴没用过
+        //visited[i]==1，对应下标火柴用过
+        int [] visited=new int[matchsticks.length];
+        return process(matchsticks,visited,0,4,lengthOfEachEdge);
+    }
+    //rest：剩下几条边没有拼成，当前边已经拼成的长度
+    public boolean process(int [] matchsticks, int [] visited , int lengthOfCurEdge, int rest ,int length){
+        if(rest==0){//边已经全部拼好了
+            return true;
+        }
+        boolean flag=false;
+        //拿出每一根火柴
+        for(int i=0;i<matchsticks.length;i++){
+            if(visited[i]==0){//当前火柴没有用过
+                visited[i]=1;//标记为已经用过
+                if(lengthOfCurEdge+matchsticks[i]<length){//当前处理的边的长度+当前火柴的长度<规定的每一个边的长度
+                    flag|=process(matchsticks, visited, lengthOfCurEdge+matchsticks[i],rest,length);
+                }else if(lengthOfCurEdge+matchsticks[i]==length){//当前处理的边的长度+当前火柴的长度==规定的每一个边的长度
+                    flag|=process(matchsticks,visited,0,rest-1,length);
+                }
+                //当前处理的边的长度+当前火柴的长度>规定的每一个边的长度，直接拿下一根火柴再去试
+                visited[i]=0;//取消标记
+            }
+        }
+        return flag;
+    }
+
+    /**
+     * 傻缓存的写法，没超时
+     */
+    public static boolean makesquareBest(int[] matchsticks) {
+        int sum=0;
+        for(int i=0;i<matchsticks.length;i++){
+            sum+=matchsticks[i];
+        }
+        if(sum%4!=0){//都不能被4整除，肯定拼不成
+            return false;
+        }
+        int lengthOfEachEdge=sum/4;//每一条边的长度
+        //使用傻缓存
+        Map<Integer,Boolean> map=new HashMap<>();
+        return process(matchsticks,map,0,0,4,lengthOfEachEdge);
+    }
+    //rest：剩下几条边没有拼成，当前边已经拼成的长度
+    public static boolean process(int [] matchsticks, Map<Integer,Boolean> map, int visited , int lengthOfCurEdge, int rest , int length){
+        if(rest==0){//边已经全部拼好了
+            return true;
+        }
+        if(map.containsKey(visited)){
+            return map.get(visited);
+        }
+        boolean res=false;
+        //拿出每一根火柴
+        for(int i=0;i<matchsticks.length;i++){
+            if((visited & (1<<i)) ==0){//当前火柴没有用过
+                visited |= (1<<i);//标记为已经用过
+                if(lengthOfCurEdge+matchsticks[i]<length){//当前处理的边的长度+当前火柴的长度<规定的每一个边的长度
+                    res|=process(matchsticks,map,visited, lengthOfCurEdge+matchsticks[i],rest,length);
+                }else if(lengthOfCurEdge+matchsticks[i]==length){//当前处理的边的长度+当前火柴的长度==规定的每一个边的长度
+                    res|=process(matchsticks,map,visited,0,rest-1,length);
+                }
+                if(res){
+                    return true;
+                }
+                //当前处理的边的长度+当前火柴的长度>规定的每一个边的长度，直接拿下一根火柴再去试
+                visited^=(1<<i);//取消标记
+            }
+        }
+        map.put(visited,res);
+        return res;
+    }
+
     public static boolean makesquare1(int[] matchsticks) {
         int sum=0;
         for(int num: matchsticks){
             sum+=num;
         }
-
         if(sum%4!=0)
             return false;
 
         int len=sum/4;
         return f(matchsticks,0,0,len,4);
     }
-
     //这是暴力递归，会超时
     //edges:还剩多少条边没有搞定；len:当前边已经搞定的长度
     public static boolean f(int []arr, int status, int cur, int len, int edges){
         if(edges==0)
             return true;
-
         boolean ans=false;
         //arr中，还没有尝试的火柴！全部是一遍
         for(int i=0;i< arr.length;i++) {

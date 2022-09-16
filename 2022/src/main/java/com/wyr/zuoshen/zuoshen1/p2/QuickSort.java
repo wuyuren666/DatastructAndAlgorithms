@@ -1,5 +1,7 @@
 package com.wyr.zuoshen.zuoshen1.p2;
 
+import com.apple.laf.AquaEditorPaneUI;
+
 import java.util.Arrays;
 
 public class QuickSort {
@@ -27,9 +29,8 @@ public class QuickSort {
                 break;
             }
         }*/
-
         int arr[]={46,79,56,38,40,84};
-        quickSort(arr, 0, arr.length - 1);
+        quickSort518(arr, 0, arr.length - 1);
         for (int i : arr) {
             System.out.println(i);
         }
@@ -43,8 +44,8 @@ public class QuickSort {
             int i=L;
             int j=R;
             int temp=arr[i];
-            while (i<j){
-                while (i<j&&arr[j]>temp){
+            while(i<j){
+                while(i<j&&arr[j]>temp){
                     j--;
                 }
                 if(i<j){

@@ -60,6 +60,7 @@ public class Code1 {
         int left=0,right=0;
 
         while (right<arr.length){
+
             while (arr[right]-arr[left]>L){ //不满足条件
                 left++;
             }
@@ -94,9 +95,9 @@ public class Code1 {
 
 
     public static void main(String[] args) {
-        int [] arr={3,5,6,7,10,11,12,14,15,17,22,25,26,27,29,31,32};
-        System.out.println(maxPoint2(arr,15));
-        System.out.println(getMaxPoint83(arr,15));
+        int [] arr={1,4,7};
+        System.out.println(maxPoint2(arr,3));
+       // System.out.println(getMaxPoint83(arr,15));
     }
 
 }

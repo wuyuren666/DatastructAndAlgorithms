@@ -36,6 +36,7 @@ public class SolveNQueensTest {
         }
         int [] record=new int[n]; //record[i]：代表第i行的皇后放在第record[i]列上
         process(new ArrayList<Integer>(),record,0,n);
+        //处理结果ans-->res
         for(List<Integer> list: ans){
             List<String> strList=new ArrayList<>();
             for(Integer integer: list){
@@ -64,7 +65,7 @@ public class SolveNQueensTest {
      */
     public void process(List<Integer> tempList,int [] record, int i, int n){
         if(i==n){ //baseCase
-            ans.add(new ArrayList<>(tempList));
+            ans.add(new ArrayList<>(tempList));//这边需要new，回溯的过程会将tempList清空的
             return;
         }
         //从每一列开始尝试

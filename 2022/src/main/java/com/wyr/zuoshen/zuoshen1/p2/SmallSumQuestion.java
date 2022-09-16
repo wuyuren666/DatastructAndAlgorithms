@@ -44,7 +44,7 @@ public class SmallSumQuestion {
             if(arr[p1]<arr[p2]){
                 result+=(R-p2+1)*arr[p1];
             }
-            helper[i++]=arr[p1]<arr[p2]?arr[p1++]:arr[p2++]; //从大到小
+            helper[i++]=arr[p1]<arr[p2]?arr[p1++]:arr[p2++]; //从小到大
         }
         while (p1<=mid){
             helper[i++]=arr[p1++];

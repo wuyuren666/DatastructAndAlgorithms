@@ -13,57 +13,46 @@ package com.wyr.leetcode.step2.dp;
  * https://leetcode.cn/problems/minimum-path-sum/
  */
 public class MinPathSumTest {
+    public static void main(String[] args) {
+        int [][] array=new int[][]{{1,2,3},{4,5,6}};
+        System.out.println(minPathSum1(array));
+    }
 
     //暴力递归版本
+    static int minSum=Integer.MAX_VALUE;
     public static int minPathSum1(int[][] grid) {
         int m=grid.length; //获取行的长度
         int n=grid[0].length; //获取列的长度
-        return process(grid,0,0,m-1,n-1);
+        process(grid,0,0,m-1,n-1,0);
+        return minSum;
     }
 
-    public static int process81(int[][] grid, int curX, int curY, int aimX, int aimY){
-        if(curX==aimX&&curY==aimY){
-            return grid[curX][curY];
-        }
+    public static void process(int [][] grid, int curX, int curY,int aimX, int aimY,int tempSum){
         //越界
         if(curX<0||curX>=grid.length||curY<0||curY>=grid[0].length){
-            return Integer.MAX_VALUE;
+            return;
         }
-        int res=grid[curX][curY];
-        if(curX==grid.length-1){ //只能向右走
-            return res+process(grid,curX,curY+1,aimX,aimY);
-        }
-
-        if(curY==grid[0].length-1){//只能向下走
-            return res+process(grid,curX+1,curY,aimX,aimY);
-        }
-        int p1=res+process(grid,curX+1,curY,aimX,aimY);
-        int p2=res+process(grid,curX,curY+1,aimX,aimY);
-        return Math.min(p1,p2);
-    }
-
-    public  static int process(int[][] grid, int curX, int curY, int aimX, int aimY){
-        //baseCase
+        tempSum+=grid[curX][curY];
+        //来到目标值
         if(curX==aimX&&curY==aimY){
-            return grid[curX][curY];
+            minSum=Math.min(minSum,tempSum);
+            return;
         }
-        //baseCase
-        if(curX>aimX||curY>aimY){
-            return Integer.MAX_VALUE;
+        if(curX==aimX){//只能向右
+            process(grid,curX,curY+1,aimX,aimY,tempSum);
+            return;
         }
 
-        int curValue=grid[curX][curY];
-        if(curX==aimX){//只能向右走
-            return curValue+process(grid,curX,curY+1,aimX,aimY);
+        if(curY==aimY){//只能向下
+            process(grid,curX+1,curY,aimX,aimY,tempSum);
+            return;
         }
-        if(curY==aimY){//只能向下走
-            return curValue+process(grid,curX+1,curY,aimX,aimY);
-        }
-        //既可以向右走，也可以向下走
-        int p1=curValue+process(grid,curX,curY+1,aimX,aimY);
-        int p2=curValue+process(grid,curX+1,curY,aimX,aimY);
-        return Math.min(p1,p2);
+        //既可以向下，也可以向右
+        process(grid,curX+1,curY,aimX,aimY,tempSum);
+        process(grid,curX,curY+1,aimX,aimY,tempSum);
     }
+
+
 
     //动态规划版本
     public static int minPathSum2(int[][] grid) {
