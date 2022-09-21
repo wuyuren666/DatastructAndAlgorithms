@@ -2,8 +2,10 @@ package com.wyr.bigFactory.date8_13;
 
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 public class PoKeTest {
+
 
     /**
      * 两个人玩扑克，有 n 张牌，两个人依次从牌顶拿牌放到牌底，然后拿出牌顶的牌，记下数字；

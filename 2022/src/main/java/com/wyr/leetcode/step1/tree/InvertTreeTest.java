@@ -11,13 +11,9 @@ public class InvertTreeTest {
         if(root==null){
             return root;
         }
-        //先交换root的左右两个子树的位置
-        TreeNode temp=root.right;
-        root.right=root.left;
-        root.left=temp;
-        //下面递归交换子树
-        invertTree(root.left);
-        invertTree(root.right);
-        return root;
+        TreeNode node=new TreeNode(root.val);
+        node.left=invertTree(root.right);
+        node.right=invertTree(root.left);
+        return node;
     }
 }

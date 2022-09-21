@@ -46,7 +46,6 @@ public class BreadthFirstTraverse {
                 curLevelCounts=1;
                 curLevel++;
             }
-
             if(cur.left!=null){
                 map.put(cur.left,curLevel+1);
                 queue.add(cur.left);

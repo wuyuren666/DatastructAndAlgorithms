@@ -63,7 +63,6 @@ public class FindRedundantConnectionTest {
             }
         }
         return edges[countRow];
-
     }
     public void union(int [] father, int n1, int n2){
         //findFather(father,n2)找到n2的代表节点

@@ -25,5 +25,21 @@ public class AddTest {
         return info1;
     }
 
+    public static void test(){
+        try {
+            int a=10/0;
+            System.out.println("aaaa");
+        }catch (Exception e){
+            throw new RuntimeException();
+        }finally {
+            System.out.println("finally");
+        }
+        System.out.println("bbb");
+    }
+
+    public static void main(String[] args) {
+        test();
+    }
+
 
 }

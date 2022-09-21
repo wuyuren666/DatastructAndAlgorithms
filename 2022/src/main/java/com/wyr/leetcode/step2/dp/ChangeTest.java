@@ -3,10 +3,13 @@ package com.wyr.leetcode.step2.dp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.TreeSet;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ChangeTest {
+
     /**
      * 给你一个整数数组 coins 表示不同面额的硬币，另给一个整数 amount 表示总金额。
      *
@@ -30,9 +33,16 @@ public class ChangeTest {
      * 链接：https://leetcode.cn/problems/coin-change-2
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
-    public static void main(String[] args) {
-        int []a=new int[]{1,2,3,4,5};
-        System.out.println(change(5,a));
+    public static void main(String[] args) throws InterruptedException {
+
+
+        for(int i=0;i<2;i++){
+            System.out.print(i+'b'+1);
+        }
+
+
+       /* int []a=new int[]{1,3};
+        System.out.println(change(30,a));*/
     }
 
     //暴力递归的方法

@@ -52,7 +52,6 @@ public class Code1 {
         if(index>=drinks.length){
             return 0;
         }
-
         //当前的杯子我决定用咖啡机去洗
         //selfWash1：当前杯子洗干净结束的时间点
         //依赖于洗咖啡机的可以工作时间点和当前杯子可以去洗的时间点

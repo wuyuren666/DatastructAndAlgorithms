@@ -28,7 +28,7 @@ public class Code1 {
         return process(income,0,rest);
     }
 
-    //返回第index...这写司机，在平均分给A和B地区相同人数的情况下，且去A的人数为rest人的情况下，能够获得的最大收入
+    //返回第index...这些司机，在平均分给A和B地区相同人数的情况下，且去A的人数为rest人的情况下，能够获得的最大收入
     public static int process(int [][] income, int index, int rest){
         if(index==income.length){ //没有司机了
             return 0;

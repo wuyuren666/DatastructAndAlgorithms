@@ -21,7 +21,7 @@ public class CountSubIslandsTest {
         int m=grid1.length,n=grid1[0].length;
         for(int i=0;i<m;i++){
             for(int j=0;j<n;j++){
-                if(grid2[i][j]==1&&grid1[i][j]==0){
+                if(grid2[i][j]==1&&grid1[i][j]==0){ //grid2中这块陆地连接的陆地全部都淹没掉
                     process(grid2,i,j);
                 }
             }

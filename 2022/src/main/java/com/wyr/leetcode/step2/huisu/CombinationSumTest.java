@@ -51,6 +51,7 @@ public class CombinationSumTest {
                 tempList.add(candidates[index]);
             }
             process(candidates,index+1,rest-candidates[index]*i,tempList);
+            //回来之后将之前加入的删掉
             for(int j=0;j<i;j++){
                 tempList.remove(tempList.size()-1);
             }

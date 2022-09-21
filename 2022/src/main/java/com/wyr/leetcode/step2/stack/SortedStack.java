@@ -14,10 +14,8 @@ public class SortedStack {
     //使用递归
     public Stack<Integer> stack;
 
-
     public SortedStack() {
         this.stack=new Stack<>();
-
     }
 
     public void push(int val) {

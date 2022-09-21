@@ -31,7 +31,7 @@ public class WordBreakTest {
         dp[0] = true;
         for (int i = 1; i <= s.length(); i++) {
             for (int j = 0; j < i; j++) {
-                if (dp[j] && wordDictSet.contains(s.substring(j, i))) {
+                if (dp[j] && wordDictSet.contains(s.substring(j, i))) { //看[j,i)这个子字符串是否能够被搞定
                     dp[i] = true;
                     break;
                 }

@@ -1,7 +1,8 @@
 package com.wyr.leetcode.step1.tree;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.io.*;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * https://leetcode.cn/problems/NYBBNL/
@@ -13,7 +14,14 @@ import java.util.List;
  * 输出：[1,null,2,null,3,null,4,null,5,null,6,null,7,null,8,null,9]
  *
  */
-public class IncreasingBSTTest {
+public class IncreasingBSTTest  {
+
+    public static void main(String[] args) throws IOException {
+        ConcurrentHashMap<Integer,Integer>map=new ConcurrentHashMap<>();
+        map.put(null,null);
+
+
+    }
     public BinaryTreesNode increasingBST(BinaryTreesNode root) {
         //root为null，或者没有左右孩子时，返回本身
         if(root==null||root.left==null&&root.right==null)

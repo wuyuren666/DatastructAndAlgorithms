@@ -93,13 +93,14 @@ public class UnionFind {
 
 
         /**
-         * 这种并查集结构也很不错
+         * 这种并查集结构也很不错，推荐使用
          */
         public void union(int [] father, int n1, int n2){
             //findFather(father,n2)找到n2的代表节点
             //findFather(father, n1)找到n1的代表节点
             father[findFather(father, n1)] = findFather(father, n2);
         }
+
         //查询父代表元素，会有扁平化的过程
         public int findFather(int[] father, int index){
             if(father[index]!=index){

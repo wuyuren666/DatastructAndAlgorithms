@@ -17,7 +17,7 @@ public class Code1 {
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
 
-    //注意只有子数问题才可以使用序列化的方式
+    //注意只有子树问题才可以使用序列化的方式
     public static boolean checkSubTree2(TreeNode t1, TreeNode t2) {
         //将两棵树先序方式序列化
         String s1=serilize(t1);
@@ -62,7 +62,7 @@ public class Code1 {
         if(root==null||subRoot==null){
             return false;
         }
-        //第一个可能兴是以subRoot为头的树和以root为头的树结构完全一致
+        //第一个可能性是以subRoot为头的树和以root为头的树结构完全一致
         //下面就是递归去判断
         return checkSubTree(root,subRoot)||isSubtree(root.left,subRoot)||isSubtree(root.right,subRoot);
     }

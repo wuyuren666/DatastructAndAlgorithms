@@ -10,7 +10,7 @@ public class CombinationSum2Test {
      *
      * 注意：解集不能包含重复的组合。
      *
-     * 输入: candidates = [10,1,2,7,6,1,5], target = 8,
+     * 输入: candidates =[10,1,2,7,6,1,5], target =8,
      * 输出:
      * [
      * [1,1,6],
@@ -68,7 +68,7 @@ public class CombinationSum2Test {
         //这里挺巧妙的
         for(int i=index;i<candidates.length;i++){
             if(candidates[i]<=target){
-                if(i>index&&candidates[i]==candidates[i-1]){
+                if(i>index&&candidates[i]==candidates[i-1]){//重复的数字只用一次
                     continue;
                 }
                 path.add(candidates[i]);
