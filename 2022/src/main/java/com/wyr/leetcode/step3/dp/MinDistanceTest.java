@@ -25,22 +25,26 @@ public class MinDistanceTest {
      */
     public int minDistanceDP(String s1, String s2) {
         int m = s1.length(), n = s2.length();
-        // 定义：s1[0..i] 和 s2[0..j] 的最小编辑距离是 dp[i+1][j+1]
+        // dp[i][j]:s1前缀i个字符凑成s2前缀j个字符的最小代价
+
         int[][] dp = new int[m + 1][n + 1];
+        //dp[0][0]=0;
         // base case
-        for (int i = 1; i <= m; i++)
-            dp[i][0] = i;
-        for (int j = 1; j <= n; j++)
+        for (int j = 1; j <= n; j++) //s1为空串的时候只能添加字符，才能变为s2前缀j个
             dp[0][j] = j;
+
+        for (int i = 1; i <= m; i++) //s2为空串的时候，s1只能删除字符才能变成s2的前缀0个字符
+            dp[i][0] = i;
+        //
         // 自底向上求解
         for (int i = 1; i <= m; i++) {
             for (int j = 1; j <= n; j++) {
-                if (s1.charAt(i-1) == s2.charAt(j-1)) {
+                if (s1.charAt(i-1) == s2.charAt(j-1)) {//s1的第i个字符和s2的第j个字符相等
                     dp[i][j] = dp[i - 1][j - 1];
                 } else {
-                    int p1=dp[i - 1][j] + 1;
-                    int p2=dp[i][j - 1] + 1;
-                    int p3=dp[i - 1][j - 1] + 1;
+                    int p1=dp[i - 1][j] + 1; //删掉第i个字符，让s1前面的i-1个字符变成s2
+                    int p2=dp[i][j - 1] + 1; //插入一个字符 ，让s1的前i个字符变成s2的前j-1个字符，最后再插入一个
+                    int p3=dp[i - 1][j - 1] + 1; //让s1的前i-1个字符变成s2的前i-1个字符，然后将s1的第i个字符替换成s2的第j个字符
                     dp[i][j] = Math.min(Math.min(p1,p2),p3);
                 }
             }

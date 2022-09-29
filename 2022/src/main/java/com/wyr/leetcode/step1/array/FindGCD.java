@@ -1,6 +1,8 @@
 package com.wyr.leetcode.step1.array;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * 给你一个整数数组 nums ，返回数组中最大数和最小数的 最大公约数 。
@@ -10,6 +12,24 @@ import java.util.Arrays;
  * https://leetcode.cn/problems/find-greatest-common-divisor-of-array/submissions/
  */
 public class FindGCD {
+
+    public static int[] test(){
+        int [] a=new int[]{0};
+        try {
+            return a;
+        }catch (Exception e){
+
+        }finally {
+            a[0]++;
+        }
+        return new int[0];
+    }
+
+    public static void main(String[] args) {
+        System.out.println(test()[0]); //1，引用类型会变
+    }
+
+
     public int findGCD(int[] nums) {
         Arrays.sort(nums);
         return gcd1(nums[0],nums[nums.length-1]);
