@@ -13,10 +13,8 @@ import org.w3c.dom.ls.LSOutput;
  */
 
 public class DiameterOfBinaryTreeTest {
-    //air的push测试 aaa
     int maxDiameter=Integer.MIN_VALUE;
     public int diameterOfBinaryTree(TreeNode root) {
-        System.out.println("aaa");
         if(root==null){
             return 0;
         }
