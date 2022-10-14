@@ -13,48 +13,29 @@ import java.util.Objects;
 
 
 public class DiameterOfBinaryTreeTest {
-    //使用二叉树的递归套路去求
-    public static int diameterOfBinaryTree(TreeNode root) {
+    int maxDiameter=Integer.MIN_VALUE;
+    public int diameterOfBinaryTree(TreeNode root) {
         if(root==null){
             return 0;
         }
-        return process(root).maxDistance;
+        process(root);
+        return maxDiameter;
     }
 
-    public static Info process(TreeNode root){
+    //最重要的：每一条二叉树的「直径」长度，就是一个节点的左右子树的最大深度之和。
+    public int process(TreeNode root){
         if(root==null){
-            return new Info(0,0);
+            return 0;
         }
 
-        //想左树要信息
-        Info leftInfo=process(root.left);
-        //向右树要信息
-        Info rightInfo=process(root.right);
-
-        //接下来返回自己的信息
-        //最大高度就是左树和右树中的最大距离+1
-        int height=Math.max(leftInfo.height,rightInfo.height)+1;
-        //最大的距离，分两种情况
-        //情况一：经过root，就是左子树的高度+右子树的高度
-        //情况二：不经过root，就是左子树和右子树中的最大距离
-        int p1=leftInfo.height+rightInfo.height;
-        int p2=Math.max(leftInfo.maxDistance,rightInfo.maxDistance);
-
-        int maxDistance=Math.max(p1,p2);
-
-        return new Info(height,maxDistance);
+        int left=process(root.left);
+        int right=process(root.right);
+        // 后序位置，顺便计算最大直径
+        maxDiameter=Math.max(maxDiameter,left+right);
+        return 1+Math.max(left,right);
     }
 
 
-    //自定义我们需要的返回值类型
-    public static class Info{
-        public int height;
-        public int maxDistance;
-        public Info(int height, int maxDistance){
-            this.height=height;
-            this.maxDistance=maxDistance;
-        }
-    }
 
     public static class TreeNode {
         int val;
