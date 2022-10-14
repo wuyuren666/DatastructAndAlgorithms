@@ -1,6 +1,7 @@
 package com.wyr.leetcode.step1.tree;
 
-import java.util.Objects;
+
+import org.w3c.dom.ls.LSOutput;
 
 /**
  * 二叉树的直径
@@ -11,10 +12,11 @@ import java.util.Objects;
  * https://leetcode.cn/problems/diameter-of-binary-tree/
  */
 
-
 public class DiameterOfBinaryTreeTest {
+    //air的push测试 aaa
     int maxDiameter=Integer.MIN_VALUE;
     public int diameterOfBinaryTree(TreeNode root) {
+        System.out.println("aaa");
         if(root==null){
             return 0;
         }
