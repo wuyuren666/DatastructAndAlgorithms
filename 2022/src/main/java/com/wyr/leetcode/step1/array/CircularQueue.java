@@ -12,6 +12,7 @@ public class CircularQueue {
 
     public CircularQueue(int k) {
         System.out.println("hot-fix");
+        System.out.println("master-fix");
         //数组的长度应为k+1
         arr=new int[k+1];
     }
