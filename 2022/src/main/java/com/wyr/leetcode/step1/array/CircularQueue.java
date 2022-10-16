@@ -17,7 +17,6 @@ public class CircularQueue {
 
     //入队
     public boolean enQueue(int value) {
-        //pull test
         //队列已满
         if((rear+1)%arr.length==front){
             return false;
