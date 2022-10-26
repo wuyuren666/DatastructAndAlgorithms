@@ -36,4 +36,24 @@ public class SubsetsWithDupTest {
         tempList.remove(tempList.size()-1);
         process(nums,tempList,index+1);
     }
+
+
+    public List<List<Integer>> subsetsWithDup1(int[] nums) {
+        Arrays.sort(nums);//先排序
+        dfs(0,nums,new ArrayList<>());
+        return ans;
+    }
+
+    public void dfs(int index , int[] nums , List<Integer> tempList){
+        //前序位置
+        ans.add(new ArrayList<>(tempList));
+        for(int i=index; i<nums.length; i++){
+            if(i>index&&nums[i]==nums[i-1]){
+                continue;
+            }
+            tempList.add(nums[i]);
+            dfs(i+1,nums,tempList);
+            tempList.remove(tempList.size()-1);
+        }
+    }
 }

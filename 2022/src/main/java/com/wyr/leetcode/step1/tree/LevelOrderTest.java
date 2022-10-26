@@ -11,6 +11,36 @@ import java.util.*;
  * 输出：[[1]]
  */
 public class LevelOrderTest {
+    //二叉树的BFS，这个比较好
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        if(root==null){
+            return new ArrayList<>();
+        }
+        List<List<Integer>> ans=new ArrayList<>();
+        //BFS用到的队列
+        Queue<TreeNode> queue=new LinkedList<>();
+        queue.add(root);
+        List<Integer> tempList=null;
+        //while用来走每一层
+        while(!queue.isEmpty()){
+            int size = queue.size();
+            tempList=new ArrayList<>();
+            //for是将当前层的节点的下一层节点(如果存在的话)加入到队列中
+            for(int i=0;i<size;i++){
+                TreeNode curNode=queue.poll();
+                tempList.add(curNode.val);
+                if(curNode.left!=null){
+                    queue.add(curNode.left);
+                }
+                if(curNode.right!=null){
+                    queue.add(curNode.right);
+                }
+            }
+            ans.add(tempList);
+        }
+        return ans;
+    }
+
 
     public static List<List<Integer>> levelOrder(BinaryTreesNode root) {
         List<List<Integer>> result=new ArrayList<>();//结果集合
