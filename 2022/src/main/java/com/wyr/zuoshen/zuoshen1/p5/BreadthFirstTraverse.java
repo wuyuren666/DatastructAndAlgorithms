@@ -2,6 +2,7 @@ package com.wyr.zuoshen.zuoshen1.p5;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,6 +39,7 @@ public class BreadthFirstTraverse {
         int max=0; //最终返回的结果
         queue.add(head);
         BinaryTreesNode cur;
+
         while (queue.size()!=0){
             if(map.get(cur=queue.poll())==curLevel){
                 curLevelCounts++;
