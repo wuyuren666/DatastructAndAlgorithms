@@ -22,7 +22,43 @@ public class SmallSumQuestion {
      */
     public static void main(String[] args) {
         int[] arr = new int[]{1, 3, 5, 4, 7};
-        System.out.println(process510(arr, 0, arr.length - 1));
+        //System.out.println(process510(arr, 0, arr.length - 1)); //22
+        System.out.println(process11_17(arr, 0, arr.length - 1));
+    }
+
+
+    public static int process11_17(int [] nums, int left, int right){
+        if(left==right){
+            return 0;
+        }
+        int mid=left+((right-left)>>1);
+        return process11_17(nums,left,mid)+process11_17(nums,mid+1,right)+merge11_17(nums,left,mid,right);
+    }
+
+    public static int merge11_17(int[] nums, int left, int mid, int right) {
+        int[] help=new int[right-left+1];
+        int i=0;
+        int p1=left;
+        int p2=mid+1;
+        int res = 0;
+        while (p1<=mid&&p2<=right){
+            if(nums[p1]<nums[p2]){
+                res+=(right-p2+1)*nums[p1];
+            }
+            help[i++]=nums[p1]<nums[p2]?nums[p1++]:nums[p2++];
+        }
+
+        while (p1<=mid){
+            help[i++]=nums[p1++];
+        }
+        while (p2<=right){
+            help[i++]=nums[p2++];
+        }
+
+        for(i=0;i<help.length;i++){
+            nums[left+i]=help[i];
+        }
+        return res;
     }
 
 

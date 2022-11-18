@@ -7,6 +7,29 @@ public class Code1 {
      * 返回绳子最多能压住几个点
      * 即使绳子边缘处盖住点也算盖住
      */
+    //11_18练习
+    //使用滑动窗口的最大模版去做
+    public static int maxPoint11_18(int [] arr, int K){
+        int left =0;
+        int right =0;
+        int ans=Integer.MIN_VALUE;
+        while(right<arr.length){
+            while (arr[right]-arr[left]>K){
+                //条件不满足，缩小窗口
+                left++;
+            }
+            //条件满足，记录
+            ans = Math.max(ans,right-left+1);
+            right++;
+        }
+        return ans;
+    }
+
+
+
+
+
+
     //二分法，时间复杂度O(NlogN)
     public static int maxPoint1(int [] arr, int L){
         int res=1;
@@ -95,9 +118,10 @@ public class Code1 {
 
 
     public static void main(String[] args) {
-        int [] arr={1,4,7};
-        System.out.println(maxPoint2(arr,3));
-       // System.out.println(getMaxPoint83(arr,15));
+        int [] arr={1,4,7,11,12,14,19,20,22,30};
+        System.out.println(maxPoint11_18(arr,20));
+        System.out.println(maxPoint1(arr, 20));
+        // System.out.println(getMaxPoint83(arr,15));
     }
 
 }

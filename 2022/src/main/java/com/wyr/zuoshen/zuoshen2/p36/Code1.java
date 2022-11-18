@@ -3,6 +3,10 @@ package com.wyr.zuoshen.zuoshen2.p36;
 public class Code1 {
     /**
      * 尽量将数组中奇数放奇数下标上，偶数放偶数下标上
+     * 思想：
+     *      每一次判断数组最后一个元素是偶数还是奇数，
+     *          如果是偶数，就和p1所指向的数组元素交换
+     *          如果是奇数，就和p2所指向的数组元素交换
      */
     public static void test(int [] arr){
         int p1=0;

@@ -11,6 +11,8 @@ package com.wyr.leetcode.step1.array;
 public class SingleNumberTest {
 
     public static int singleNumber(int[] nums) {
+        // 任何数和0异或都是本身
+        // 自己异或自己 是 0
         //a^a==0,  0^a==a
         int eor=0;
         for(int i:nums){

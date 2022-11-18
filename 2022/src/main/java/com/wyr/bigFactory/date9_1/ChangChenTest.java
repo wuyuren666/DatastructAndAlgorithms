@@ -29,6 +29,7 @@ public class ChangChenTest {
 
         List<Integer> list=new ArrayList<>(set);
         int res=Integer.MAX_VALUE;
+        //暴力方法
         for(int i=0;i<list.size()-1;i++){
             for(int j=i+1;j<list.size();j++){
                 res=Math.min(process(nums,list.get(i),list.get(j)),res);

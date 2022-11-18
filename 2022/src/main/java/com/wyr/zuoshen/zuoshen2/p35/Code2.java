@@ -1,6 +1,7 @@
 package com.wyr.zuoshen.zuoshen2.p35;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Code2 {
@@ -32,7 +33,7 @@ public class Code2 {
         }
         //产生0~R-L之间的随机数
         int randomIndex=L+(int)(Math.random()*(R-L+1));
-        int [] range=partion2(nums,L,R,nums[randomIndex]);
+        int [] range=partion1(nums,L,R,nums[randomIndex]);
 
         if(index>=range[0]&&index<=range[1]){
             return nums[range[0]];
@@ -49,6 +50,7 @@ public class Code2 {
     //也就是说，我们将数组分为三部分 <value ==value >value
     //这是开辟一个新数组，然后挨个复制的方法
     public static int[] partion1(int [] nums,int L,int R, int value){
+
         int [] temp=new int[nums.length];
         for(int i=0;i<L;i++){
             temp[i]=nums[i];
@@ -88,6 +90,9 @@ public class Code2 {
         //为什么呢？因为每一个方法中的nums都是一个引用指向堆中的同一块内存区域
         //在这里，nums=temp，只是将当前方法中的这个nums引用指向其他对象
         //而其他方法中的nums引用指向是没有改变的
+        /**
+         * 这里的原因是，在主调函数中，我们的nums其实也需要获得被partion后的数组
+         */
         for(int i=0;i<nums.length;i++){
             nums[i]=temp[i];
         }
@@ -163,6 +168,8 @@ public class Code2 {
         return result;
     }
 
+
+
     public static void swap(int [] nums, int i, int j){
         nums[i]=nums[i]^nums[j];
         nums[j]=nums[i]^nums[j];
@@ -174,10 +181,15 @@ public class Code2 {
 
 
     public static void main(String[] args) {
-        int a[]={3,3,3,3,4,3,3,3,3};
-        partion2(a,0,a.length-1,3);
+        int a[]={3,2,1,5,6,4};
+
+       // int[] ints = partion1(a, 1, 3, 5);
+        //System.out.println("aaaa");
+
+       System.out.println(findKthLargest(a, 2));
+       /* partion1(a,0,a.length-1,3);
         for (int i : a) {
             System.out.print(i);
-        }
+        }*/
     }
 }

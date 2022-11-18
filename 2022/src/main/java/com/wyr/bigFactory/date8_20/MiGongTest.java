@@ -3,7 +3,7 @@ package com.wyr.bigFactory.date8_20;
 import java.util.ArrayList;
 
 
-public class MiGongTest {
+public class  MiGongTest {
 
     /**
      *  给一个二维数组，代表一个迷宫

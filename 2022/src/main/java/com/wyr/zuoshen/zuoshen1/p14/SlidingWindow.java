@@ -11,29 +11,34 @@ public class SlidingWindow {
      *
      * https://leetcode.cn/problems/hua-dong-chuang-kou-de-zui-da-zhi-lcof/
      */
-    public static int[] getMaxWindow(int []arr, int k){
-        if(arr==null||k<=0||arr.length<k){
+    public static int[] getMaxWindow(int []nums, int k){
+        if(nums==null||k<=0||nums.length<k){
             return new int[0];
         }
         //下标  值 大->小 ，注意需要是严格的从大到小
         //思想，使用双端队列，每次都向队尾加入元素，但是要满足我们大->小的规定，有比当前数小的就弹出
         //最终，队头位置放置的就是整个滑动窗口中的最大值
-        LinkedList<Integer> qmax=new LinkedList<>();
-        int [] res=new int[arr.length-k+1]; //返回值存放的是所有窗口中的最大值
-        int L=0;
-        for(int R=0;R<arr.length;R++){
-            //R->arr[R]
-            while (!qmax.isEmpty()&&arr[qmax.peekLast()]<=arr[R]){
-                qmax.pollLast();
+        LinkedList<Integer> queue=new LinkedList<>();
+        int [] res=new int[nums.length-k+1]; //返回值存放的是所有窗口中的最大值
+        int left=0, right=0;
+        int index=0;
+        while(right<nums.length){
+            //队列不为空，且没有按照从大到小的顺序来，就不断弹出
+            while(!queue.isEmpty()&&nums[queue.peekLast()]<nums[right]){
+                queue.pollLast();
             }
-            qmax.addLast(R);
-            if(qmax.peekFirst()<L){  //下标过期了
-                qmax.pollFirst();
+            //队列为空或队列按照从大到小的顺序来
+            queue.addLast(right);
+            //如果窗口形成了
+            if(right-left+1==k){
+                //查看队头元素是否在窗口内
+                while(queue.peekFirst()<left){
+                    queue.removeFirst();
+                }
+                res[index++]=nums[queue.peekFirst()];
+                left++;
             }
-            //窗口形成了
-            if(R-L==k-1){
-                res[L++]=arr[qmax.peekFirst()];
-            }
+            right++;
         }
         return res;
     }

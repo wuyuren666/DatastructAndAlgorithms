@@ -33,6 +33,7 @@ public  class TanXianTest {
      * 到第三天时获得的钥匙是1、3、5，能够打开第1道门，到第四天时钥匙为1、2、3、5，能继续打开第2和3道门，
      * 道第五天时获得了全部的钥匙，能打开所有剩下的门
      */
+
     public static void main(String[] args) {
         Scanner sc=new Scanner(System.in);
         int N=sc.nextInt();
@@ -56,8 +57,8 @@ public  class TanXianTest {
                     break;
                 }
             }
-            day_key_map[curDay]=curKeyOfDoor;//记录第curDay天获得的钥匙
-            if(j<1){//可以打开
+            day_key_map[curDay]=curKeyOfDoor;//记录第curDay天获得哪扇门的钥匙
+            if(j<1){//可以打开，说明在上一步的for循环中，没有触发到break，也就是说，当前这扇门之前的几扇门全都被打开了
                 daymap[curKeyOfDoor]=curDay; //记录第curKeyOfDoor被打开的日期
                 //这个时候需要看手里存在的钥匙能否打开后续的门
                 for(int nextKeyOfDoor=curKeyOfDoor+1;nextKeyOfDoor<=N+1;nextKeyOfDoor++){
@@ -69,7 +70,7 @@ public  class TanXianTest {
                             break; //这个break完全可以加上
                         }
                     }
-                    if(flag){
+                    if(flag){ //仍然是true的话说明，第nextKeyOfDoor扇门是无法被打开的
                         break;
                     }
                 }

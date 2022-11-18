@@ -21,7 +21,7 @@ public class MonotonicStack {
                int [] temp=new int[2];
                //temp[0]，左边大于本身的最大数的最近的下标
                 // temp[1]，右边大于本身的最大数的最近的下标
-               if(stack.isEmpty()){ //下面没有压这的数了
+               if(stack.isEmpty()){ //下面没有压着的数了
                    temp[0]=-1;
                }else{
                    temp[0]=stack.peek();

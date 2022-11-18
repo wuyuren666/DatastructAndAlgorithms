@@ -13,8 +13,9 @@ package com.wyr.leetcode.step2.dp;
  * https://leetcode.cn/problems/minimum-path-sum/
  */
 public class MinPathSumTest {
+
     public static void main(String[] args) {
-        int [][] array=new int[][]{{1,2,3},{4,5,6}};
+        int [][] array=new int[][]{{1,3,1},{1,5,1},{4,2,1}};
         System.out.println(minPathSum1(array));
     }
 

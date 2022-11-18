@@ -83,8 +83,13 @@ public class FindTargetSumWaysTest {
         if(nums.length==1&&nums[0]!=Math.abs(target)){
             return 0;
         }
-        //优化点2，3
+        //优化点2
         if(sum<target||((sum&1)^(target&1))!=0){
+            return 0;
+        }
+        //优化点3
+        //target+sum之和不是偶数，其实就是target和sum奇偶性不一致的意思
+        if(((target+sum)&1) != 0){
             return 0;
         }
         //优化点4

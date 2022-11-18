@@ -30,19 +30,18 @@ public class DistributeCandiesTest2 {
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
     public int[] distributeCandies(int candies, int num_people) {
-        int [] res=new int [num_people]; //返回的结果
-        int curChildCount=1; //当前孩子应该获得的糖果数
-        int restCandyCount=candies; //剩余的糖果数
-        int index=-1;
-        while(restCandyCount!=0){
-            int curIndex=(++index%num_people);//循环下标
-            res[curIndex]+=curChildCount; //当前孩子分得的糖果
-            restCandyCount-=curChildCount;//剩下的糖果减少
-            curChildCount++; //下一个孩子应该分得的糖果
-            if(curChildCount>restCandyCount){ //下一个孩子因为剩余糖果不够的原因，所以他只能委屈一下
-                curChildCount=restCandyCount;
-            }
+        int [] res=new int[num_people];
+        int curIndex =0; //下标位置
+        int numOfCurPeople =1; //当前下标位置应该分得的糖果数
+        while(candies>numOfCurPeople){ //当剩余的糖果数大于给应该给当前孩子的糖果数
+            res[curIndex] += numOfCurPeople;
+            candies-=numOfCurPeople;//剩下的糖果数
+            curIndex = (curIndex+1)%num_people; //下标后移
+            numOfCurPeople++; //下一位应该得到的糖果数
         }
+        res[curIndex] += candies;
         return res;
     }
+
+
 }

@@ -17,28 +17,30 @@ package com.wyr.leetcode.step2.dp;
  */
 public class UniquePathsTest {
     //暴力递归版本
+    static int count=0;
     public int uniquePaths1(int m, int n) {
-        return process(1,1,m,n);
+        process(m,n,0,0);
+        return count;
     }
 
-    public int process(int curX,int curY, int aimX, int aimY){
-        //来到了目标位置，代表找到了一种方法
-        if(curX==aimX&&curY==aimY){ //basecase
-            return 1;
-        }
-        //越界了
-        if(curX>aimX||curY>aimY){ //basecase
-            return 0;
-        }
-        if(curX==aimX){//只能尝试向右走
-            return process(curX,curY+1,aimX,aimY);
-        }
-        if(curY==aimY){//只能尝试向下走
-            return process(curX+1,curY,aimX,aimY);
-        }
+    public static void process(int m, int n, int curX, int curY){
 
-        //既可以向下走，又可以向右走
-        return process(curX+1,curY,aimX,aimY)+process(curX,curY+1,aimX,aimY);
+        if(curX==m-1&&curY==n-1){
+            count++;
+            return;
+        }
+        //只能向右走
+        if(curX==m-1){
+            process(m,n,curX,curY+1);
+            return;
+        }
+        //只能向下走
+        if(curY==n-1){
+            process(m,n,curX+1,curY);
+            return;
+        }
+        process(m,n,curX,curY+1);
+        process(m,n,curX+1,curY);
     }
 
 

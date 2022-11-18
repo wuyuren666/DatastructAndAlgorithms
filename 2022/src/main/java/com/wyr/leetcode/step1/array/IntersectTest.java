@@ -21,6 +21,7 @@ import java.util.List;
 
 public class IntersectTest {
     public int[] intersect(int[] nums1, int[] nums2) {
+
         //对两个数组都先排好序
         Arrays.sort(nums1);
         Arrays.sort(nums2);
