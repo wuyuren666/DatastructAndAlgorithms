@@ -35,6 +35,7 @@ public  class TanXianTest {
      */
 
     public static void main(String[] args) {
+        System.out.println("aaaaa");
         Scanner sc=new Scanner(System.in);
         int N=sc.nextInt();
         sc.nextLine();
