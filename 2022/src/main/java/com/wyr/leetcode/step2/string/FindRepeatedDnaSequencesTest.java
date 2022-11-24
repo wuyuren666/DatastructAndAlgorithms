@@ -36,9 +36,6 @@ public class FindRepeatedDnaSequencesTest {
                 set.add(tempStr);
             }
         }
-        for(String str: set){
-            list.add(str);
-        }
-        return list;
+        return new ArrayList<>(set);
     }
 }

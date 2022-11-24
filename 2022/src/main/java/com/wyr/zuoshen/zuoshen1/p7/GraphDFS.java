@@ -10,6 +10,27 @@ import java.util.Stack;
 //一条道走到黑，然后往回看之前的顶点是否还有路走
 public class GraphDFS {
 
+    public static void dfs11_23(Node head){
+        Set<Node> set=new HashSet<>();
+        Stack<Node> stack=new Stack<>();
+        set.add(head);
+        stack.add(head);
+        System.out.println(head.value);
+        while (!stack.isEmpty()){
+            Node curNode=stack.pop();
+            //一条道走到黑，然后往回看之前的顶点是否还有路走
+            for (Node next : curNode.nexts) {
+                if(!set.contains(next)){
+                    System.out.println(next.value);
+                    stack.push(curNode);//先压
+                    stack.push(next);//后压
+                    set.add(next);
+                    break;
+                }
+            }
+        }
+    }
+
 
 
     //需要一个栈和一个set集合

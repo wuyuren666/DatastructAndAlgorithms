@@ -60,7 +60,7 @@ public class CombinationSum2Test {
         dfs(candidates,target,0);
         return list;
     }
-    private void dfs(int[] candidates, int target,int index){
+    private void dfs(int[] candidates, int target, int index){
         if(target==0){
             list.add(new ArrayList<>(path));
             return;

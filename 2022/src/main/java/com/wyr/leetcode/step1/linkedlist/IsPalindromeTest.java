@@ -9,6 +9,8 @@ import java.util.LinkedList;
  *输出：true
  *输入：head = [1,2]
  *输出：false
+ *
+ * https://leetcode.cn/problems/aMhZSa/
  */
 public class IsPalindromeTest {
     public static void main(String[] args) {

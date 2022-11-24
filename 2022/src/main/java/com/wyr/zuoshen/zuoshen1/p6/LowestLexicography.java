@@ -19,7 +19,7 @@ public class LowestLexicography {
             public int compare(String a, String b) {
                 //a+b的字典序小于b+a的字典序，(a+b).compareTo(b+a)是-1
                 //负数的话，(代表先排a后排b)
-                // 正数的话，(代表先排b后排a)
+                //正数的话，(代表先排b后排a)
                 return (a+b).compareTo(b+a);
             }
         });

@@ -2,7 +2,7 @@ package com.wyr.zuoshen.zuoshen1.p9;
 
 public class BitMap {
     public static void main(String[] args) {
-        int[] arr=new int [2]; //32bit*2->64 bits
+        int[] arr=new int []{9,0}; //32bit*2->64 bits
         //arr[0]  0~31
         //arr[1]  32~63
 

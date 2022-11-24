@@ -15,6 +15,7 @@ public class Code1 {
 
     /**
      * 双链表的逆序
+     * 只要会单链表的逆序反转，就一定可以写出双链表的逆序反转，其实就是在中间多了一步，仅此而已！！！
      */
     public static Node reverseDoubleList(Node head){
         Node cur=head;

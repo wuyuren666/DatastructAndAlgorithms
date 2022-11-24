@@ -64,6 +64,7 @@ public class CheckInclusionTest {
         }
         return (length == s1.length());
     }
+
     //使用固定大小的窗口进行滑动
     public  boolean checkInclusion(String s1, String s2){
         int windowSize=s1.length();

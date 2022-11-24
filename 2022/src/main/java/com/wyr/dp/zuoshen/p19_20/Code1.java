@@ -91,9 +91,45 @@ public class Code1 {
         return p1+p2;
     }
 
+
+
+
+
+    public static int solution11_21(String str){
+        char[] chars = str.toCharArray();
+        return process11_21(chars, 0);
+    }
+
+
+
+
+    public static int process11_21(char[] chars, int index){
+        if(index==chars.length){
+            return 1;
+        }
+
+        //如果单独碰到'0'
+        if(chars[index]=='0'){
+            return 0;
+        }
+
+        //在当前字符选择单转
+        int p1=process(chars,index+1);
+        //选择和下一个字符一起转
+        int p2=0;
+        //有下一个字符，且当前数字和下一个数字组合起来的范围在[1,26]
+        if(index+1<=chars.length-1&&(chars[index]-'0')*10+(chars[index]-'0')>=1&&(chars[index]-'0')*10+(chars[index]-'0')<=26){
+            p2=process11_21(chars,index+2);
+        }
+        return p1+p2;
+    }
+
+
+
     public static void main(String[] args) {
-        System.out.println(solution("311521312"));//18
-        
+        System.out.println(solution("234234324"));//8
+        System.out.println(solution11_21("234234324"));//8
+
     }
 
 }

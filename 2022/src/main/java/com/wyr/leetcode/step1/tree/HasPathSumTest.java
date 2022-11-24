@@ -28,6 +28,31 @@ public class HasPathSumTest {
         }
         return dfs(root.left,targetSum,tempSum)||dfs(root.right,targetSum,tempSum);
     }
+
+    public boolean hasPathSum2(TreeNode root, int targetSum) {
+        if(root==null){
+            return false;
+        }
+        return dfs2(root,targetSum,root.val);
+    }
+
+    public boolean dfs2(TreeNode root, int targetSum, int tmpSum){
+        if(root.left==null&&root.right==null){//到达了叶子结点
+            if(tmpSum==targetSum){
+                return true;
+            }
+            return false;
+        }
+
+        if(root.left!=null&&root.right==null){
+            return dfs2(root.left,targetSum,tmpSum+root.left.val);
+        }else if(root.left==null&&root.right!=null){
+            return dfs2(root.right,targetSum,tmpSum+root.right.val);
+        }else{
+            return dfs2(root.left,targetSum,tmpSum+root.left.val)||dfs2(root.right,targetSum,tmpSum+root.right.val);
+        }
+
+    }
 }
 
 class TreeNode {

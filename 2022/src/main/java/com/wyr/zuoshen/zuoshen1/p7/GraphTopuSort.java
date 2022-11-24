@@ -29,9 +29,9 @@ public class GraphTopuSort {
         //拓扑排序的结果，依次加入到result中
         List<Node> result=new ArrayList<>();
         while (!zeroInQueue.isEmpty()){
-            Node cur = zeroInQueue.poll();
-            result.add(cur);
-            for (Node next : cur.nexts) {
+            Node cur = zeroInQueue.poll();//先拿出一个入度为0的点
+            result.add(cur); //加入到结果中
+            for (Node next : cur.nexts) { //这个点可以到达的其他点
                 inMap.put(next,inMap.get(next)-1);//更新inMap中的临接节点的入度
                 if(inMap.get(next)==0){ //入度为0
                     zeroInQueue.add(next);

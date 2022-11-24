@@ -43,7 +43,7 @@ public class Code1 {
         if (target.length() == 0) {
             return 0;
         }
-        //min为系统最小值
+        //min为系统最大值
         int min = Integer.MAX_VALUE;
         //我们从每一种贴纸进行尝试
         for (String str : arr) {
@@ -149,15 +149,70 @@ public class Code1 {
 
 
     public static void main(String[] args) {
-        long t1 = System.currentTimeMillis();
-        System.out.println(theLeastCounts1("travelbell", new String[]{"heavy","claim","seven","set","had","it","dead","jump","design","question","sugar","dress","any","special","ground","huge","use","busy","prove","there","lone","window","trip","also","hot","choose","tie","several","be","that","corn","after","excite","insect","cat","cook","glad","like","wont","gray","especially","level","when","cover","ocean","try","clean","property","root","wing"}
+        //long t1 = System.currentTimeMillis();
+        System.out.println(theLeastCounts1("trave", new String[]{"heavy","claim","seven","set","had","it","dead","jump","design","question","sugar","dress","any","special","ground","huge","use","busy","prove","there","lone","window","trip","also","hot","choose","tie","several","be","that","corn","after","excite","insect","cat","cook","glad","like","wont","gray","especially","level","when","cover","ocean","try","clean","property","root","wing"}
         ));
-        long t2 = System.currentTimeMillis();
-        System.out.println(t2-t1);
-        long t3 = System.currentTimeMillis();
-        System.out.println(theLeastCounts2("travelbell", new String[]{"heavy", "claim", "seven", "set", "had", "it", "dead", "jump", "design", "question", "sugar", "dress", "any", "special", "ground", "huge", "use", "busy", "prove", "there", "lone", "window", "trip", "also", "hot", "choose", "tie", "several", "be", "that", "corn", "after", "excite", "insect", "cat", "cook", "glad", "like", "wont", "gray", "especially", "level", "when", "cover", "ocean", "try", "clean", "property", "root", "wing"}));
-        long t4 = System.currentTimeMillis();
-        System.out.println(t4-t3);
+        //long t2 = System.currentTimeMillis();
+        //System.out.println(t2-t1);
+        //long t3 = System.currentTimeMillis();
+        System.out.println(theLeastCounts11_21("trave", new String[]{"heavy","claim","seven","set","had","it","dead","jump","design","question","sugar","dress","any","special","ground","huge","use","busy","prove","there","lone","window","trip","also","hot","choose","tie","several","be","that","corn","after","excite","insect","cat","cook","glad","like","wont","gray","especially","level","when","cover","ocean","try","clean","property","root","wing"}));
+        //long t4 = System.currentTimeMillis();
+        //System.out.println(t4-t3);
+    }
+
+
+    public static int theLeastCounts11_21(String target,String[] strs){
+        return process11_21(target,strs);
+    }
+
+    public static int process11_21(String target,String [] strs){
+        if(target.length()==0){
+            return 0;
+        }
+        int min = Integer.MAX_VALUE;
+        for(String str: strs){
+            //这里有一个剪枝的优化，如果贴纸字符串中有target的第一个字符，我们就用
+            if(str.indexOf(target.charAt(0))!=-1){
+                String rest = getRestString11_21(target,str);
+                //得到的rest肯定能至少消除掉一个字符
+                min=Math.min(min,process11_21(rest,strs));
+            }
+        }
+        return min==Integer.MAX_VALUE?Integer.MAX_VALUE:min+1;
+    }
+
+    private static String getRestString11_21(String target, String str) {
+        //弄两张词频统计表
+        Map<Character,Integer> targetMap=new HashMap<>();
+        Map<Character,Integer> strMap=new HashMap<>();
+        for(int i=0;i< target.length();i++){
+            if(targetMap.containsKey(target.charAt(i))){
+                targetMap.put(target.charAt(i),targetMap.get(target.charAt(i))+1);
+            }else{
+                targetMap.put(target.charAt(i),1);
+            }
+        }
+        for(int i=0;i< str.length();i++){
+            if(strMap.containsKey(str.charAt(i))){
+                strMap.put(str.charAt(i),strMap.get(str.charAt(i))+1);
+            }else{
+                strMap.put(str.charAt(i),1);
+            }
+        }
+        for (Character character : strMap.keySet()) {
+            if(targetMap.containsKey(character)){
+                targetMap.put(character,targetMap.get(character)-strMap.get(character));
+            }
+        }
+        StringBuilder sb=new StringBuilder();
+        for (Map.Entry<Character, Integer> entry : targetMap.entrySet()) {
+            if(entry.getValue()>0){
+                for(int i=1;i<=entry.getValue();i++){
+                    sb.append(entry.getKey());
+                }
+            }
+        }
+        return sb.toString();
     }
 
 }

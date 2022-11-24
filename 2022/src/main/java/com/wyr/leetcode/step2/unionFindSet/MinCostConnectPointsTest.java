@@ -49,6 +49,7 @@ public class MinCostConnectPointsTest {
     }
 
     //这种并查集的写法和上面的时间复杂度差不多
+    //最小生成树问题
     public int minCostConnectPoints2(int[][] points) {
         //等差数列前n项和公式a1*n+((n*(n-1))/2)*d
         int pointNum=points.length;

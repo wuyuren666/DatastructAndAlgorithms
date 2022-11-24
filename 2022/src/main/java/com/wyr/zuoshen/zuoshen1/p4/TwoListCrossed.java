@@ -172,7 +172,7 @@ public class TwoListCrossed {
                  break;
              }
          }
-         if(fast==null||fast.next==null)
+         if(fast==null||fast.next==null)//说明不是因为break导致上面循环退出的
              return null;
         //让快指针移到head，慢指针不动
         fast = head;
