@@ -1,5 +1,7 @@
 package com.wyr.leetcode.step1.string;
 
+import java.util.Arrays;
+
 public class LongestCommonPrefixTest {
     /**
      * 编写一个函数来查找字符串数组中的最长公共前缀。
@@ -42,5 +44,25 @@ public class LongestCommonPrefixTest {
                 break;
         }
         return res==0?"":strs[0].substring(0,res);
+    }
+
+    public String longestCommonPrefix2(String[] strs) {
+        Arrays.sort(strs,(o1, o2)->o1.length()-o2.length());
+        String tmp=strs[0];
+        String ans="";
+        for(int i=1;i<=tmp.length();i++){
+            boolean flag=true;
+            for(int j=1;j<strs.length;j++){
+                if(!strs[j].substring(0,i).equals(tmp.substring(0,i))){
+                    flag=false;
+                }
+            }
+            if(flag){
+                ans=tmp.substring(0,i);
+            }else{
+                break;
+            }
+        }
+        return ans;
     }
 }

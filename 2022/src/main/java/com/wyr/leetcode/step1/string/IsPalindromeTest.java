@@ -24,13 +24,12 @@ public class IsPalindromeTest {
 
 
     public static boolean isPalindrome(String s){
-        if(s.equals(""))
-            return true;
-        char[] chars = s.toCharArray();
+        int n=s.length();
+        char[] chs=s.toCharArray();
         StringBuilder sb=new StringBuilder();
-        for (char c : chars) {
-            if((c>=97&&c<=122)||(c>=65&&c<=90||c>=48&&c<=57)){
-                sb.append(c);
+        for(int i=0;i<n;i++){
+            if(chs[i]>='0'&&chs[i]<='9'||chs[i]>='a'&&chs[i]<='z'||chs[i]>='A'&&chs[i]<='Z'){
+                sb.append(chs[i]);
             }
         }
         return sb.toString().equalsIgnoreCase(sb.reverse().toString());

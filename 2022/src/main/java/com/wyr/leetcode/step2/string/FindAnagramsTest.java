@@ -33,7 +33,6 @@ public class FindAnagramsTest {
         //使用固定大小的窗口去滑动
         int windowSize = p.length();
         int left=0,right=0;
-        int count=0; //已经解决好的字符的个数
         Map<Character, Integer> needMap = new HashMap<>();
         Map<Character,Integer> windowMap = new HashMap<>();
         List<Integer> ans=new ArrayList<>();

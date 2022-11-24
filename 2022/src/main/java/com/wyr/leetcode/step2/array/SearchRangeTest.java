@@ -13,46 +13,38 @@ public class SearchRangeTest {
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
     public int[] searchRange(int[] nums, int target) {
-        if(nums.length==0){
+        if(nums==null||nums.length==0){
             return new int[]{-1,-1};
         }
-
-        int left=0;
-        int right=nums.length-1;
-        int ans1=-1; //记录结果
-        int ans2=-1; //记录结
-        while(left<=right){
-            int mid=left+((right-left)>>1);
+        int p1=0;
+        int p2=nums.length-1;
+        int res=-1;
+        while(p1<=p2){ //二分法寻找>=target的最左边的下标
+            int mid=(p1+p2)/2;
             if(nums[mid]>=target){
-                ans1=mid;
-                right=mid-1;
+                res=mid;
+                p2=mid-1;
             }else{
-                left=mid+1;
+                p1=mid+1;
             }
         }
-        left=0;
-        right=nums.length-1;
-        while(left<=right){
-            int mid=left+((right-left)>>1);
-            if(nums[mid]<=target){
-                ans2=mid;
-                left=mid+1;
-            }else{
-                right=mid-1;
+
+        if(res==-1){ //没有>=target的最左边的下标，说明target比这个数组中的所有数都小
+            return new int[]{-1,-1};
+        }else{
+            if(nums[res]!=target){ //nums中没有target这个数
+                return new int[]{-1,-1};
+            }else{ //nums中有target这个数
+                //下面需要看是否多次出现
+                int i=res+1;
+                for(;i<nums.length;i++){
+                    if(nums[i]!=target){
+                        break;
+                    }
+                }
+                return new int[]{res,i-1};
             }
         }
-        int [] res=new int[2];
-        if(ans1==-1){
-            res[0]=-1;
-        }else{
-            res[0]=nums[ans1]==target?ans1:-1;
-        }
-        if(ans2==-1){
-            res[1]=-1;
-        }else{
-            res[1]=nums[ans2]==target?ans2:-1;
-        }
-        return res;
     }
 
 

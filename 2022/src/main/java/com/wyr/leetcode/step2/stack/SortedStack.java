@@ -22,6 +22,7 @@ public class SortedStack {
         sort(val);
     }
 
+    //递归实现
     public void sort(int val){
         if(stack.isEmpty()||val<stack.peek()){
             stack.push(val);

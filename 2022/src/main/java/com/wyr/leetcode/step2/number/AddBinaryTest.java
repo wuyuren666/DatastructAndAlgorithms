@@ -1,5 +1,7 @@
 package com.wyr.leetcode.step2.number;
 
+import java.util.Arrays;
+
 public class AddBinaryTest {
     /**
      * 给你两个二进制字符串，返回它们的和（用二进制表示）。
@@ -33,7 +35,7 @@ public class AddBinaryTest {
         int jinWeiInfo=0;//进位信息
 
         int p1=0,p2=0;
-        while(p2<shortChs.length){
+        while(p2<shortChs.length){ //第一阶段，一起处理
             int curNum=(longChs[p1]-'0')+(shortChs[p2]-'0')+jinWeiInfo;
             if(curNum==0){
                 longChs[p1]='0';
@@ -52,7 +54,7 @@ public class AddBinaryTest {
             p2++;
         }
 
-        while(p1<longChs.length){
+        while(p1<longChs.length){ //第二阶段，长数组还剩的逻辑
             int curNum=(longChs[p1]-'0')+jinWeiInfo;
             if(curNum==0){
                 longChs[p1]='0';
@@ -60,16 +62,14 @@ public class AddBinaryTest {
             }else if(curNum==1){
                 longChs[p1]='1';
                 jinWeiInfo=0;
-            }else if(curNum==2){
+            }else {
                 longChs[p1]='0';
-                jinWeiInfo=1;
-            }else{
-                longChs[p1]='1';
                 jinWeiInfo=1;
             }
             p1++;
         }
-        if(jinWeiInfo!=0){
+
+        if(jinWeiInfo!=0){ //第三阶段
             return new StringBuilder(String.valueOf(longChs)).append('1').reverse().toString();
         }
         return new StringBuilder(String.valueOf(longChs)).reverse().toString();

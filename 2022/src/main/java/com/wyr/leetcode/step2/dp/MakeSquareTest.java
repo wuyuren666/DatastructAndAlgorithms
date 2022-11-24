@@ -20,7 +20,7 @@ public class MakeSquareTest {
      * 解释: 不能用所有火柴拼成一个正方形。
      *
      * 来源：力扣（LeetCode）
-     * 链接：https://leetcode.cn/problems/matchsticks-to-square
+         * 链接：https://leetcode.cn/problems/matchsticks-to-square
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
     /**
@@ -55,8 +55,14 @@ public class MakeSquareTest {
                 visited[i]=1;//标记为已经用过
                 if(lengthOfCurEdge+matchsticks[i]<length){//当前处理的边的长度+当前火柴的长度<规定的每一个边的长度
                     flag|=process(matchsticks, visited, lengthOfCurEdge+matchsticks[i],rest,length);
+                    if(flag){ //用来提前退出，加速
+                        break;
+                    }
                 }else if(lengthOfCurEdge+matchsticks[i]==length){//当前处理的边的长度+当前火柴的长度==规定的每一个边的长度
                     flag|=process(matchsticks,visited,0,rest-1,length);
+                    if(flag){ //用来提前退出，加速
+                        break;
+                    }
                 }
                 //当前处理的边的长度+当前火柴的长度>规定的每一个边的长度，直接拿下一根火柴再去试
                 visited[i]=0;//取消标记
@@ -96,11 +102,14 @@ public class MakeSquareTest {
                 visited |= (1<<i);//标记为已经用过
                 if(lengthOfCurEdge+matchsticks[i]<length){//当前处理的边的长度+当前火柴的长度<规定的每一个边的长度
                     res|=process(matchsticks,map,visited, lengthOfCurEdge+matchsticks[i],rest,length);
+                    if(res){ //用来提前退出，加速
+                        break;
+                    }
                 }else if(lengthOfCurEdge+matchsticks[i]==length){//当前处理的边的长度+当前火柴的长度==规定的每一个边的长度
                     res|=process(matchsticks,map,visited,0,rest-1,length);
-                }
-                if(res){
-                    return true;
+                    if(res){ //用来提前退出，加速
+                        break;
+                    }
                 }
                 //当前处理的边的长度+当前火柴的长度>规定的每一个边的长度，直接拿下一根火柴再去试
                 visited^=(1<<i);//取消标记

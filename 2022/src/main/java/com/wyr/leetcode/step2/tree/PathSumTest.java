@@ -18,35 +18,46 @@ public class PathSumTest {
      * 链接：https://leetcode.cn/problems/path-sum-ii
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
-    List<List<Integer>> res=new ArrayList<>();
-    List<Integer> tempList=new ArrayList<>();
+    List<List<Integer>> ans=new ArrayList<>();
     public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
-        dfs(root,targetSum,0);
-        return res;
+        if(root==null){
+            return ans;
+        }
+        List<Integer> tmpList=new ArrayList<>();
+        tmpList.add(root.val); //根节点存在先加入
+        process(root,targetSum,root.val,tmpList);
+        return ans;
     }
 
-    public void dfs(TreeNode root,int targetSum,int tempSum){
-        if(root==null){
-            return;
-        }
-        //先将当前节点的值累加
-        tempSum+=root.val;
-        //来到叶子节点
-        if(root.left==null&&root.right==null){
-            if(tempSum==targetSum){
-                List<Integer> list=new ArrayList<>(tempList);
-                list.add(root.val);
-                res.add(list);
+
+    public void process(TreeNode root, int targetSum, int tmpSum, List<Integer> tmpList){
+        if(root.right==null&&root.left==null){//到达了叶子节点
+            if(tmpSum==targetSum){
+                ans.add(new ArrayList<>(tmpList));
             }
             return;
         }
-        //加入
-        tempList.add(root.val);
-        dfs(root.left,targetSum,tempSum);
-        dfs(root.right,targetSum,tempSum);
-        //删除
-        tempList.remove(tempList.size()-1);
+
+        if(root.left==null&&root.right!=null){//只能往右走
+            tmpList.add(root.right.val);
+            process(root.right,targetSum,tmpSum+root.right.val,tmpList);
+            tmpList.remove(tmpList.size()-1);
+        }else if(root.left!=null&&root.right==null){//只能往左走
+            tmpList.add(root.left.val);
+            process(root.left,targetSum,tmpSum+root.left.val,tmpList);
+            tmpList.remove(tmpList.size()-1);
+        }else{
+            //既可以往左走，也可以往右走
+            tmpList.add(root.right.val);
+            process(root.right,targetSum,tmpSum+root.right.val,tmpList);
+            tmpList.remove(tmpList.size()-1);
+
+            tmpList.add(root.left.val);
+            process(root.left,targetSum,tmpSum+root.left.val,tmpList);
+            tmpList.remove(tmpList.size()-1);
+        }
     }
+
 }
 
 class TreeNode {

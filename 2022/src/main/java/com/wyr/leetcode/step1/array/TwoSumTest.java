@@ -1,8 +1,6 @@
 package com.wyr.leetcode.step1.array;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 
 public class TwoSumTest {
@@ -26,7 +24,7 @@ public class TwoSumTest {
      *
      */
 
-
+    //执行用时：8 ms, 在所有 Java 提交中击败了47.53%的用户
     public static int[] twoSum(int[] nums, int target) {
         List<Element> list=new ArrayList<>();
         for(int i=0;i<nums.length;i++){
@@ -50,6 +48,8 @@ public class TwoSumTest {
         return new int[]{ans1,ans2};
 
     }
+
+
     static class Element implements Comparable<Element>{
         public int index;
         public int value;
@@ -61,6 +61,42 @@ public class TwoSumTest {
         public int compareTo(Element ele) {
             return this.value-ele.value;
         }
+    }
+
+    //执行用时：6 ms, 在所有 Java 提交中击败了48.41%的用户
+    public int[] twoSum2(int[] nums, int target) {
+        Map<Integer,List<Integer>> map=new HashMap<>();
+        for(int i=0;i<nums.length;i++){
+            if(!map.containsKey(nums[i])){
+                List<Integer> list=new ArrayList<>();
+                list.add(i);
+                map.put(nums[i],list);
+            }else{
+                List<Integer> list=map.get(nums[i]);
+                list.add(i);
+                map.put(nums[i],list);
+            }
+        }
+        int [] ans=new int[2];
+        for(int i=0;i<nums.length;i++){
+            if(map.containsKey(target-nums[i])){
+                List<Integer> list=map.get(target-nums[i]);
+                if(!list.contains(i)){
+                    ans[0]=i;
+                    ans[1]=list.get(0);
+                    break;
+                }else{
+                    if(list.size()==1){
+                        continue;
+                    }else{
+                        ans[0]=i;
+                        ans[1]=list.get(list.size()-1);
+                        break;
+                    }
+                }
+            }
+        }
+        return ans;
     }
 
 }

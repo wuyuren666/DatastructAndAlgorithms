@@ -7,6 +7,7 @@ public class NumberOfSameSubTree {
      * 那么我们说以X为头的树是相等树
      * 给定一棵二叉树的头节点head
      * 返回head整棵树上有多少相等子树
+     * 其实就是判断子树
      */
     //时间复杂度O(N*logN)
     public static int sameNumber1(Node head){

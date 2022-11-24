@@ -13,32 +13,31 @@ public class LetterCombinationsTest {
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
 
-    public static List<String> letterCombinations(String digits) {
-        if (digits.equals("")) {
-            return new ArrayList<String>();
+    List<String> ans=new ArrayList<>();
+    Map<Character,char []> map=new HashMap<>();
+    public List<String> letterCombinations(String digits) {
+        if(digits.equals("")){
+            return ans;
         }
-        char[] chs = digits.toCharArray();
-        Map<Character, String> map = new HashMap<>();
-        map.put('2', "abc");
-        map.put('3', "def");
-        map.put('4', "ghi");
-        map.put('5', "jkl");
-        map.put('6', "mno");
-        map.put('7', "pqrs");
-        map.put('8', "tuv");
-        map.put('9', "wxyz");
-        List<String> result = new ArrayList<>();
-        process(result, chs, map, 0, "");
-        return result;
+        map.put('2',new char[]{'a','b','c'}); map.put('3',new char[]{'d','e','f'});
+        map.put('4',new char[]{'g','h','i'}); map.put('5',new char[]{'j','k','l'});
+        map.put('6',new char[]{'m','n','o'}); map.put('7',new char[]{'p','q','r','s'});
+        map.put('8',new char[]{'t','u','v'}); map.put('9',new char[]{'w','x','y','z'});
+
+
+        char [] chars=digits.toCharArray();
+        process(chars,0,"");
+        return ans;
     }
 
-    public static void process(List<String> result, char[] chs, Map<Character, String> map, int index, String tempStr) {
-        if (index == chs.length) {
-            result.add(tempStr);
+    public void process(char[] chars, int curIndex, String tempStr){
+        if(curIndex==chars.length){
+            ans.add(tempStr);
             return;
         }
-        for (int i = 0; i < map.get(chs[index]).length(); i++) {
-            process(result, chs, map, index + 1, tempStr + map.get(chs[index]).charAt(i));
+        char[] s = map.get(chars[curIndex]);
+        for(int i=0;i<s.length;i++){
+            process(chars,curIndex+1,tempStr+s[i]);
         }
     }
 

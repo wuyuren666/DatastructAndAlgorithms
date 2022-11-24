@@ -1,9 +1,6 @@
 package com.wyr.leetcode.step2.array;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Set;
+import java.util.*;
 
 public class OpenLockTest {
     /**
@@ -20,8 +17,6 @@ public class OpenLockTest {
      * 链接：https://leetcode.cn/problems/open-the-lock
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
-
-
     public int openLock(String[] deadends, String target) {
         //放入所有的死亡数字
         Set<String> deadStr=new HashSet<>();
@@ -68,7 +63,7 @@ public class OpenLockTest {
     }
 
     // 将 s[j] 向上拨动一次
-    String plusOne(String s, int j) {
+     static String plusOne(String s, int j) {
         char[] ch = s.toCharArray();
         if (ch[j] == '9')
             ch[j] = '0';
@@ -77,7 +72,7 @@ public class OpenLockTest {
         return new String(ch);
     }
     // 将 s[i] 向下拨动一次
-    String subOne(String s, int j) {
+    static String subOne(String s, int j) {
         char[] ch = s.toCharArray();
         if (ch[j] == '0')
             ch[j] = '9';

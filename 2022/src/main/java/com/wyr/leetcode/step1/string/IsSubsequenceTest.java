@@ -20,16 +20,23 @@ public class IsSubsequenceTest {
      *
      */
     public boolean isSubsequence(String s, String t) {
-        int i=0,j=0;
-        while(i<s.length()&&j<t.length()){
-            if(s.charAt(i)==t.charAt(j)){
-                i++;
-            }
-            j++;
-        }
-        if(i<s.length()){
+        if(s.length()>t.length()){
             return false;
         }
-        return true;
+        //双指针
+        char [] cs=s.toCharArray();
+        char [] ct=t.toCharArray();
+        int p1=0;
+        int p2=0;
+        while(p1<cs.length&&p2<ct.length){
+            if(ct[p2]==cs[p1]){
+                p1++;
+                p2++;
+            }else{
+                p2++;
+            }
+
+        }
+        return p1==cs.length?true:false;
     }
 }

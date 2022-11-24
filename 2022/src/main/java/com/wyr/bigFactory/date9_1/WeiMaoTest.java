@@ -16,7 +16,7 @@ public class WeiMaoTest {
      * 输入描述：
      * 第一行三个正整数n、k和T，分别表示小美回家遇见的事件数、小玩具种类总数以及摸猫时间！
      * 接下来一行，是k个数，代表每一种小玩具打发猫所用的时间
-     * 接下来一行n个数，表示发生的n此事件，
+     * 接下来一行n个数，表示发生的n次事件，
      */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);

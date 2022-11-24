@@ -18,25 +18,24 @@ public class LexicalOrderTest {
      * 链接：https://leetcode.cn/problems/lexicographical-numbers
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
+    static List<Integer> ans=new ArrayList<>();
     public static List<Integer> lexicalOrder(int n) {
-        List<Integer> result=new ArrayList<>();
         for(int i=1;i<=9;i++){
-            dfs(i,n,result);
+            dfs(i,n);
         }
-        return result;
+        return ans;
     }
 
-    public static void dfs(int cur, int n, List<Integer> result ){
-        if(cur>n){
-            return;
-        }
-        result.add(cur);
-        for(int i=0;i<=9;i++){
-            int nextNumber=cur*10+i;
-            if(nextNumber>n){
-                break;
+    public static void dfs(int curNum, int n){
+        if(curNum<=n){
+            ans.add(curNum);
+            for(int i=0;i<=9;i++){
+                int nextNum=curNum*10+i;
+                if(nextNum>n){
+                    break;
+                }
+                dfs(n,nextNum);
             }
-            dfs(nextNumber,n,result);
         }
     }
 
