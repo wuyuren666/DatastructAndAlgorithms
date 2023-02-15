@@ -1,6 +1,9 @@
 package com.wyr.leetcode.step2.list;
 
 import java.util.*;
+import java.util.concurrent.locks.LockSupport;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Stream;
 
 public class LRUCache {
     /**
@@ -22,12 +25,15 @@ public class LRUCache {
     private int cap;
     //链表尾部是最近最多才使用的，链表头部是最近最少使用的
     private LinkedHashMap<Integer,Integer> cache=new LinkedHashMap<>();
+
     public LRUCache(int capacity) {
         this.cap=capacity;
     }
 
     public int get(int key) {
+
         if(cache.keySet().contains(key)){ //缓存中有，就拿出来，并且放到链表的最后
+
             Integer value=cache.get(key);
             cache.remove(key);
             cache.put(key,value);

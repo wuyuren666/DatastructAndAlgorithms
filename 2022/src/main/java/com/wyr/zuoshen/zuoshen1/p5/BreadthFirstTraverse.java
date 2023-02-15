@@ -15,15 +15,18 @@ public class BreadthFirstTraverse {
     public static void breadthFirstTraverse510(BinaryTreesNode head){
         LinkedList<BinaryTreesNode> queue=new LinkedList<>();//队列
         queue.add(head);
-        BinaryTreesNode cur;
-        while(queue.size()!=0){
-            cur=queue.removeFirst();
-            System.out.println(cur.value);
-            if(cur.left!=null){
-                queue.add(cur.left);
-            }
-            if(cur.right!=null){
-                queue.add(cur.right);
+        while(!queue.isEmpty()){ //遍历每一次的while
+            int size=queue.size();
+            for(int i=1;i<=size;i++){ //遍历同层节点的for
+                BinaryTreesNode cur=queue.poll();
+                System.out.println(cur.value);
+                if(cur.left!=null){
+                    queue.add(cur.left);
+                }
+                if(cur.right!=null){
+                    queue.add(cur.right);
+                }
+
             }
         }
     }
@@ -32,32 +35,22 @@ public class BreadthFirstTraverse {
     //5.10 获的二叉树最宽的长度
     public static int breadthFirstTraverseGetMaxWidth510(BinaryTreesNode head){
         LinkedList<BinaryTreesNode> queue=new LinkedList<>();//队列
-        Map<BinaryTreesNode,Integer> map=new HashMap<>();//保存每个节点对应的层次
-        map.put(head,1);
-        int curLevel=1;//当前统计的层
-        int curLevelCounts=0;//当前统计的层的节点个数
         int max=0; //最终返回的结果
         queue.add(head);
-        BinaryTreesNode cur;
-
-        while (queue.size()!=0){
-            if(map.get(cur=queue.poll())==curLevel){
-                curLevelCounts++;
-            }else {
-                max=Math.max(max,curLevelCounts);
-                curLevelCounts=1;
-                curLevel++;
-            }
-            if(cur.left!=null){
-                map.put(cur.left,curLevel+1);
-                queue.add(cur.left);
-            }
-            if(cur.right!=null){
-                map.put(cur.right,curLevel+1);
-                queue.add(cur.right);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            max=Math.max(max,size);
+            for (int i = 1; i <= size; i++) {
+                BinaryTreesNode cur = queue.poll();
+                if (cur.left != null) {
+                    queue.add(cur.left);
+                }
+                if (cur.right != null) {
+                    queue.add(cur.right);
+                }
             }
         }
-        return Math.max(max,curLevelCounts);
+        return max;
     }
 
 

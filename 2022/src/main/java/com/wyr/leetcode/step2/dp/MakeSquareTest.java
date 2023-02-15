@@ -28,6 +28,17 @@ public class MakeSquareTest {
      * 在process中看似有3个可变参数，visited，lengthOfCurEdge，rest。
      * 其实 lengthOfCurEdge 和 rest 都是可以由visited决定的
      * 并且visited，也不是必须使用数组，用int整数也可以
+     *
+     *
+     * matchsticks：火柴数组
+     * curLenOfEdge：当前正在拼的这条边已经拼成的长度
+     * restEdge：剩下的边的个数
+     * visited：每根火柴是否被使用
+     * edgeLen：每条边应该的长度
+     *
+     * process(int [] matchsticks, int curLenOfEdge , int restEdge, int [] visited, int edgeLen)
+     *
+     *
      */
     public boolean makesquare(int[] matchsticks) {
         int sum=0;

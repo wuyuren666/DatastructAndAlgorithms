@@ -22,7 +22,7 @@ public class IsBTree {
             this.height = height;
         }
     }
-
+    //二叉树的套路
     public static ResultType process(BinaryTreesNode root){
         //baseCase
         if(root==null){

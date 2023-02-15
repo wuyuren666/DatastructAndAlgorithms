@@ -1,6 +1,8 @@
 package com.wyr.bigFactory.date5_6;
 
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -22,6 +24,7 @@ public class BuffTest {
 
 
         public static int getAllTime(){
+
             System.out.println("aaaaa");
             Scanner sc=new Scanner(System.in);
             int result=0;//代表最终返回的总持续时间

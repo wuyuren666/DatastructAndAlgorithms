@@ -57,7 +57,6 @@ public class Code1 {
                 L=mid+1;
             }
         }
-
         return result;
     }
 

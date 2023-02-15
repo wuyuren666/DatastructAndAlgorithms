@@ -36,6 +36,7 @@ public class LFUCache {
     }
     //获取值的方法
     public static int get(int key) {
+
         if(cache.keySet().contains(key)){ //存在这个key
             Node node = cache.get(key);
             node.ids=ids++; //更新访问次序

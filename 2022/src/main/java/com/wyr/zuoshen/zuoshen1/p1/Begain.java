@@ -108,6 +108,22 @@ public class Begain {
 
 
 
+    public static void getTwoNumber214(int ...arr){
+        int eor1=0;
+        int eor2=0;
+        for(int i: arr){
+            eor1^=i;
+        }
+        //此时eor1的结果就是a^b
+        int rightOne=eor1&(~eor1+1);//找出最右边的1
+        for(int i:arr){
+            if((rightOne&i)==0){
+                eor2^=i;
+            }
+        }
+        System.out.println(eor2);
+        System.out.println(eor1^eor2);
+    }
 
 
 

@@ -10,6 +10,7 @@ public class MergeTwoListsTest {
 
     }
 
+    //通过构造一个虚拟的头节点解决
     public  static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
         ListNode newHead=new ListNode(-1);
         ListNode cur=newHead;

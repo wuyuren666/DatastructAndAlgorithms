@@ -21,30 +21,34 @@ public class IsCBT {
         queue.add(root);
         BinaryTreesNode cur=null;
         boolean isMeet=false;
-        while(queue.size()!=0){
-            cur=queue.poll();
-            //当前节点存在右孩子，而没有左孩子，返回false
-            if(cur.right!=null&&cur.left==null){
-                return false;
-            }
+        while(!queue.isEmpty()){
+            int size=queue.size();
+            for(int i=0;i<size;i++){
+                cur=queue.poll();
 
-            //if满足代表遇到了第一个非双全节点
-            if(isMeet){
-                //之后的节点必须都是叶子节点
-                if(cur.right!=null||cur.left!=null){
+                //当前节点存在右孩子，而没有左孩子，返回false
+                if(cur.right!=null&&cur.left==null){
                     return false;
                 }
-            }
 
-            if(cur.left==null||cur.right==null){
-                isMeet=true;
-            }
+                //if满足代表遇到了第一个非双全节点
+                if(isMeet){
+                    //之后的节点必须都是叶子节点
+                    if(cur.right!=null||cur.left!=null){
+                        return false;
+                    }
+                }
+                //遇到了第一个非全节点
+                if(cur.left==null||cur.right==null){
+                    isMeet=true;
+                }
 
-            if(cur.left!=null){
-                queue.add(cur.left);
-            }
-            if(cur.right!=null){
-                queue.add(cur.right);
+                if(cur.left!=null){
+                    queue.add(cur.left);
+                }
+                if(cur.right!=null){
+                    queue.add(cur.right);
+                }
             }
         }
         return true;

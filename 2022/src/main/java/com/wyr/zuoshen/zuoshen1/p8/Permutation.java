@@ -28,6 +28,26 @@ public class Permutation {
         String[] ans =res.toArray(new String[0]);
         return ans;
     }
+
+
+    public void process214(char[] chs, int []used, String tmpStr){
+        if(tmpStr.length()==chs.length){
+            res.add(tmpStr);
+            return;
+        }
+
+        for(int i=0;i<used.length;i++){
+            if(used[i]==0){
+                used[i]=1;
+                process214(chs,used,tmpStr+chs[i]);
+                used[i]=0;
+            }
+        }
+
+    }
+
+
+
     public void process(char[] chs, int[] used, String tempStr){
         if(tempStr.length()==chs.length){
             res.add(tempStr);

@@ -17,7 +17,6 @@ public class Code1 {
 
     public static int minBoat(int [] arr, int limit){
 
-
         //先排序
         Arrays.sort(arr);
         int doubleCount=0; //记录成对的对号

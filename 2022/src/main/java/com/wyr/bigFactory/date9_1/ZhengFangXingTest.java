@@ -22,13 +22,44 @@ public class ZhengFangXingTest{
         for(int i=0;i<nums.length;i++){
             for(int j=0;j<nums[0].length;j++){
                 if(nums[i][j]>=0){
-                    max=Math.max(process11_16(nums,i,j,i,j),max);
+                    max=Math.max(process2_14(nums,i,j,i,j),max);
                 }
             }
 
         }
         System.out.println(max);
     }
+
+
+    public static int process2_14(int [][] nums, int curX, int curY, int preX, int preY){
+        //越界，或者当前数字为负数，则返回一个标记-1
+        if(curX<0||curX>=nums.length||curY<0||curY>=nums[0].length||nums[curX][curY]<0){
+            return -1;
+        }
+        //当前是正数，且不越界
+        int res=nums[curX][curY];
+
+        //累加当前点的上面的值
+        for(int row=preX;row<curX;row++){
+            if(nums[row][curY]<0){
+                return -1;
+            }
+            res+=nums[row][curY];
+        }
+        //累加当前点左边的值
+        for(int col=preY;col<curY;col++){
+            if(nums[curX][col]<0){
+                return -1;
+            }
+            res+=nums[curX][col];
+        }
+
+        if(process2_14(nums,curX+1,curY+1,preX,preY)!=-1){
+            res+=process2_14(nums,curX+1,curY+1,preX,preY);
+        }
+        return res;
+    }
+
 
 
     public static int process(int [][] nums, int curX, int curY,int preX, int preY){
@@ -52,7 +83,7 @@ public class ZhengFangXingTest{
             }
             tempSum+=nums[curX][col];
         }
-
+        //去扩张
         if(process(nums,curX+1,curY+1,preX,preY)!=-1){
             tempSum+=process(nums,curX+1,curY+1,preX,preY);
         }

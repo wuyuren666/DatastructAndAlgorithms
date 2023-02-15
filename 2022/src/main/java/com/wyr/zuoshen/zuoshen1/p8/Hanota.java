@@ -38,6 +38,7 @@ public class Hanota {
         process1(n,"左","右","中");
     }
 
+    //我们将1~i号盘子，从from移动到to借助other
     public static void process1(int i, String from, String to, String other){
         if(i==1){
             System.out.println("将"+i+"号圆盘从"+from+"移动到"+to);

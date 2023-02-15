@@ -71,7 +71,7 @@ public class CombinationSum4Test {
 
         for(int i=0;i<=rest/nums[curIndex];i++){
             for(int j=0;j<i;j++){
-                tempList.add(nums[curIndex]);
+                tempList.addFirst(nums[curIndex]);
             }
 
             process(nums,curIndex+1,rest-i*nums[curIndex],tempList);

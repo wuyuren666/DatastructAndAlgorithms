@@ -44,7 +44,7 @@ public  class TanXianTest {
             nums[i]=sc.nextInt();
         }
         //默认所有的数组，下标为0的位置我们不用
-        int [] day_key_map=new int[N+1]; //day_key_map[i]：表示第i天获得的打开第i扇门的钥匙
+        int [] day_key_map=new int[N+1]; //day_key_map[i]：表示第i天获得的打开第day_key_map[i]扇门的钥匙
         int [] daymap=new int[N+1];//dayMap[i]：第i扇门被打开的日期，dayMap[i]==0代表第i扇门没有被打开
 
         for(int i=1;i<nums.length;i++){

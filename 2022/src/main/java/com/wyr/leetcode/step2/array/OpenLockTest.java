@@ -17,6 +17,11 @@ public class OpenLockTest {
      * 链接：https://leetcode.cn/problems/open-the-lock
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
+    //这类题，只要脑子里有一棵树，就能够写出来代码
+    //同一层的节点是一个对列中的所有节点
+    //因此，在便利这一层所有节点的时候，会将下一层的节点构造出来放入队列中，同时自己不会出现在队列中了
+    //一般就是while套着for循环去写
+    //while的逻辑就是代表层，for逻辑就是代表这一层所有节点的遍历
     public int openLock(String[] deadends, String target) {
         //放入所有的死亡数字
         Set<String> deadStr=new HashSet<>();
@@ -32,7 +37,7 @@ public class OpenLockTest {
         int step=0;
         while(!queue.isEmpty()){
             int size=queue.size();
-            //将当前队列中的所有节点向周围扩散（其实就是同一层的节点）
+            //遍历同一层的节点（其实就是同一层的节点）
             for(int i=0;i<size;i++){
                 String curStr=queue.poll();
                 //碰到死亡组合

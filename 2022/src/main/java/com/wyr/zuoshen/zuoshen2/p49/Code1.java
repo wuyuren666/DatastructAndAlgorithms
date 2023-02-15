@@ -8,7 +8,7 @@ public class Code1 {
      * 即使绳子边缘处盖住点也算盖住
      */
     //11_18练习
-    //使用滑动窗口的最大模版去做
+    //使用滑动窗口的最大模版去做，最大模版就是条件不满足，尝试左边界增加。循环出来后，在更新最优
     public static int maxPoint11_18(int [] arr, int K){
         int left =0;
         int right =0;

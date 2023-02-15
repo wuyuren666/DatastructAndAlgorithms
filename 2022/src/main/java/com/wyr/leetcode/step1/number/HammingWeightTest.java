@@ -12,7 +12,7 @@ public class HammingWeightTest {
      * 链接：https://leetcode.cn/problems/er-jin-zhi-zhong-1de-ge-shu-lcof
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
-
+    //每次找到最右边的那一个1，然后消去，直到为0
     public int hammingWeight(int n) {
         int count=0;
 

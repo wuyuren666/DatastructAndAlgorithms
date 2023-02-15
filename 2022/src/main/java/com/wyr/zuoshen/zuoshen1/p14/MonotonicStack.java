@@ -122,7 +122,7 @@ public class MonotonicStack {
 
     public static void main(String[] args) {
         //int [] arr={3,0,1,2,6,7,5};
-        int [] arr={3,0,2,1,4};
-        System.out.println(getMaxA(arr));
+        int [] arr={0,2,3,5};
+        System.out.println(process1(arr));
     }
 }

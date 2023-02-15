@@ -34,6 +34,7 @@ public class FindSubsequencesTest {
             }
             return;
         }
+        //加入的时候需要注意
         //当前数字选择加入，tempList为空可以加入或者前一个数字小等于我小，也可以加入
         if(tempList.size()==0||tempList.get(tempList.size()-1)<=nums[index]){
             tempList.add(nums[index]);

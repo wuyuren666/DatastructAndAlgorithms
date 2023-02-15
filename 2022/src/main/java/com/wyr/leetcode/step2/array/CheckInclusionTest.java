@@ -80,7 +80,7 @@ public class CheckInclusionTest {
             windowMap.put(curChar,windowMap.getOrDefault(curChar,0)+1);
 
             if(right-left+1==windowSize){ //窗口形成了
-                if(windowMap.equals(needMap)){
+                if(windowMap.equals(needMap)){ //这个equals是jdk帮忙实现的
                     return true;
                 }
                 char leftChar=s2.charAt(left);

@@ -34,6 +34,7 @@ public class WaiMaiTest {
         for(int i=0;i<n;i++){
             arr[i]=sc.nextInt();
         }
+        //贪心就是涉及到排序
         //按截止时间从小到大进行排序，紧着送截止时间近的
         Arrays.sort(arr);
         int res=0;

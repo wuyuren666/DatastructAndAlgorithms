@@ -30,7 +30,7 @@ public class CanPartitionTest {
     //改成动态规划
     public static boolean canPartitionDP(int[] nums) {
         //转换成背包问题，我有一个背包容量为sum/2的背包
-        //然后我是否可以选num.length/2个数刚好装满这个背包？
+        //然后我是否可以选一些数刚好装满这个背包？
         int sum=0;
         for(int i=0;i<nums.length;i++){
             sum+=nums[i];

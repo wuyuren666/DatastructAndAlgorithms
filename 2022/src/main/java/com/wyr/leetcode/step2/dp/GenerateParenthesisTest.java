@@ -9,6 +9,9 @@ public class GenerateParenthesisTest {
      *
      * 输入：n = 3
      * 输出：["((()))","(()())","(())()","()(())","()()()"]
+     * //两个if逻辑
+     * //有左括号就用
+     * //右括号个数大于左括号，就是用右括号，
      *
      * https://leetcode.cn/problems/generate-parentheses/
      */

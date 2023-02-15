@@ -61,7 +61,7 @@ public class MinCostClimbingStairsTest {
         //我选择走一级台阶
         int p1= cost[index]+process(cost,index+1);
         //我选择走二级台阶
-        int p2=cost [index]+process(cost,index+2);
+        int p2= cost[index]+process(cost,index+2);
 
         return Math.min(p1,p2);
     }

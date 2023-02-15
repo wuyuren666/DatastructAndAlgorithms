@@ -39,6 +39,7 @@ public class PrintTwoLinkedListCommonPart {
      * @param head1
      * @param head2
      */
+    //谁小谁移动，相同就一起移动，并且打印
     public static void printTwoLinkedListCommonPart(Node head1,Node head2){
         Node p1=head1;
         Node p2=head2;

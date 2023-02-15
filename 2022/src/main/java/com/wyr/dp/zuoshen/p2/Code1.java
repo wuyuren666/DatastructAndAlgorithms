@@ -15,7 +15,6 @@ package com.wyr.dp.zuoshen.p2;
 
 public class Code1 {
 
-
     //5.18练习
     //cur:当前所在的位置，aim目标位置，rest：剩余步数
     public static int process518(int N,int cur,int aim,int rest){

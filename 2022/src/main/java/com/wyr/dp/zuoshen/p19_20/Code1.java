@@ -1,6 +1,9 @@
 package com.wyr.dp.zuoshen.p19_20;
 
 
+import java.io.File;
+import java.net.URL;
+
 /**
  * 规定1和A对应，2和B对应，3和C对应...26和Z对应
  * 那么一个数字字符串比如"111"就可以转化成为
@@ -129,7 +132,6 @@ public class Code1 {
     public static void main(String[] args) {
         System.out.println(solution("234234324"));//8
         System.out.println(solution11_21("234234324"));//8
-
     }
 
 }

@@ -27,7 +27,7 @@ public class BestArrange {
             this.end = end;
         }
     }
-
+    //贪心策略：谁结束的早谁排在前面
    public static int bestArrange(Program[] programs,int timePoint){
         //按照会议的结束时间谁早谁在前即结束时间由小到大排序
        Arrays.sort(programs, new Comparator<Program>() {
