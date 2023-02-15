@@ -59,7 +59,7 @@ public class Code1 {
      */
 
     public boolean isSubtree(TreeNode root, TreeNode subRoot) {
-        if(root==null||subRoot==null){
+        if(root==null&&subRoot!=null||root==null&&subRoot==null){
             return false;
         }
         //第一个可能性是以subRoot为头的树和以root为头的树结构完全一致
@@ -125,11 +125,9 @@ public class Code1 {
         if(B==null){//和子树唯一不同的地方
             return true;
         }
-        //B!=null
-        if(A==null){
+        if(A!=null&&B==null||A==null&&B!=null){
             return false;
         }
-        //B!=null,A!=null
         if(A.val!=B.val){
             return false;
         }
