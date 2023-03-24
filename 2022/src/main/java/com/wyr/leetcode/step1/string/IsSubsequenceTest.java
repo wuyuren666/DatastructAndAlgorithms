@@ -1,6 +1,6 @@
 package com.wyr.leetcode.step1.string;
 
-public class IsSubsequenceTest {
+public  class IsSubsequenceTest {
     /**
      * 给定字符串 s 和 t ，判断 s 是否为 t 的子序列。
      *
@@ -23,6 +23,8 @@ public class IsSubsequenceTest {
         if(s.length()>t.length()){
             return false;
         }
+
+
         //双指针
         char [] cs=s.toCharArray();
         char [] ct=t.toCharArray();
@@ -35,8 +37,13 @@ public class IsSubsequenceTest {
             }else{
                 p2++;
             }
-
         }
         return p1==cs.length?true:false;
     }
+
+    public static void main(String[] args) {
+
+    }
+
+
 }

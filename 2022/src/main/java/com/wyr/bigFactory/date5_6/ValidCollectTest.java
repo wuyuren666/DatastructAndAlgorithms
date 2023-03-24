@@ -1,5 +1,6 @@
 package com.wyr.bigFactory.date5_6;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -16,6 +17,8 @@ import java.util.Scanner;
 public class ValidCollectTest {
 
 
+
+    //左后视镜能看到左后轮
     public static void main(String[] args) {
             validCollect();
     }

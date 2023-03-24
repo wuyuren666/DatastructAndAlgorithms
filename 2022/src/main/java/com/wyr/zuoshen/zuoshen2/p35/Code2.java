@@ -64,22 +64,20 @@ public class Code2 {
                 temp[index++]=nums[i];
             }
         }
-        boolean flag=false;
         int beginIndex=-1;
         int count=0;
+        boolean flag=true;
         for(int i=L;i<=R;i++){
-            if(nums[i]==value&&!flag){
-                beginIndex=index;
-                temp[index++]=nums[i];
-                count++;
-                flag=true;
-                continue;
-            }
             if(nums[i]==value){
+                if(flag){
+                    beginIndex=index;
+                    flag=false;
+                }
                 temp[index++]=nums[i];
                 count++;
             }
         }
+
         for(int i=L;i<=R;i++){
             if(nums[i]>value){
                 temp[index++]=nums[i];
@@ -114,7 +112,7 @@ public class Code2 {
     public static int[] partion2(int [] nums,int L, int R, int value){ //value是指以元素的值作为标准划分
         //作为标准的值可能有多个
         //将多个作为标准的数组元素的下标保存到集合中
-        List<Integer> indexList=new ArrayList<>();
+        List<Integer> indexList=new ArrayList<Integer>();
         for(int i=L;i<=R;i++){
             if(nums[i]==value){
                 indexList.add(i);

@@ -1,8 +1,5 @@
 package com.wyr.zuoshen.zuoshen1.p2;
 
-import com.apple.laf.AquaEditorPaneUI;
-
-import java.util.Arrays;
 
 public class QuickSort {
 

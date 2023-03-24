@@ -3,6 +3,7 @@ package com.wyr.leetcode.step2.unionFindSet;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
 public class AccountMerge {
     /**
      * 账户合并

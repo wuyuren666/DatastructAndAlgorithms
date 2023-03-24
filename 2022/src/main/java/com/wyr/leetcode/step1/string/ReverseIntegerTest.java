@@ -17,9 +17,6 @@ package com.wyr.leetcode.step1.string;
  * https://leetcode.cn/problems/reverse-integer/
  */
 
-
-
-
 public class ReverseIntegerTest {
     public static void main(String[] args) {
         System.out.println(Integer.parseInt("00123"));
@@ -43,6 +40,7 @@ public class ReverseIntegerTest {
             x=x/10;
         }
         try{
+            //巧妙的利用try，catch
             result=Integer.parseInt(sb.toString()); //这里可能会出现异常，需要捕捉异常
         }catch(Exception e){
             return 0;
