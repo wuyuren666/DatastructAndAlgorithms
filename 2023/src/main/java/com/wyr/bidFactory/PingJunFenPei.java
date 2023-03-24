@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * 将n个数放到k个容器中，使得这k个容器中的数字之后最接近
+ */
 public class PingJunFenPei {
 
     //贪心的思想
