@@ -2,7 +2,7 @@ package com.wyr.bigFactory.date8_13;
 
 import java.util.LinkedList;
 import java.util.Scanner;
-import java.util.stream.Stream;
+
 
 public class PoKeTest {
 
@@ -26,7 +26,7 @@ public class PoKeTest {
         }
         int[] res = new int[n];
 
-        LinkedList<Integer> linkedList = new LinkedList<>();
+        LinkedList<Integer> linkedList = new LinkedList<Integer>();
 
         //这个逻辑是和下面那个反着推
         for (int i = n - 1; i >= 0; --i) {
