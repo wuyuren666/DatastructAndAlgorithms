@@ -31,7 +31,6 @@ public class LRUCache {
     }
 
     public int get(int key) {
-
         if(cache.keySet().contains(key)){ //缓存中有，就拿出来，并且放到链表的最后
 
             Integer value=cache.get(key);
