@@ -1,5 +1,11 @@
 package com.wyr.leetcode.step1.dp;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 /**
  * 给定一个数组 prices ，它的第i 个元素prices[i] 表示一支给定股票第 i 天的价格。
  *
@@ -18,6 +24,8 @@ package com.wyr.leetcode.step1.dp;
 
 
 public class MaxProfitTest {
+
+
 
     //可以不新开数组，直接记录minPrice
     public int maxProfitBest(int[] prices) {
@@ -161,8 +169,20 @@ public class MaxProfitTest {
     }
 
     public static void main(String[] args) {
-        int [] prices={7,6,4,3,1};
-        System.out.println(maxProfit1(prices));
-        System.out.println(maxProfit2(prices));
+        int [] prices={6,7,7,8,1,3,2,2,5};
+       /* System.out.println(maxProfit1(prices));
+        System.out.println(maxProfit2(prices));*/
+        ArrayList<Integer> res=(ArrayList<Integer>) process(prices);
+        for(Integer i:res){
+            System.out.println(i);
+        }
+    }
+
+    public static List<Integer> process(int []num){
+        List<Integer> res=new ArrayList<Integer>();
+        for(int i: num){
+            res.add(i);
+        }
+        return res.stream().distinct().sorted().collect(Collectors.toList());
     }
 }

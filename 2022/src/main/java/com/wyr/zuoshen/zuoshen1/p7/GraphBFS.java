@@ -18,7 +18,7 @@ public class GraphBFS {
         queue.add(node);
         set.add(node);
         Node cur=null;
-        while(queue.size()!=0){
+        while(queue.size()!=0){ //这和树的BFS没啥子区别
             cur=queue.poll();
             //打印的逻辑
             for(Node node1: cur.nexts){
