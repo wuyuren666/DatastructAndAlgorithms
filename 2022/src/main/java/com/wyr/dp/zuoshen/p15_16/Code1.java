@@ -3,7 +3,13 @@ package com.wyr.dp.zuoshen.p15_16;
 import java.util.*;
 
 public class Code1 {
+
+
+
+
+
     /**
+     * 背包问题
      *
      * @param w 货物重量的数组，数组元素约定>=0
      * @param v 货物价值的数组，数组元素预定>=0
@@ -11,15 +17,18 @@ public class Code1 {
      * @return 最大价值，即我背包能装下的最大价值
      */
 
+
+
+
     public static int maxValue1(int [] w, int [] v, int bag){
         if(w==null||v==null||w.length!=v.length||w.length==0)
             return 0;
-        return process1(w,v,0,bag);
+        return process11_18(w,v,0,bag);
     }
 
-
-
+    //暴力递归
     public static int process11_18(int [] w, int [] v, int index, int rest){
+        //base Case
         if(index==w.length){ //没有货物可以选择
             return 0;
         }
@@ -33,6 +42,42 @@ public class Code1 {
         return Math.max(p1,p2);
     }
 
+
+
+    //优化1：傻缓存法
+    //index:0~N 指的是下标
+    //rest:0~bag
+    public static int maxValue2(int [] w, int [] v, int bag){
+        if(w==null||v==null||w.length!=v.length||w.length==0)
+            return 0;
+        int [][] dp=new int[w.length+1][bag+1];//dp[i][j]代表：s(w,v,i,j)
+        for(int i=0;i<w.length+1;i++){
+            for(int j=0;j<bag+1;j++){
+                dp[i][j]=-1;
+            }
+        }
+        return shaHuanCun(w,v,0,bag,dp);
+    }
+    public static int shaHuanCun(int [] w, int [] v, int index, int rest, int[][] store){
+        if(store[index][rest]!=-1){
+            return store[index][rest];
+        }
+        int res;
+        if(index==w.length){ //没有货物可以选择
+            res=0;
+        }else{
+            //当前位置选择不装
+            int p1= shaHuanCun(w,v,index+1,rest,store);
+            //当前位置选择装
+            int p2=0;
+            if(rest-w[index]>=0){
+                p2= v[index]+shaHuanCun(w,v,index+1,rest-w[index],store);
+            }
+            res=Math.max(p1,p2);
+        }
+        store[index][rest]=res;//加缓存
+        return res;
+    }
 
 
     //当前考虑到了index号货物，从index货物出发可以自由选择，所做的选择不能超过背包容量，返回最大价值
@@ -57,10 +102,11 @@ public class Code1 {
 
 
     public static void main(String[] args) {
-        int [] weights={8,11,14,5,9,10};
-        int [] values={20,15,40,10,25,30};
-        int bag=30;
+        int [] weights={2,3,1,10,5};
+        int [] values={4,2,6,3,0};
+        int bag=7;
         System.out.println(maxValue1(weights, values, bag));
+        System.out.println(maxValue2(weights, values, bag));
         /*Map<String,Integer> map = new HashMap<>();
         map.put("a",1);
         map.put("b",2);

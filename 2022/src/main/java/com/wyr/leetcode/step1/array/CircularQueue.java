@@ -3,8 +3,10 @@ package com.wyr.leetcode.step1.array;
 /**
  * 数组实现循环队列
  * https://leetcode.cn/problems/design-circular-queue/submissions/
+ *
  */
 public class CircularQueue {
+    int a;
     private int front;//队头指针
     private int rear;//队尾指针，需要注意的是rear指向的元素不是队列中的
     private int[] arr;

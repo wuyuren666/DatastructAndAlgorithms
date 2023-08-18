@@ -13,7 +13,7 @@ public class Code1 {
             return -1;
         }
         int [][] dp=new int[N+1][K+1];
-        dp[aim][0]=1;
+        dp[aim][0]=1;//baseCase
         for(int i=1;i<=K;i++){//i代表列
             dp[1][i]=dp[2][i-1];//第一行的赋值
             for(int j=2;j<=N-1;j++){//j代表行
