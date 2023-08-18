@@ -53,16 +53,6 @@ public class GetMax {
         return Math.max(leftMax,rightMax);
     }
 
-
-
-
-
-
-
-
-
-
-
     //4.30练习
     public static int process430(int [] arr, int L, int R){
         if(L==R){
@@ -73,6 +63,33 @@ public class GetMax {
         int rightMax=process430(arr,mid+1,R);
         return Math.max(leftMax,rightMax);
     }
+
+
+
+
+
+    /**
+     *  找出数组中最大的数，要求时间复杂度：O(logN)
+     *  [2,3,1,0,5]
+     */
+    public int getM(int [] arr, int left, int right){
+        //baseCase
+        if(right==left){
+            return arr[left];
+        }
+        int mid = left+((right-left)>>1); //(left+right)/2
+        int leftMax=getM(arr,left,mid);
+        int rightMax=getM(arr,mid+1,right);
+        return Math.max(leftMax,rightMax);
+    }
+
+
+
+
+
+
+
+
 
 
 

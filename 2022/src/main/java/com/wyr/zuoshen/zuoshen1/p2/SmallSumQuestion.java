@@ -1,6 +1,7 @@
 package com.wyr.zuoshen.zuoshen1.p2;
 
 public class SmallSumQuestion {
+
     /**
      * 小和问题：使用归并排序
      * [1,3,5,4,7]
