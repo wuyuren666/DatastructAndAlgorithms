@@ -5,13 +5,13 @@ import java.io.File;
 import java.net.URL;
 
 /**
+ * 给你一个字符串，只包含 0～9 这些数字字符
  * 规定1和A对应，2和B对应，3和C对应...26和Z对应
  * 那么一个数字字符串比如"111"就可以转化成为
  * "AAA"，"KA"，"AK"
  * 给定一个只有数字字符串组成的字符串str。返回有多少种转化结果
  */
 public class Code1 {
-
     //8.1练习
     public static int process81(char[] chars,int index){
         //baseCase
@@ -22,7 +22,6 @@ public class Code1 {
         if(chars[index]=='0'){
             return 0;
         }
-
         //当前字符，我自己单独转
         int p1=process81(chars,index+1);
 

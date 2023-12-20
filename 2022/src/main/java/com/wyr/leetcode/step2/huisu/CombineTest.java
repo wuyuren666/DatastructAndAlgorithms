@@ -1,6 +1,7 @@
 package com.wyr.leetcode.step2.huisu;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class CombineTest {
@@ -23,10 +24,14 @@ public class CombineTest {
      * https://leetcode.cn/problems/combinations/
      */
 
-    List<List<Integer>> res=new ArrayList<>();
-    public List<List<Integer>> combine(int n, int k) {
-        process1(n,k,1,new ArrayList<Integer>());
+    static List<List<Integer>> res=new LinkedList<>();
+    public static List<List<Integer>> combine(int n, int k) {
+        process(n,k,1,new LinkedList<Integer>());
         return res;
+    }
+
+    public static void main(String[] args) {
+        combine(4,2);
     }
 
     //执行用时：51 ms, 在所有 Java 提交中击败了5.03%的用户
@@ -45,19 +50,22 @@ public class CombineTest {
         process(n,k,curNum+1,tempList);
     }
 
-    //执行用时：19 ms, 在所有 Java 提交中击败了17.95%的用户
-    public void process1(int n, int k,  int curNum ,List<Integer> tempList){
-        if(curNum>n){
-            if(tempList.size()==k){
-                res.add(new ArrayList<>(tempList));
-            }
+
+    public static void process(int n, int rest, int curNum, LinkedList<Integer> tmpList){
+        if(rest==0){
+            res.add(new LinkedList<>(tmpList));
             return;
         }
-        //要当前的数
-        tempList.add(curNum);
-        process1(n,k,curNum+1,tempList);
-        //不要当前的数
-        tempList.remove(tempList.size()-1);
-        process1(n,k,curNum+1,tempList);
+        //剪枝
+        //剩下的数+当前数-1<=n
+        if(rest+curNum-1>n){
+            return;
+        }
+        //要当前数字
+        tmpList.add(curNum);
+        process(n,rest-1,curNum+1,tmpList);
+        //不要当前数字
+        tmpList.removeLast();
+        process(n,rest,curNum+1,tmpList);
     }
 }

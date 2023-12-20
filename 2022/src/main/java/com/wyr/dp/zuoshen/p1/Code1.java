@@ -47,7 +47,7 @@ public class Code1 {
         return f2(N,dp);
     }
 
-
+    //傻缓存：dp[i]：f(i)
     private static int f2(int N, int[] dp) {
         if(dp[N]!=-1){
             return dp[N];
@@ -59,19 +59,33 @@ public class Code1 {
         }else {
             result=f2(N-2,dp)+f2(N-1,dp);
         }
-        dp[N]=result;
+        dp[N]=result; //当前f(N)保存在dp[N]中
         return result;
     }
 
+
+    private int f3(int N){
+        //dp表
+        int [] dp=new int[N+1];//dp[i]：斐波那契数列第i个数
+        //填表
+        dp[1]=1;
+        dp[2]=1;
+        for(int i=3;i<N+1;i++){
+            dp[i]=dp[i-1]+dp[i-2];
+        }
+        return dp[N];
+    }
+
+
     public static void main(String[] args) {
         long l = System.currentTimeMillis();
-        System.out.println(way1(50));
+        System.out.println(way1(45));
         long l1 = System.currentTimeMillis();
         System.out.println(l1-l);
 
 
         long l2 = System.currentTimeMillis();
-        System.out.println(way2(50));
+        System.out.println(way2(45));
         long l3 = System.currentTimeMillis();
         System.out.println(l3-l2);
     }

@@ -18,7 +18,7 @@ public class GraphDFS {
         System.out.println(head.value);
         while (!stack.isEmpty()){
             Node curNode=stack.pop();
-            //一条道走到黑，然后往回看之前的顶点是否还有路走
+            //选一条道走到黑，然后往回看之前的顶点是否还有路走
             for (Node next : curNode.nexts) {
                 if(!set.contains(next)){
                     System.out.println(next.value);

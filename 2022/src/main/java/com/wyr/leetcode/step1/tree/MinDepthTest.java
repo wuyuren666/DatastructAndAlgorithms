@@ -19,6 +19,7 @@ public class MinDepthTest {
     /**
      * 会有额外空间
      */
+    //二叉树的递归套路
     public int minDepth(TreeNode root) {
         if(root==null){
             return 0;

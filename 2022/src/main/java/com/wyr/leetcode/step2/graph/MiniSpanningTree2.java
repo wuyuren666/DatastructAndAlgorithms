@@ -115,6 +115,23 @@ public class MiniSpanningTree2 {
     }
 
 
+
+
+    //并查集结构
+    //寻找当前节点的父下标
+    public int findFather(int [] father, int index){
+        if(father[index]!=index){
+            father[index]=findFather(father,father[index]);
+        }
+        return father[index];
+    }
+    //合并两个集合
+    public void unionSet(int [] father, int index1, int index2){
+        //index2的父下标findFather(father,index2);
+        father[findFather(father,index1)]=findFather(father,index2);
+    }
+
+
     public static class Edge{
         public int value;
         public int from;
