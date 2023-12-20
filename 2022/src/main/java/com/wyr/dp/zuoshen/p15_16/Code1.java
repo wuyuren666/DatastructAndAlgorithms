@@ -23,21 +23,22 @@ public class Code1 {
     public static int maxValue1(int [] w, int [] v, int bag){
         if(w==null||v==null||w.length!=v.length||w.length==0)
             return 0;
-        return process11_18(w,v,0,bag);
+        //limit=4:只能放四个物品 ；count=0：刚开始一个没放肯定是0
+        return process11_18(w,v,0,bag,4,0);
     }
 
     //暴力递归
-    public static int process11_18(int [] w, int [] v, int index, int rest){
+    public static int process11_18(int [] w, int [] v, int index, int rest, int limit, int count){
         //base Case
         if(index==w.length){ //没有货物可以选择
             return 0;
         }
-        //当前位置选择不装
-        int p1= process11_18(w,v,index+1,rest);
+        //当前位置选择不装，count不需要变
+        int p1= process11_18(w,v,index+1,rest,limit,count);
         //当前位置选择装
         int p2=0;
-        if(rest-w[index]>=0){
-            p2= v[index]+process11_18(w,v,index+1,rest-w[index]);
+        if(count+1<=limit&&rest-w[index]>=0){ //物品不超限，且背包中能装下当前物品，才进这个if
+            p2= v[index]+process11_18(w,v,index+1,rest-w[index],limit,count+1);
         }
         return Math.max(p1,p2);
     }
@@ -104,9 +105,9 @@ public class Code1 {
     public static void main(String[] args) {
         int [] weights={2,3,1,10,5};
         int [] values={4,2,6,3,0};
-        int bag=7;
+        int bag=10;
         System.out.println(maxValue1(weights, values, bag));
-        System.out.println(maxValue2(weights, values, bag));
+        //System.out.println(maxValue2(weights, values, bag));
         /*Map<String,Integer> map = new HashMap<>();
         map.put("a",1);
         map.put("b",2);

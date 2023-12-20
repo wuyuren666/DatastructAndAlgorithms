@@ -17,6 +17,7 @@ import java.util.Scanner;
  * 第三行表示，对应时间节点所击杀的buff的持续时间
  */
 public class BuffTest {
+    //11111
         public static void main(String[] args){
             System.out.println(getAllTime());
         }
