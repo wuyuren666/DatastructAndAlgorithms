@@ -5,8 +5,9 @@ package com.wyr.zuoshen.zuoshen1.p1;
  */
 public class Begain {
     public static void main(String[] args) {
-        System.out.println(getOneNumber510(1,2,3,2,3,3,1,1,3));
-        getTwoNumber510(1,2,3,2,3,3,1,1);
+
+       System.out.println(getOneNumber510(1,2,3,2,3,3,1,1,3));
+       getTwoNumber510(1,2,3,2,3,3,1,1);
     }
 
 

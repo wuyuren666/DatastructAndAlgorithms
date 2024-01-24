@@ -23,7 +23,6 @@ public class BuffTest {
         }
 
 
-
         public static int getAllTime(){
 
             System.out.println("aaaaa");
