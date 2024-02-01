@@ -2,35 +2,36 @@ package com.wyr.zuoshen.zuoshen1.p4;
 
 
 /**
- * 给定两个可能有环也可能无环的单链表，头节点head1和head2。
+ * 给定两个可能有环也可能无环的单链表A和B，头节点headA和headB。
  * 请实现一个函数，如果两个链表相交，请返回相交的第一个节点，如果不相交请返回null
  */
 @SuppressWarnings("all")
 public class TwoListCrossed {
 
-    public static Node isTwoListCrossed(Node head1, Node head2) {
-        if (head1 == null || head2 == null)
+    public static Node isTwoListCrossed(Node headA, Node headB) {
+        if (headA == null || headB == null)
             return null;
-        if (isSingleListHasCycle(head1) == null && isSingleListHasCycle(head2) == null) { //两个都是无环链表
-
-            Node cur1 = head1;
-            Node cur2 = head2;
+        if (isSingleListHasCycle(headA) == null && isSingleListHasCycle(headB) == null) { //两个都是无环链表
+            Node tmpA = headA;
+            Node tmpB = headB;
             int length1 = 0;
             int length2 = 0;
-            while (cur1.next != null) {
+            //利用tmpA求得A链表长度
+            while (tmpA.next != null) {
                 length1++;
-                cur1 = cur1.next;
+                tmpA = tmpA.next;
             }
-            while (cur2.next != null) {
+            //利用tmpB求得B链表长度
+            while (tmpB.next != null) {
                 length2++;
-                cur2 = cur2.next;
+                tmpB = tmpB.next;
             }
             /**
              * 情况一：两个链表都无环，调用isSingleListHasCycle都返回null，
              *          分别遍历这两个链表，遍历到最后一个节点，得到end1和end2
              *          如果end1和end2指向的不是同一个堆内对象，那么不相交
              */
-            if (cur1 != cur2)
+            if (tmpA != tmpB)
                 return null;
             /**
              * 情况二：两个链表都无环，调用isSingleListHasCycle都返回null，
@@ -40,39 +41,38 @@ public class TwoListCrossed {
              *          长链表走头走差值步，短链表开始走，那么他们会在第一个相交的节点处相遇
              */
             if (length1 == length2) { //两个链表长度相等
-                cur1 = head1; //cur1指向第一个链表头节点
-                cur2 = head2; //cur2指向第二个链表头节点
-                while (cur1 != cur2) {
-                    cur1 = cur1.next;
-                    cur2 = cur2.next;
+                tmpA = headA; //cur1指向第一个链表头节点
+                tmpB = headB; //cur2指向第二个链表头节点
+                while (tmpA != tmpB) {
+                    tmpA = tmpA.next;
+                    tmpB = tmpB.next;
                 }
                 //while循环退出时，cur1和cur2指向这两个无环链表的相交的第一个节点
-                return cur1;
+                return tmpA;
             } else {//两个链表长度不想等
-                cur1 = length1 > length2 ? head1 : head2;//让cur1指向长度较长的链表
-                cur2 = cur1 == head1 ? head2 : head1;//cur2指向长度较短的链表
+                tmpA = length1 > length2 ? headA : headB;//让cur1指向长度较长的链表
+                tmpB = tmpA == headA ? headB : headA;//cur2指向长度较短的链表
                 int n = Math.abs(length1 - length2);
                 while (n != 0) { //长链表先走差值步
                     n--;
-                    cur1 = cur1.next;
+                    tmpA = tmpA.next;
                 }
-                while (cur1 != cur2) { //两个链表同时走
-                    cur1 = cur1.next;
-                    cur2 = cur2.next;
+                while (tmpA != tmpB) { //两个链表同时走
+                    tmpA = tmpA.next;
+                    tmpB = tmpB.next;
                 }
                 //上面的while循环退出后，cur1和cur2都指向两个无环链表的相交的入口处
-                return cur1;
+                return tmpA;
             }
-        } else if (isSingleListHasCycle(head1) == null && isSingleListHasCycle(head2) != null || //单链表，一个链表有环一个链表无环，肯定不会相交
-                isSingleListHasCycle(head1) != null && isSingleListHasCycle(head2) == null) {
-
+        }
+        else if (isSingleListHasCycle(headA) == null && isSingleListHasCycle(headB) != null || //单链表，一个链表有环一个链表无环，肯定不会相交
+                isSingleListHasCycle(headA) != null && isSingleListHasCycle(headB) == null) {
             return null;
-
         } else {//两个单链表都是有环的
-            Node loop1 = isSingleListHasCycle(head1);
-            Node loop2 = isSingleListHasCycle(head2);
-            Node cur1 = head1;
-            Node cur2 = head2;
+            Node loop1 = isSingleListHasCycle(headA);
+            Node loop2 = isSingleListHasCycle(headB);
+            Node tmpA = headA;
+            Node tmpB = headB;
             /**
              * 情况一：
              *  假设返回两个链表的入口节点分别为loop1和loop2
@@ -82,43 +82,44 @@ public class TwoListCrossed {
             if (loop1 == loop2) {
                 int length1 = 0;
                 int length2 = 0;
-                while (cur1 != loop1) {
+                while (tmpA != loop1) {
                     length1++;
-                    cur1 = cur1.next;
+                    tmpA = tmpA.next;
                 }
-                while (cur2 != loop1) {
+                while (tmpB != loop1) {
                     length2++;
-                    cur2 = cur2.next;
+                    tmpB = tmpB.next;
                 }
                 if (length1 == length2) {
-                    cur1 = head1;
-                    cur2 = head2;
-                    while (cur1 != cur2) {
-                        cur1 = cur1.next;
-                        cur2 = cur2.next;
+                    tmpA = headA;
+                    tmpB = headB;
+                    while (tmpA != tmpB) {
+                        tmpA = tmpA.next;
+                        tmpB = tmpB.next;
                     }
-                    return cur1;
+                    return tmpA;
                 } else {
-                    cur1 = length1 > length2 ? head1 : head2;//cur1指向较长的
-                    cur2 = cur1 == head1 ? head2 : head1;
+                    tmpA = length1 > length2 ? headA : headB;//cur1指向较长的
+                    tmpB = tmpA == headA ? headB : headA;
                     int n = Math.abs(length1 - length2);
                     while (n != 0) {
                         n--;
-                        cur1 = cur1.next;
+                        tmpA = tmpA.next;
                     }
                     //同时走
-                    while (cur1 != cur2) {
-                        cur1 = cur1.next;
-                        cur2 = cur2.next;
+                    while (tmpA != tmpB) {
+                        tmpA = tmpA.next;
+                        tmpB = tmpB.next;
                     }
-                    return cur1;
+                    return tmpA;
                 }
-            } else {//loop1!=loop2
+            }
+            else {//loop1!=loop2
                 /**
                  * 情况二：
                  *  假设返回两个链表的入口节点分别为loop1和loop2
                  *  如果loop1!=loop2，可能这两个链表不想干，各自在那自环，不相交
-                 *  如果loop让他走一圈，没有碰到loop2，那么这两个成环单链表就是各玩各的
+                 *  如果loop1让他走一圈，没有碰到loop2，那么这两个成环单链表就是各玩各的
                  */
                 Node temp1 = loop1;
                 boolean flag = false;
@@ -134,15 +135,13 @@ public class TwoListCrossed {
                 } else {
                     /**
                      * 情况三 如果loop1!=loop2，可能这两个链表有共同的一个环
-                     * 如果loop让他走一圈，碰到了loop2，这两个链表有共同的一个环
+                     * 如果loop1让他走一圈，碰到了loop2，这两个链表有共同的一个环
                      */
                     //返回loop1或者loop2都行
                     return loop2;
                 }
             }
-
         }
-
     }
 
 

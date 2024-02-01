@@ -20,7 +20,8 @@ public class ReverseLinkedList {
 
 
 
-    //单向链表反转(此迭代的方法需要定义三个变量 pre保存当前节点cur的前一个节点；cur代表当前节点；temp保存当前节点的下一个节点)
+    //单向链表反转(此迭代的方法需要定义三个变量
+    //pre保存当前节点cur的前一个节点；cur代表当前节点；temp保存当前节点的下一个节点)
     public static Node reverseSingleLinkedList(Node head){
         if(head==null)
             return null;

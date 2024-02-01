@@ -5,6 +5,8 @@ package com.wyr.bidFactory;
  *
  * 定义何为stepSum？
  * 比如680，680+68+6+0=754，则680的stepSum叫754
+ * 650的stepSum：650+65+6+0=721
+ *
  * 给定一个正整数，判断它是不是某一个数的stepSum
  *
  * 思路：就拿上面的例子，754是680的stepSum，721是650的stepSum，我们发现这是有单调性的
@@ -46,7 +48,7 @@ public class StepSum {
     }
 
     public static void main(String[] args) {
-        //System.out.println("650的stepSum是："+getStepSum(650));
+        System.out.println("650的stepSum是："+getStepSum(650));
         //754,721
         System.out.println(hasStepSum(721));
     }
