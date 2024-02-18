@@ -1,14 +1,21 @@
 package com.wyr.leetcode.step2.tanXin;
 
 /**
- *  *  跳跃问题II，能否使用贪心，每次选最大的跳？？
- *  *  不行，举一个返例
- *  *  7  1  2  12  3  1  3  5
- *  *  可以每次选择 i+nums[i]最大的跳，但是要控制好边界
- *  *
- *  *  step：步数
- *  *  maxCover：在step内最远能到达的位置
- *  *  next：如果允许多跳一步，最远能到达的位置
+ *  跳跃问题II，能否使用贪心，每次选最大的跳？？
+ *  不行，举一个返例
+ *  7  1  2  12  3  1  3  5
+ *  可以每次选择 i+nums[i]最大的跳，但是要控制好边界
+ *
+ *
+ *  给定一个长度为 n 的 0 索引整数数组 nums。初始位置为 nums[0]。
+ *
+ * 每个元素 nums[i] 表示从索引 i 向前跳转的最大长度。换句话说，如果你在 nums[i] 处，你可以跳转到任意 nums[i + j] 处:
+ *
+ * 0 <= j <= nums[i]
+ * i + j < n
+ * 返回到达 nums[n - 1] 的最小跳跃次数。生成的测试用例可以到达 nums[n - 1]。
+ *
+ *  https://leetcode.cn/problems/jump-game-ii/description/
  */
 public class CanJumpIITest {
     public int jump(int[] nums) {
@@ -35,4 +42,29 @@ public class CanJumpIITest {
         }
         return step;
     }
+
+
+    public int jump2(int[] nums){
+        /**
+         * 3，4，1，3，2，4，2，1
+         */
+        if(nums==null||nums.length==1){
+            return 0;
+        }
+        int step=0; //跳的次数
+        int cur=0; //在step次内最远能到达的位置
+        int next=0; //下一次跳跃能到达的最远位置，为下一次的跳跃做准备
+        for(int i=0;i<nums.length;i++){
+            //必须增加跳跃次数
+            if(i>cur){
+                //同时更新
+                step++;
+                cur=next;
+            }
+            //不断更新，如果多进行一次跳跃能到达的最远位置
+            next=Math.max(next,i+nums[i]);
+        }
+        return step;
+    }
+
 }
