@@ -18,6 +18,7 @@ package com.wyr.leetcode.step2.tanXin;
  *  https://leetcode.cn/problems/jump-game-ii/description/
  */
 public class CanJumpIITest {
+    //最坏时间复杂度O(N^2)
     public int jump(int[] nums) {
         //特殊处理
         if(nums==null|| nums.length==1){
@@ -44,6 +45,7 @@ public class CanJumpIITest {
     }
 
 
+    //时间复杂度O(N)
     public int jump2(int[] nums){
         /**
          * 3，4，1，3，2，4，2，1
@@ -51,20 +53,20 @@ public class CanJumpIITest {
         if(nums==null||nums.length==1){
             return 0;
         }
-        int step=0; //跳的次数
-        int cur=0; //在step次内最远能到达的位置
-        int next=0; //下一次跳跃能到达的最远位置，为下一次的跳跃做准备
-        for(int i=0;i<nums.length;i++){
+        int count=0; //跳的次数
+        int maxCoverOfCount=0; //在count次内最远能到达的位置
+        int maxCoverOfNextCount=0; //下一次跳跃能到达的最远位置，为下一次的跳跃做准备
+        for(int cur=0;cur<nums.length;cur++){
             //必须增加跳跃次数
-            if(i>cur){
+            if(cur>maxCoverOfCount){
                 //同时更新
-                step++;
-                cur=next;
+                count++;
+                maxCoverOfCount=maxCoverOfNextCount;
             }
             //不断更新，如果多进行一次跳跃能到达的最远位置
-            next=Math.max(next,i+nums[i]);
+            maxCoverOfNextCount=Math.max(maxCoverOfNextCount,cur+nums[cur]);
         }
-        return step;
+        return count;
     }
 
 }
