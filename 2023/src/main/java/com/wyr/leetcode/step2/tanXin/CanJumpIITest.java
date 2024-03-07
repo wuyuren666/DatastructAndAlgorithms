@@ -1,5 +1,7 @@
 package com.wyr.leetcode.step2.tanXin;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 /**
  *  跳跃问题II，能否使用贪心，每次选最大的跳？？
  *  不行，举一个返例
@@ -18,7 +20,6 @@ package com.wyr.leetcode.step2.tanXin;
  *  https://leetcode.cn/problems/jump-game-ii/description/
  */
 public class CanJumpIITest {
-    //最坏时间复杂度O(N^2)
     public int jump(int[] nums) {
         //特殊处理
         if(nums==null|| nums.length==1){
