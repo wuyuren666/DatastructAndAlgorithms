@@ -2,6 +2,7 @@ package com.wyr.leetcode.step1.multiThread;
 
 
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.Semaphore;
 
 /**
@@ -23,14 +24,14 @@ public class FooTest4 {
      */
     private final CountDownLatch cdl1 = new CountDownLatch(1);
     private final CountDownLatch cdl2 = new CountDownLatch(1);
-
-
+    CyclicBarrier cb =new CyclicBarrier(2);
     public FooTest4() {
     }
 
     public void first(Runnable printFirst) throws InterruptedException {
         printFirst.run();
         cdl1.countDown();
+
     }
 
     public void second(Runnable printSecond) throws InterruptedException {
