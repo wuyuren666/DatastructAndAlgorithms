@@ -1,7 +1,11 @@
 package com.wyr.leetcode.step1.multiThread;
 
 
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * 三个不同的线程 A、B、C 将会共用一个 Foo 实例。

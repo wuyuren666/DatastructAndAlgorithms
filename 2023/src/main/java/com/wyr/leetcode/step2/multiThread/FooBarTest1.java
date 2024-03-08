@@ -1,10 +1,9 @@
-package com.wyr.leetcode.step1.multiThread;
+package com.wyr.leetcode.step2.multiThread;
 
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.Semaphore;
-import java.util.concurrent.locks.ReentrantLock;
 
-public class FooBarTest2 {
+public class FooBarTest1 {
     /**
      * 给你一个类：
      *
@@ -34,40 +33,37 @@ public class FooBarTest2 {
      *
      * https://leetcode.cn/problems/print-foobar-alternately/description/
      *
-     * 解决方案：使用lock+CyclicBarrier
+     * 解决方案：使用Semaphore+CyclicBarrier
      */
     private int n;
 
-    private volatile boolean flag = true;
-    private final CyclicBarrier cb = new CyclicBarrier(2);
+    private final Semaphore s = new Semaphore(0); //控制先A后B
+    private final CyclicBarrier cb=new CyclicBarrier(2);
 
-    public FooBarTest2(int n) {
+    public FooBarTest1(int n) {
         this.n = n;
     }
 
     public void foo(Runnable printFoo) throws InterruptedException {
         for (int i = 0; i < n; i++) {
-            while (!flag)  //如果是false，先自旋一会
-                ;
-
-            try {
-                printFoo.run();
-                flag = false;
+            printFoo.run();
+            s.release();
+            try{
                 cb.await();
-            } catch (Exception e) {
+            }catch(Exception e){
 
             }
-
         }
     }
 
     public void bar(Runnable printBar) throws InterruptedException {
+
         for (int i = 0; i < n; i++) {
-            try {
+            s.acquire();
+            printBar.run();
+            try{
                 cb.await();
-                printBar.run();
-                flag = true;
-            } catch (Exception e) {
+            }catch(Exception e){
 
             }
         }
