@@ -1,5 +1,8 @@
 package com.wyr.leetcode.step2.dfs;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * 这里有一个非负整数数组 arr，你最开始位于该数组的起始下标 start 处。当你位于下标 i 处时，你可以跳到 i + arr[i] 或者 i - arr[i]。
  *
@@ -37,10 +40,34 @@ public class CanReachTest {
     public boolean canReach(int[] arr, int start) {
         boolean[] isReached = new boolean[arr.length]; //false代表当前位置没有来到过
 
-        return process(arr, start, isReached);
+        return dfs(arr, start, isReached);
+        //return bfs(arr, start);
     }
 
-    public boolean process(int[] arr, int start, boolean[] isReached) {
+    public static boolean bfs(int[] arr, int start) {
+        boolean res = false;
+        boolean [] isReached = new boolean[arr.length];
+        Queue<Integer> queue = new LinkedList<>(); // bfs必备的队列
+        queue.add(start); // 初始化
+        while(queue.size()!=0){ //循环条件
+            Integer cur = queue.poll(); //当前所在位置
+            isReached[cur] = true;
+            if(arr[cur]==0){
+                res=true;
+                break;
+            }
+            if(cur-arr[cur]>=0&&!isReached[cur-arr[cur]]){//能到达，并且之前没有来到过
+                queue.add(cur-arr[cur]);
+            }
+            if(cur+arr[cur]<=arr.length-1&&!isReached[cur+arr[cur]]){//能到达，并且之前没有来到过
+                queue.add(cur+arr[cur]);
+            }
+        }
+        return res;
+    }
+
+
+    public boolean dfs(int[] arr, int start, boolean[] isReached) {
         if(start<0||start>=arr.length){ //越界处理
             return false;
         }
@@ -52,7 +79,7 @@ public class CanReachTest {
         }
         isReached[start]=true; //当前来到这个位置
 
-        return process(arr, start + arr[start], isReached) || process(arr, start - arr[start], isReached);
+        return dfs(arr, start + arr[start], isReached) || dfs(arr, start - arr[start], isReached);
     }
 
 }
