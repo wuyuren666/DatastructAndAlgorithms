@@ -35,37 +35,12 @@ import java.util.Queue;
  *
  * https://leetcode.cn/problems/jump-game-iii/description/
  */
-public class CanReachTest {
+public class CanReachIIIDFSTest {
 
     public boolean canReach(int[] arr, int start) {
         boolean[] isReached = new boolean[arr.length]; //false代表当前位置没有来到过
-
         return dfs(arr, start, isReached);
-        //return bfs(arr, start);
     }
-
-    public static boolean bfs(int[] arr, int start) {
-        boolean res = false;
-        boolean [] isReached = new boolean[arr.length];
-        Queue<Integer> queue = new LinkedList<>(); // bfs必备的队列
-        queue.add(start); // 初始化
-        while(queue.size()!=0){ //循环条件
-            Integer cur = queue.poll(); //当前所在位置
-            isReached[cur] = true;
-            if(arr[cur]==0){
-                res=true;
-                break;
-            }
-            if(cur-arr[cur]>=0&&!isReached[cur-arr[cur]]){//能到达，并且之前没有来到过
-                queue.add(cur-arr[cur]);
-            }
-            if(cur+arr[cur]<=arr.length-1&&!isReached[cur+arr[cur]]){//能到达，并且之前没有来到过
-                queue.add(cur+arr[cur]);
-            }
-        }
-        return res;
-    }
-
 
     public boolean dfs(int[] arr, int start, boolean[] isReached) {
         if(start<0||start>=arr.length){ //越界处理
