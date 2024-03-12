@@ -37,6 +37,7 @@ public class ThreeSumTest {
                     list.add(nums[i]);
                     list.add(nums[j]);
                     res.add(list);
+                    //此情况体会 -2  0  0  2  2
                     while(i+1<j-1&&nums[i+1]==nums[i]&&nums[j-1]==nums[j]){
                         i++;
                         j--;
