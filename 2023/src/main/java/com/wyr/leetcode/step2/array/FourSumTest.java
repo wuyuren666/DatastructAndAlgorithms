@@ -42,6 +42,7 @@ public class FourSumTest {
                 int d = nums.length - 1;
                 // [-3,-2,-1,0,0,1,2,3]
                 while (c < d) {
+                    //越界
                     long sum =(long)nums[a]+nums[b]+nums[c]+nums[d];
                     if (sum==target) {
                         List<Integer> tmp = new ArrayList<>();
