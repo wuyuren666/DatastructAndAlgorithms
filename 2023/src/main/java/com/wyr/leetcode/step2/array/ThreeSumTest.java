@@ -27,17 +27,24 @@ public class ThreeSumTest {
                 k++;
                 continue;
             }
+            //改进1
+            if(nums[k]+nums[k+1]+nums[k+2]>0){
+                break;
+            }
             int target = -nums[k];
             int i = k + 1;
             int j = nums.length - 1;
             while (i < j) { //i，j不相遇
+                //改进2:
+                if(nums[i]+nums[i+1]>0-nums[k]){
+                    break;
+                }
                 if (nums[i] + nums[j] == target) {
                     ArrayList<Integer> list = new ArrayList<>();
                     list.add(nums[k]);
                     list.add(nums[i]);
                     list.add(nums[j]);
                     res.add(list);
-                    //此情况体会 -2  0  0  2  2
                     while(i+1<j-1&&nums[i+1]==nums[i]&&nums[j-1]==nums[j]){
                         i++;
                         j--;
