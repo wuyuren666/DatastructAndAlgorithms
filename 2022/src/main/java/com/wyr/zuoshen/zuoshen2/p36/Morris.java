@@ -1,5 +1,8 @@
 package com.wyr.zuoshen.zuoshen2.p36;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Morris {
     /**
      *  以后使用非递归实现二叉树的前中后序遍历，就用Morris遍历！！！，不用额外空间O(1)贼好！！！！！！！！！
@@ -8,12 +11,72 @@ public class Morris {
      *
      *  遍历规则
      *  当前节点cur，一开始来到整棵树的头
-     *  1）cur无左树，cur=cur.right
-     *  2）cur有左树，找到左树最右节点mostRight
+     *  1）cur无左孩子，cur=cur.right
+     *  2）cur有左孩子，找到左树最右节点mostRight
      *      1：mostRight的右指针指向null的，mostRight.right=cur，cur=cur.left
      *      2：mostRight的右指针指向cur，mostRight.right=null，cur=cur.right
      */
-    //Morris序，有左树的节点会来到两次，没有左树的节点，只会来到一次
+    //Morris序，有左孩子的节点会来到两次，没有左孩子的节点，只会来到一次
+    public static void morris(Node root, List<Integer> list){
+        /**
+         *      当前节点cur，一开始来到整棵树的头
+         *      *  1）cur无左孩子，cur=cur.right
+         *      *  2）cur有左孩子，找到左树最右节点mostRight
+         *      *      1：mostRight的右指针指向null的，mostRight.right=cur，cur=cur.left
+         *      *      2：mostRight的右指针指向cur，mostRight.right=null，cur=cur.right
+         */
+        if(root==null){
+            return;
+        }
+        Node cur = root;
+        Node mostRight = null;
+
+        while(cur!=null){
+            list.add(cur.value);
+            if(cur.left!=null){//有左树，当前节点会来到两次
+                mostRight = cur.left;
+                while(mostRight.right!=null&&mostRight.right!=cur){ //找到左树最右节点mostRight
+                    mostRight=mostRight.right;
+                }
+                if(mostRight.right==null){
+                    //第一次来到cur
+                    mostRight.right=cur;
+                    cur=cur.left;
+                }else {
+                    //第二次来到cur
+                    mostRight.right=null;
+                    cur=cur.right;
+                }
+            }else {//无左树，当前节点只会来一次
+                cur=cur.right;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Node n1 = new Node(1);
+        Node n2 = new Node(2);
+        Node n3 = new Node(3,null,null);
+        Node n4 = new Node(4,null,null);
+        Node n5 = new Node(5,null,null);
+
+        n1.left=n2;
+        n1.right=n3;
+        n2.left=n4;
+        n2.right=n5;
+
+
+        ArrayList<Integer> list = new ArrayList<>();
+        morris(n1,list);
+        list.stream().forEach(System.out::println);
+    }
+
+
+
+
+
+
+
     public static void morris(Node head){
         if(head==null){
             return;
@@ -39,7 +102,6 @@ public class Morris {
             }else { //没有左树的节点，只会来到自己一次，然后向右走
                 cur=cur.right;
             }
-
         }
     }
 
