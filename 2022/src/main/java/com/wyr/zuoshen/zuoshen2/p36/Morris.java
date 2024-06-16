@@ -166,8 +166,7 @@ public class Morris {
 
 
     //Morris实现后序（稍微麻烦）
-    //Morris实现中序，就是在morris序的基础上，只看能够来到自己两次的节点，第二次来到时，逆序打印他的左树的右边界；
-    // 最后再打印整棵树的右边界
+    //Morris实现中序，就是在morris序的基础上，只看能够来到自己两次的节点，第二次来到时，逆序打印他的左树的右边界；最后再逆序打印整棵树的右边界
     public static void MorrisPosOrder(Node head){
         Node cur=head;
         Node mostRight=null;

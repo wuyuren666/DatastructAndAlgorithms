@@ -4,9 +4,9 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- *判断一棵树是否为完全二叉树(CBT：completed Binary Tree)
+ * 判断一棵树是否为完全二叉树(CBT：completed Binary Tree)
  *思想：
- * 二叉树的层序遍历
+ * 二叉树的层序遍历BFS
  * 条件一：当前节点只要有右孩子，没有左孩子，false
  * 条件二：在条件一不违规的情况下，如果遇到了了第一个左右孩子不全的节点，后续皆为叶子节点
  */
@@ -15,34 +15,39 @@ public class IsCBT {
     //采用广度优先遍历
     //条件一：节点有右孩子而没有左孩子，则肯定不是完全二叉树
     //条件二：满足条件一的情况下，如果遇到第一个非全节点，剩下的节点应该都是叶子节点
-    public boolean isCompleteTree66 (BinaryTreesNode root){
-        //队列
+    public static boolean isCompleteTree66 (BinaryTreesNode root){
+        // 层序遍历准备的队列
         Queue<BinaryTreesNode> queue=new LinkedList<>();
+        // 加入根节点
         queue.add(root);
-        BinaryTreesNode cur=null;
+        // 定义一个cur
+        BinaryTreesNode cur = null;
+        // 是否遇到第一个非双全节点
         boolean isMeet=false;
+        // 标准的一个二叉树的BFS遍历
         while(!queue.isEmpty()){
+            // 当前层的节点个数
             int size=queue.size();
             for(int i=0;i<size;i++){
+                // 队列中出队
                 cur=queue.poll();
-
-                //当前节点存在右孩子，而没有左孩子，返回false
+                // 每遇到一个新节点，就来一次条件一的判断：当前节点存在右孩子，而没有左孩子，返回false
                 if(cur.right!=null&&cur.left==null){
                     return false;
                 }
-
                 //if满足代表遇到了第一个非双全节点
                 if(isMeet){
-                    //之后的节点必须都是叶子节点
+                    // 之后的节点必须都是叶子节点
+                    // 当前节点，左右孩子只要有一个不为null，返回false
                     if(cur.right!=null||cur.left!=null){
                         return false;
                     }
+                }else{
+                    // 还没有遇到第一个非双全节点
+                    if(cur.left==null||cur.right==null){
+                        isMeet=true;
+                    }
                 }
-                //遇到了第一个非全节点
-                if(cur.left==null||cur.right==null){
-                    isMeet=true;
-                }
-
                 if(cur.left!=null){
                     queue.add(cur.left);
                 }
@@ -152,7 +157,7 @@ public class IsCBT {
         node2.right=node5;
         node3.left=node6;
         node3.right=node7;
-        System.out.println(isCbt(node1));
+        System.out.println(isCompleteTree66(node1));
     }
 
 }
