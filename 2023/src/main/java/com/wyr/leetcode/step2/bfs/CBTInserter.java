@@ -8,6 +8,7 @@ import java.util.Queue;
  * https://leetcode.cn/problems/NaqhDT/
  */
 public class CBTInserter {
+
     // 双端队列，用来保存倒数第二层第一个非双全节点及其同层右侧的其他节点
     // 以及最后一层的所有节点
     // 因为新加的节点，肯定只能作为这些节点的左右孩子
@@ -23,22 +24,24 @@ public class CBTInserter {
         Queue<TreeNode> q = new LinkedList<>();
         q.add(root);
         while (q.size() != 0) {
-            TreeNode cur = q.poll();
+            int size = q.size();
+            for(int i=0;i<size;i++) {
+                TreeNode cur = q.poll();
+                if (cur.left != null) {
+                    q.offer(cur.left);
+                }
+                if (cur.right != null) {
+                    q.offer(cur.right);
+                }
 
-            if (cur.left != null) {
-                q.offer(cur.left);
-            }
-            if (cur.right != null) {
-                q.offer(cur.right);
-            }
-
-            if (isMeet) {
-                queue.offer(cur);
-                continue;
-            }
-            if (cur.left == null || cur.right == null) {
-                queue.offer(cur);
-                isMeet = true;
+                if (isMeet) {
+                    queue.offer(cur);
+                    continue;
+                }
+                if (cur.left == null || cur.right == null) {
+                    queue.offer(cur);
+                    isMeet = true;
+                }
             }
         }
     }
